@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Transparent background - no rect -->
+  
+  <!-- Orange circle with sketchy texture -->
+  <circle cx="256" cy="256" r="200" fill="#F97316"/>
+  
+  <!-- Inner highlight circle -->
+  <ellipse cx="220" cy="220" rx="60" ry="80" fill="#FB923C" opacity="0.6"/>
+  
+  <!-- Texture dots -->
+  <circle cx="230" cy="280" r="5" fill="#EA580C" opacity="0.5"/>
+  <circle cx="280" cy="300" r="5" fill="#EA580C" opacity="0.5"/>
+  <circle cx="270" cy="240" r="5" fill="#EA580C" opacity="0.5"/>
+  <circle cx="310" cy="270" r="5" fill="#EA580C" opacity="0.5"/>
+  <circle cx="200" cy="260" r="5" fill="#EA580C" opacity="0.5"/>
+  <circle cx="320" cy="240" r="5" fill="#EA580C" opacity="0.5"/>
+  
+  <!-- Green leaves on top -->
+  <path d="M256 80 L240 95 Q235 105 230 120 Q240 110 256 105 Q272 110 282 120 Q277 105 272 95 L256 80Z" fill="#22C55E"/>
+  <path d="M256 80 L265 90 Q268 98 270 110 Q265 105 256 103 Q247 105 242 110 Q244 98 247 90 L256 80Z" fill="#16A34A"/>
+  
+  <!-- Subtle outline -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#EA580C" stroke-width="3" opacity="0.3"/>
+</svg>
+

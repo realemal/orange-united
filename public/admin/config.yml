@@ -1,0 +1,107 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Uncomment for local development
+# local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  # Articles Collection
+  - name: "articles"
+    label: "Articles"
+    folder: "src/content/articles"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - {
+          label: "Category",
+          name: "category",
+          widget: "select",
+          options: ["Curriculum", "Board Meetings", "Opinion", "News"]
+        }
+      - {
+          label: "Tags",
+          name: "tags",
+          widget: "list",
+          required: false,
+          default: []
+        }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Spanish Title", name: "esTitle", widget: "string", required: false }
+      - { label: "Spanish Excerpt", name: "esExcerpt", widget: "text", required: false }
+      - {
+          label: "Status",
+          name: "status",
+          widget: "select",
+          options: ["draft", "published"],
+          default: "published"
+        }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+
+  # Events Collection
+  - name: "events"
+    label: "Events"
+    folder: "src/content/events"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date & Time", name: "date", widget: "datetime" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "RSVP URL", name: "rsvpUrl", widget: "string", required: false }
+      - { label: "Canceled", name: "isCanceled", widget: "boolean", default: false }
+      - { label: "Description", name: "body", widget: "markdown" }
+
+  # Pages Collection
+  - name: "pages"
+    label: "Pages"
+    folder: "src/content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # Site Settings (Singleton)
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "src/data/settings.json"
+        fields:
+          - { label: "Site Title", name: "siteTitle", widget: "string", default: "Orange United" }
+          - { label: "Tagline", name: "tagline", widget: "string", default: "Protecting Parent Choice" }
+          - { label: "Primary Color", name: "primaryColor", widget: "string", default: "#F97316" }
+          - label: "Social Links"
+            name: "socials"
+            widget: "object"
+            fields:
+              - { label: "Twitter URL", name: "twitter", widget: "string" }
+              - { label: "Instagram URL", name: "instagram", widget: "string" }
+              - { label: "Facebook URL", name: "facebook", widget: "string" }
+          - {
+              label: "Newsletter Provider",
+              name: "newsletterProvider",
+              widget: "select",
+              options: ["netlify", "mailchimp", "beehiiv"],
+              default: "netlify"
+            }
+          - {
+              label: "Newsletter Embed HTML",
+              name: "newsletterEmbedHtml",
+              widget: "text",
+              required: false,
+              hint: "Paste Mailchimp or Beehiiv embed code here"
+            }
+          - { label: "Google Analytics ID", name: "ga4Id", widget: "string", required: false }
+

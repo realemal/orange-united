@@ -1,0 +1,134 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import dayjs from 'dayjs';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles
+    .filter(article => article.data.status === 'published')
+    .map((article) => ({
+      params: { slug: article.slug },
+      props: { article },
+    }));
+}
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+const formattedDate = dayjs(article.data.date).format('MMMM D, YYYY');
+
+// Get related articles (same category)
+const allArticles = await getCollection('articles');
+const relatedArticles = allArticles
+  .filter(a => 
+    a.data.status === 'published' && 
+    a.slug !== article.slug && 
+    a.data.category === article.data.category
+  )
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={article.data.title}
+  description={article.data.excerpt}
+  image={article.data.image}
+  article={true}
+>
+  <article class="py-12">
+    <div class="container-custom max-w-4xl">
+      <!-- Article header -->
+      <header class="mb-8">
+        <div class="flex items-center gap-4 mb-4">
+          <span class="text-sm font-semibold text-orange-500 uppercase tracking-wider">
+            {article.data.category}
+          </span>
+          <span class="text-sm text-gray-500">{formattedDate}</span>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          {article.data.title}
+        </h1>
+        
+        <p class="text-xl text-gray-600 leading-relaxed">
+          {article.data.excerpt}
+        </p>
+
+        {article.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-6">
+            {article.data.tags.map((tag) => (
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <!-- Featured image -->
+      {article.data.image && (
+        <div class="mb-8 rounded-xl overflow-hidden">
+          <img
+            src={article.data.image}
+            alt={article.data.title}
+            class="w-full h-auto"
+          />
+        </div>
+      )}
+
+      <!-- Article content -->
+      <div class="article-content prose prose-lg max-w-none">
+        <Content />
+      </div>
+
+      <!-- Share buttons -->
+      <div class="mt-12 pt-8 border-t border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this article</h3>
+        <div class="flex gap-4">
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(Astro.url.href)}&text=${encodeURIComponent(article.data.title)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary"
+          >
+            Share on Twitter
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary"
+          >
+            Share on Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Related articles -->
+  {relatedArticles.length > 0 && (
+    <section class="py-12 bg-gray-50">
+      <div class="container-custom">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Related Articles</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {relatedArticles.map((related) => (
+            <a href={`/articles/${related.slug}`} class="card p-6 hover:shadow-xl transition-shadow">
+              <h3 class="text-xl font-bold text-gray-900 mb-2 hover:text-orange-500 transition-colors">
+                {related.data.title}
+              </h3>
+              <p class="text-gray-600 text-sm mb-3">{related.data.excerpt}</p>
+              <span class="text-orange-500 text-sm font-semibold">Read more →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+

@@ -1,0 +1,47 @@
+---
+const socials = [
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/orangeunitedca',
+    icon: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
+  },
+  {
+    name: 'Instagram',
+    url: 'https://instagram.com/orangeunited.ca',
+    icon: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.5 2h9a5.5 5.5 0 015.5 5.5v9a5.5 5.5 0 01-5.5 5.5h-9A5.5 5.5 0 012 16.5v-9A5.5 5.5 0 017.5 2z',
+  },
+  {
+    name: 'Facebook',
+    url: 'https://facebook.com/orangeunited',
+    icon: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+  },
+];
+---
+
+<div class="flex items-center gap-4">
+  {socials.map((social) => (
+    <a
+      href={social.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-gray-600 hover:text-orange-500 transition-colors"
+      aria-label={social.name}
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d={social.icon}
+        />
+      </svg>
+    </a>
+  ))}
+</div>
+

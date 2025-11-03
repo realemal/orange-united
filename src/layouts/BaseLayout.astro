@@ -1,0 +1,60 @@
+---
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/globals.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  article?: boolean;
+}
+
+const { title, description, image, article } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <Seo
+      title={title}
+      description={description}
+      image={image}
+      article={article}
+    />
+    
+    <!-- Google Analytics placeholder -->
+    <!-- Add GA4 tag here via environment variable -->
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    
+    <!-- i18next initialization -->
+    <script>
+      import i18next from '../i18n/i18n';
+      
+      // Initialize i18next on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        // Set initial language if needed
+        const savedLang = localStorage.getItem('i18nextLng') || 'en';
+        if (i18next.language !== savedLang) {
+          i18next.changeLanguage(savedLang);
+        }
+      });
+    </script>
+  </body>
+</html>
+

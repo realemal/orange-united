@@ -1,0 +1,40 @@
+name: Orange USD Scraper
+
+on:
+  schedule:
+    # Run every day at 8 AM PST (4 PM UTC)
+    - cron: '0 16 * * *'
+  workflow_dispatch: # Allow manual runs
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: |
+          cd scripts
+          npm install
+      
+      - name: Run scraper
+        run: |
+          cd scripts
+          node scraper.js
+      
+      - name: Commit and push if changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-scraped Orange USD updates [skip ci]" && git push)
+

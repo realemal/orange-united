@@ -1,0 +1,17 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Orange circle -->
+  <circle cx="100" cy="100" r="80" fill="#F97316"/>
+  
+  <!-- Leaf on top -->
+  <path d="M100 20 Q90 25 85 35 Q90 30 100 28 Q110 30 115 35 Q110 25 100 20Z" fill="#22C55E"/>
+  
+  <!-- Highlight (to make it look like an orange) -->
+  <ellipse cx="80" cy="80" rx="20" ry="30" fill="#FB923C" opacity="0.6"/>
+  
+  <!-- Small texture dots -->
+  <circle cx="90" cy="110" r="2" fill="#EA580C" opacity="0.5"/>
+  <circle cx="110" cy="120" r="2" fill="#EA580C" opacity="0.5"/>
+  <circle cx="105" cy="95" r="2" fill="#EA580C" opacity="0.5"/>
+  <circle cx="125" cy="105" r="2" fill="#EA580C" opacity="0.5"/>
+</svg>
+

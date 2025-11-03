@@ -1,0 +1,80 @@
+---
+import SocialIcons from './SocialIcons.astro';
+import NewsletterForm from './NewsletterForm.astro';
+
+const currentYear = new Date().getFullYear();
+
+const footerLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/articles', label: 'Articles' },
+  { href: '/events', label: 'Events' },
+  { href: '/get-involved', label: 'Get Involved' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<footer class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white mt-20">
+  <div class="container-custom py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <!-- About -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img 
+            src="/logo.png" 
+            alt="Orange United Logo" 
+            class="w-16 h-16 object-contain"
+          />
+        </div>
+        <p class="text-gray-400 text-sm mb-4">
+          Protecting Parent Choice. Stay informed and get involved in Orange education.
+        </p>
+        <SocialIcons />
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          {footerLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-gray-400 hover:text-orange-400 transition-colors text-sm"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Stay Updated</h3>
+        <NewsletterForm compact={true} />
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+      <div class="text-center md:text-left">
+        <p class="mb-1">
+          &copy; {currentYear} Orange United. All rights reserved.
+        </p>
+        <p class="text-xs italic">
+          Paid for by The Community Action Network.
+        </p>
+      </div>
+      <div class="flex gap-6">
+        <a href="/privacy" class="hover:text-orange-400 transition-colors">
+          Privacy Policy
+        </a>
+        <a href="/terms" class="hover:text-orange-400 transition-colors">
+          Terms of Use
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+

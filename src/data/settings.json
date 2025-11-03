@@ -1,0 +1,14 @@
+{
+  "siteTitle": "Orange United",
+  "tagline": "Protecting Parent Choice",
+  "primaryColor": "#F97316",
+  "socials": {
+    "twitter": "https://twitter.com/orangeunitedca",
+    "instagram": "https://instagram.com/orangeunited.ca",
+    "facebook": "https://facebook.com/orangeunited"
+  },
+  "newsletterProvider": "netlify",
+  "newsletterEmbedHtml": "",
+  "ga4Id": ""
+}
+

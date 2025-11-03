@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG Image - Orange United</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .og-container {
+      width: 1200px;
+      height: 630px;
+      background: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    }
+    
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 100px;
+      height: 100%;
+    }
+    
+    .logo-section {
+      flex-shrink: 0;
+    }
+    
+    .logo {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .text-section {
+      flex: 1;
+      padding-left: 80px;
+    }
+    
+    .title {
+      font-size: 90px;
+      font-weight: 800;
+      color: #111827;
+      line-height: 1;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+    
+    .tagline {
+      font-size: 48px;
+      font-weight: 600;
+      color: #F97316;
+      line-height: 1.2;
+      margin-bottom: 15px;
+    }
+    
+    .subtitle {
+      font-size: 32px;
+      font-weight: 400;
+      color: #6B7280;
+      line-height: 1.3;
+    }
+    
+    .decorative-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+    
+    .circle-1 {
+      width: 400px;
+      height: 400px;
+      background: #F97316;
+      top: -100px;
+      right: -100px;
+    }
+    
+    .circle-2 {
+      width: 300px;
+      height: 300px;
+      background: #FB923C;
+      bottom: -50px;
+      left: -50px;
+    }
+    
+    .instructions {
+      text-align: center;
+      margin-top: 30px;
+      color: #6B7280;
+      font-size: 14px;
+    }
+    
+    .instructions strong {
+      color: #F97316;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="og-container" id="og-image">
+      <!-- Decorative circles -->
+      <div class="decorative-circle circle-1"></div>
+      <div class="decorative-circle circle-2"></div>
+      
+      <div class="content">
+        <div class="logo-section">
+          <!-- Orange United Logo SVG -->
+          <svg class="logo" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Orange circle with sketchy style -->
+            <ellipse cx="400" cy="420" rx="320" ry="310" fill="#F97316" opacity="0.95"/>
+            <ellipse cx="395" cy="415" rx="315" ry="305" fill="none" stroke="#FB923C" stroke-width="8" opacity="0.4"/>
+            <ellipse cx="405" cy="425" rx="325" ry="315" fill="none" stroke="#EA580C" stroke-width="6" opacity="0.3"/>
+            
+            <!-- Highlight -->
+            <ellipse cx="320" cy="340" rx="80" ry="120" fill="#FB923C" opacity="0.5"/>
+            
+            <!-- Texture marks -->
+            <circle cx="350" cy="450" r="8" fill="#EA580C" opacity="0.4"/>
+            <circle cx="450" cy="480" r="8" fill="#EA580C" opacity="0.4"/>
+            <circle cx="420" cy="380" r="8" fill="#EA580C" opacity="0.4"/>
+            <circle cx="500" cy="420" r="8" fill="#EA580C" opacity="0.4"/>
+            <circle cx="300" cy="400" r="8" fill="#EA580C" opacity="0.4"/>
+            <circle cx="480" cy="360" r="8" fill="#EA580C" opacity="0.4"/>
+            
+            <!-- Green leaves -->
+            <path d="M400 140 L380 165 Q370 185 360 215 Q380 195 400 187 Q420 195 440 215 Q430 185 420 165 L400 140Z" fill="#22C55E"/>
+            <path d="M400 140 L415 158 Q422 175 428 200 Q418 188 400 183 Q382 188 372 200 Q378 175 385 158 L400 140Z" fill="#16A34A"/>
+            <path d="M395 150 L405 162 Q410 172 413 188 Q408 182 400 180 Q392 182 387 188 Q390 172 395 162 L395 150Z" fill="#15803D"/>
+            
+            <!-- Text on orange (sketchy style) -->
+            <text x="400" y="360" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle" stroke="white" stroke-width="2">ORANGE</text>
+            <text x="400" y="450" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle" stroke="white" stroke-width="2">UNITED</text>
+            
+            <!-- Tagline around bottom (curved text simulation) -->
+            <path id="curve" d="M 150,500 Q 400,580 650,500" fill="none"/>
+            <text font-family="Comic Sans MS, cursive" font-size="48" fill="#22C55E" font-weight="600">
+              <textPath href="#curve" startOffset="50%" text-anchor="middle">
+                Protecting Parent Choice
+              </textPath>
+            </text>
+          </svg>
+        </div>
+        
+        <div class="text-section">
+          <div class="title">ORANGE<br>UNITED</div>
+          <div class="tagline">Protecting Parent<br>Choice</div>
+          <div class="subtitle">Parents and Schools.<br>Together.</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="instructions">
+      <strong>📸 To Save This as OG Image:</strong>
+      Take a screenshot of just the white box above (1200x630px)<br>
+      <strong>Mac:</strong> Cmd+Shift+4, then drag to select | 
+      <strong>Windows:</strong> Use Snipping Tool<br>
+      Save as "og-default.jpg" and place in /public/ folder
+    </div>
+  </div>
+</body>
+</html>
+

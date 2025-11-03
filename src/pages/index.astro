@@ -1,0 +1,345 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ArticleList from '../components/ArticleList.astro';
+import EventItem from '../components/EventItem.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import SocialIcons from '../components/SocialIcons.astro';
+import dayjs from 'dayjs';
+
+// Get featured articles
+const allArticles = await getCollection('articles');
+const featuredArticles = allArticles
+  .filter(article => article.data.featured && article.data.status === 'published')
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+// Get upcoming events
+const allEvents = await getCollection('events');
+const now = new Date();
+const upcomingEvents = allEvents
+  .filter(event => !event.data.isCanceled && event.data.date >= now)
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Orange United - Protecting Parent Choice"
+  description="Parents and Schools. Together. Stay informed and get involved in Orange education."
+>
+  <Hero />
+
+  <!-- Featured Articles -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <span class="inline-block px-4 py-1.5 bg-orange-100 text-orange-700 rounded-full text-sm font-semibold mb-4">Latest News</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+          Latest Updates
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Stay informed on curriculum changes, board meetings, and education news in Orange.
+        </p>
+      </div>
+      
+      {featuredArticles.length > 0 ? (
+        <ArticleList articles={featuredArticles} showFeatured={true} />
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-gray-600">No featured articles yet. Check back soon!</p>
+        </div>
+      )}
+      
+      <div class="text-center mt-12">
+        <a href="/articles" class="btn btn-primary">
+          View All Articles
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet The School Board Section -->
+  <section class="py-20 bg-gradient-to-br from-red-50 via-orange-50 to-white">
+    <div class="container-custom">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-4 py-1.5 bg-red-100 text-red-700 rounded-full text-sm font-semibold mb-4">Take Action</span>
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+            Meet The School Board
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Know who represents your children's education
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <!-- Current Situation Card -->
+          <div class="bg-white rounded-3xl p-8 shadow-xl border-2 border-red-200">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900">Current Board</h3>
+            </div>
+            <div class="mb-6">
+              <div class="flex items-baseline gap-3 mb-2">
+                <span class="text-5xl font-bold text-red-600">7-0</span>
+                <span class="text-gray-600 font-medium">Disadvantage</span>
+              </div>
+              <p class="text-gray-700 leading-relaxed">
+                Parents who prioritize academic excellence and transparency are currently underrepresented on the Orange Unified School Board.
+              </p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-4">
+              <p class="text-sm text-red-800 font-medium">
+                <strong>What this means:</strong> Critical decisions about curriculum, spending, and policies are being made without adequate parent representation.
+              </p>
+            </div>
+          </div>
+
+          <!-- Take Action Card -->
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 shadow-2xl text-white">
+            <h3 class="text-2xl font-bold mb-6">How You Can Help</h3>
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Attend Board Meetings</strong> - Your presence matters. Show up and make your voice heard.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Stay Informed</strong> - Read our coverage and share with other parents.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Support Candidates</strong> - Back board candidates who align with parent priorities.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Get Involved</strong> - Volunteer, donate, and help build our movement.</span>
+              </li>
+            </ul>
+            <a href="/get-involved" class="block w-full bg-white text-orange-600 text-center px-6 py-4 rounded-xl font-bold hover:bg-orange-50 transition-colors shadow-lg">
+              Take Action Now →
+            </a>
+          </div>
+        </div>
+
+        <!-- Board Members Grid -->
+        <div class="bg-white rounded-3xl p-8 shadow-xl">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Current Board Members</h3>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+              <div class="text-center group">
+                <div class="relative mb-4 overflow-hidden rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50">
+                  <img 
+                    src="/placeholder.png" 
+                    alt="Board Member" 
+                    class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div class="absolute top-2 right-2">
+                    <span class="bg-gray-900/80 text-white text-xs px-2 py-1 rounded-full">
+                      Seat {i}
+                    </span>
+                  </div>
+                </div>
+                <h4 class="font-semibold text-gray-900 mb-1">Board Member {i}</h4>
+                <p class="text-sm text-gray-600">Area {i} Trustee</p>
+              </div>
+            ))}
+          </div>
+          <div class="mt-8 text-center">
+            <p class="text-sm text-gray-600 mb-4">
+              Detailed profiles and voting records coming soon. Subscribe to stay updated.
+            </p>
+            <a href="#newsletter" class="text-orange-600 font-semibold hover:text-orange-700">
+              Get Notifications →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 bg-gradient-to-b from-white to-gray-50">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              About Orange United
+            </h2>
+            <p class="text-gray-700 mb-4 leading-relaxed">
+              Orange United is a grassroots movement of parents, educators, and community members 
+              committed to excellence in Orange education.
+            </p>
+            <p class="text-gray-700 mb-6 leading-relaxed">
+              We believe that when parents and schools work together, our children thrive. 
+              Stay informed on school board decisions, curriculum changes, and find ways to get involved.
+            </p>
+            <a href="/about" class="btn btn-outline">
+              Learn More About Us
+            </a>
+          </div>
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 text-white shadow-2xl shadow-orange-500/20">
+            <h3 class="text-2xl font-bold mb-6">Our Mission</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span>Keep parents informed on education policy</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span>Promote transparency in school governance</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span>Empower parent voices in education</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  {upcomingEvents.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container-custom">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Upcoming Events
+          </h2>
+          <p class="text-lg text-gray-600">
+            Join us at our next meeting or community event
+          </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-6">
+          {upcomingEvents.map(async (event) => {
+            const { Content } = await event.render();
+            return (
+              <EventItem
+                title={event.data.title}
+                date={event.data.date}
+                location={event.data.location}
+                description={await Content()}
+                rsvpUrl={event.data.rsvpUrl}
+                isCanceled={event.data.isCanceled}
+              />
+            );
+          })}
+        </div>
+        
+        <div class="text-center mt-12">
+          <a href="/events" class="btn btn-outline">
+            View All Events
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Newsletter CTA -->
+  <section id="newsletter" class="relative py-20 bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 text-white overflow-hidden">
+    <!-- Background pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+    </div>
+    <div class="container-custom">
+      <div class="max-w-2xl mx-auto">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Stay Connected
+          </h2>
+          <p class="text-lg text-orange-100">
+            Get the latest news, event updates, and ways to get involved delivered to your inbox.
+          </p>
+        </div>
+        <div class="bg-white rounded-3xl p-8 shadow-2xl">
+          <NewsletterForm />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Involved CTA -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Get Involved
+        </h2>
+        <p class="text-lg text-gray-600">
+          Every voice matters. Here's how you can make a difference.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="card p-8 text-center">
+          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Volunteer</h3>
+          <p class="text-gray-600 mb-6">
+            Help at events, attend board meetings, or spread the word in your community.
+          </p>
+          <a href="/get-involved#volunteer" class="text-orange-500 hover:text-orange-600 font-semibold">
+            Sign Up →
+          </a>
+        </div>
+        
+        <div class="card p-8 text-center">
+          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Donate</h3>
+          <p class="text-gray-600 mb-6">
+            Support our efforts to keep parents informed and engaged in their children's education.
+          </p>
+          <a href="/get-involved#donate" class="text-orange-500 hover:text-orange-600 font-semibold">
+            Contribute →
+          </a>
+        </div>
+        
+        <div class="card p-8 text-center">
+          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Share</h3>
+          <p class="text-gray-600 mb-6">
+            Follow us on social media and share our content with other parents.
+          </p>
+          <div class="flex justify-center">
+            <SocialIcons />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

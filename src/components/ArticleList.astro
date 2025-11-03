@@ -1,0 +1,36 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  articles: CollectionEntry<'articles'>[];
+  showFeatured?: boolean;
+}
+
+const { articles, showFeatured = false } = Astro.props;
+
+const displayArticles = showFeatured 
+  ? articles.filter(article => article.data.featured && article.data.status === 'published')
+  : articles.filter(article => article.data.status === 'published');
+---
+
+{displayArticles.length > 0 ? (
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {displayArticles.map((article) => (
+      <ArticleCard
+        title={article.data.title}
+        slug={article.slug}
+        date={article.data.date}
+        excerpt={article.data.excerpt}
+        image={article.data.image}
+        category={article.data.category}
+        featured={article.data.featured}
+      />
+    ))}
+  </div>
+) : (
+  <div class="text-center py-12">
+    <p class="text-gray-600 text-lg">No articles found.</p>
+  </div>
+)}
+
