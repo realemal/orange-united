@@ -2,58 +2,65 @@
   {
     "name": "Andrea Yamasaki",
     "area": "1",
-    "title": "President",
+    "title": "Vice President",
     "email": "ayamasaki@orangeusd.org",
     "image": "/board-members/member-1.jpg",
-    "bio": "Board member information to be updated"
+    "term": "2022-2026",
+    "bio": "Board Vice President, Trustee Area 1"
+  },
+  {
+    "name": "Sierra Vane, Ph.D.",
+    "area": "2",
+    "title": "Member",
+    "email": "svane@orangeusd.org",
+    "image": "/board-members/member-2.jpg",
+    "term": "2024-2028",
+    "bio": "Board Member, Trustee Area 2"
   },
   {
     "name": "Ana Page",
-    "area": "2", 
-    "title": "Vice President",
-    "email": "apage@orangeusd.org",
-    "image": "/board-members/member-2.jpg",
-    "bio": "Board member information to be updated"
-  },
-  {
-    "name": "Kris Erickson",
     "area": "3",
     "title": "Clerk",
-    "email": "kerickson@orangeusd.org",
+    "email": "apage@orangeusd.org",
     "image": "/board-members/member-3.jpg",
-    "bio": "Board member information to be updated"
+    "term": "2024-2028",
+    "bio": "Board Clerk, Trustee Area 3"
   },
   {
-    "name": "Madison Miner",
+    "name": "Sara Pelly",
     "area": "4",
     "title": "Member",
-    "email": "mminer@orangeusd.org",
+    "email": "spelly@orangeusd.org",
     "image": "/board-members/member-4.jpg",
-    "bio": "Board member information to be updated"
+    "term": "2024-2026",
+    "bio": "Board Member, Trustee Area 4"
   },
   {
-    "name": "Brenda Lebsack",
+    "name": "Kris Erickson, J.D.",
     "area": "5",
-    "title": "Member",
-    "email": "blebsack@orangeusd.org",
+    "title": "President",
+    "email": "kristin.erickson@orangeusd.org",
     "image": "/board-members/member-5.jpg",
-    "bio": "Board member information to be updated"
+    "term": "2022-2026",
+    "bio": "Board President, Trustee Area 5"
   },
   {
-    "name": "Rick Ledesma",
+    "name": "Matthew Thomas",
     "area": "6",
     "title": "Member",
-    "email": "rledesma@orangeusd.org",
+    "email": "mthomas@orangeusd.org",
     "image": "/board-members/member-6.jpg",
-    "bio": "Board member information to be updated"
+    "term": "2024-2028",
+    "bio": "Board Member, Trustee Area 6"
   },
   {
-    "name": "John Ortega",
+    "name": "Stephen Glass, Ed.D.",
     "area": "7",
     "title": "Member",
-    "email": "jortega@orangeusd.org",
+    "email": "sglass@orangeusd.org",
     "image": "/board-members/member-7.jpg",
-    "bio": "Board member information to be updated"
+    "term": "2024-2026",
+    "bio": "Board Member, Trustee Area 7"
   }
 ]
 

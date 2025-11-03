@@ -31,18 +31,26 @@ Update each member's:
 - `email` - Official email
 - `bio` - Short bio or key positions
 
-**Current board members (as of 2024):**
+**⚠️ NEEDS UPDATE - Current board members for 2025:**
+
+Visit https://www.orangeusd.org/Board-of-Education/Board-Members/ to get:
+- Current names
+- Current titles (President, VP, Clerk rotate annually)
+- Correct email addresses
+- Current area assignments
+
+Then update `src/data/board-members.json`:
 ```json
 [
   {
-    "name": "Andrea Yamasaki",
+    "name": "ACTUAL NAME FROM OUSD SITE",
     "area": "1",
-    "title": "President",
-    "email": "ayamasaki@orangeusd.org",
+    "title": "President/Vice President/Clerk/Member",
+    "email": "actual.email@orangeusd.org",
     "image": "/board-members/member-1.jpg",
-    "bio": "Update with actual bio from orangeusd.org"
+    "bio": "Copy bio from orangeusd.org"
   },
-  // ... etc
+  // ... etc for all 7 members
 ]
 ```
 
