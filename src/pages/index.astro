@@ -7,6 +7,7 @@ import EventItem from '../components/EventItem.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import SocialIcons from '../components/SocialIcons.astro';
 import dayjs from 'dayjs';
+import boardMembers from '../data/board-members.json';
 
 // Get featured articles
 const allArticles = await getCollection('articles');
@@ -139,28 +140,42 @@ const upcomingEvents = allEvents
         <div class="bg-white rounded-3xl p-8 shadow-xl">
           <h3 class="text-2xl font-bold text-gray-900 mb-6">Current Board Members</h3>
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+            {boardMembers.map((member) => (
               <div class="text-center group">
                 <div class="relative mb-4 overflow-hidden rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50">
                   <img 
-                    src="/placeholder.png" 
-                    alt="Board Member" 
+                    src={member.image} 
+                    alt={member.name}
                     class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
+                    onerror="this.src='/placeholder.png'"
                   />
                   <div class="absolute top-2 right-2">
                     <span class="bg-gray-900/80 text-white text-xs px-2 py-1 rounded-full">
-                      Seat {i}
+                      Area {member.area}
                     </span>
                   </div>
+                  {member.title !== 'Member' && (
+                    <div class="absolute bottom-2 left-2 right-2">
+                      <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded-full block">
+                        {member.title}
+                      </span>
+                    </div>
+                  )}
                 </div>
-                <h4 class="font-semibold text-gray-900 mb-1">Board Member {i}</h4>
-                <p class="text-sm text-gray-600">Area {i} Trustee</p>
+                <h4 class="font-semibold text-gray-900 mb-1">{member.name}</h4>
+                <p class="text-sm text-gray-600">Area {member.area} Trustee</p>
+                <a 
+                  href={`mailto:${member.email}`}
+                  class="text-xs text-orange-600 hover:text-orange-700 mt-1 inline-block"
+                >
+                  Contact
+                </a>
               </div>
             ))}
           </div>
           <div class="mt-8 text-center">
             <p class="text-sm text-gray-600 mb-4">
-              Detailed profiles and voting records coming soon. Subscribe to stay updated.
+              Detailed voting records and profiles coming soon. Subscribe to stay updated.
             </p>
             <a href="#newsletter" class="text-orange-600 font-semibold hover:text-orange-700">
               Get Notifications →

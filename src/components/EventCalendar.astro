@@ -1,0 +1,145 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import dayjs from 'dayjs';
+
+export interface Props {
+  events: CollectionEntry<'events'>[];
+}
+
+const { events } = Astro.props;
+
+// Get current month
+const now = new Date();
+const currentMonth = now.getMonth();
+const currentYear = now.getFullYear();
+
+// Generate calendar days
+const firstDay = new Date(currentYear, currentMonth, 1);
+const lastDay = new Date(currentYear, currentMonth + 1, 0);
+const daysInMonth = lastDay.getDate();
+const startingDayOfWeek = firstDay.getDay();
+
+const days = [];
+for (let i = 0; i < startingDayOfWeek; i++) {
+  days.push(null);
+}
+for (let i = 1; i <= daysInMonth; i++) {
+  days.push(i);
+}
+
+// Map events to days
+const eventsByDay = new Map();
+events.forEach(event => {
+  const eventDate = dayjs(event.data.date);
+  if (eventDate.month() === currentMonth && eventDate.year() === currentYear) {
+    const day = eventDate.date();
+    if (!eventsByDay.has(day)) {
+      eventsByDay.set(day, []);
+    }
+    eventsByDay.get(day).push(event);
+  }
+});
+
+const monthName = dayjs(firstDay).format('MMMM YYYY');
+const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+---
+
+<div class="calendar-container bg-white rounded-3xl shadow-xl p-6 lg:p-8">
+  <div class="calendar-header mb-6 text-center">
+    <h3 class="text-2xl font-bold text-gray-900">{monthName}</h3>
+    <p class="text-sm text-gray-600 mt-1">Click on a day with events for details</p>
+  </div>
+
+  <div class="calendar-grid">
+    <!-- Week day headers -->
+    <div class="grid grid-cols-7 gap-2 mb-2">
+      {weekDays.map(day => (
+        <div class="text-center font-semibold text-gray-700 text-sm py-2">
+          {day}
+        </div>
+      ))}
+    </div>
+
+    <!-- Calendar days -->
+    <div class="grid grid-cols-7 gap-2">
+      {days.map(day => {
+        const hasEvents = day && eventsByDay.has(day);
+        const isToday = day === now.getDate();
+        
+        return day ? (
+          <div
+            class={`
+              relative min-h-[80px] p-2 rounded-lg border transition-all
+              ${hasEvents 
+                ? 'bg-orange-50 border-orange-300 hover:bg-orange-100 cursor-pointer' 
+                : 'bg-gray-50 border-gray-200'
+              }
+              ${isToday ? 'ring-2 ring-orange-500' : ''}
+            `}
+            data-day={day}
+          >
+            <div class={`text-sm font-semibold mb-1 ${isToday ? 'text-orange-600' : 'text-gray-900'}`}>
+              {day}
+            </div>
+            {hasEvents && (
+              <div class="space-y-1">
+                {eventsByDay.get(day).slice(0, 2).map((event: CollectionEntry<'events'>) => (
+                  <div class="text-xs bg-orange-500 text-white px-2 py-1 rounded truncate">
+                    {dayjs(event.data.date).format('h:mm A')}
+                  </div>
+                ))}
+                {eventsByDay.get(day).length > 2 && (
+                  <div class="text-xs text-orange-600 font-semibold">
+                    +{eventsByDay.get(day).length - 2} more
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div class="min-h-[80px]"></div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Event details (shown when clicking a day) -->
+  <div id="event-details" class="hidden mt-6 pt-6 border-t border-gray-200">
+    <h4 class="font-bold text-lg text-gray-900 mb-3">Events on <span id="selected-date"></span></h4>
+    <div id="events-list" class="space-y-3"></div>
+  </div>
+</div>
+
+<script>
+  // Make calendar interactive
+  document.addEventListener('DOMContentLoaded', () => {
+    const eventsByDay = new Map();
+    
+    // Parse events data from the page
+    {JSON.stringify(Array.from(eventsByDay.entries()))}
+    
+    document.querySelectorAll('[data-day]').forEach(dayElement => {
+      dayElement.addEventListener('click', () => {
+        const day = dayElement.getAttribute('data-day');
+        const detailsDiv = document.getElementById('event-details');
+        const selectedDate = document.getElementById('selected-date');
+        const eventsList = document.getElementById('events-list');
+        
+        if (detailsDiv && selectedDate && eventsList) {
+          selectedDate.textContent = `${monthName} ${day}`;
+          detailsDiv.classList.remove('hidden');
+          
+          // Scroll to details
+          detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .calendar-grid {
+    @apply select-none;
+  }
+</style>
+

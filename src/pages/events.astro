@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EventItem from '../components/EventItem.astro';
+import EventCalendar from '../components/EventCalendar.astro';
 
 const allEvents = await getCollection('events');
 const now = new Date();
@@ -30,8 +31,16 @@ const pastEvents = allEvents
     </div>
   </div>
 
-  <!-- Upcoming Events -->
+  <!-- Calendar View -->
   <section class="py-12">
+    <div class="container-custom max-w-5xl">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Event Calendar</h2>
+      <EventCalendar events={upcomingEvents} />
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="py-12 bg-gray-50">
     <div class="container-custom">
       <h2 class="text-3xl font-bold text-gray-900 mb-8">Upcoming Events</h2>
       

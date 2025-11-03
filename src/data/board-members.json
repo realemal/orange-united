@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Andrea Yamasaki",
+    "area": "1",
+    "title": "President",
+    "email": "ayamasaki@orangeusd.org",
+    "image": "/board-members/member-1.jpg",
+    "bio": "Board member information to be updated"
+  },
+  {
+    "name": "Ana Page",
+    "area": "2", 
+    "title": "Vice President",
+    "email": "apage@orangeusd.org",
+    "image": "/board-members/member-2.jpg",
+    "bio": "Board member information to be updated"
+  },
+  {
+    "name": "Kris Erickson",
+    "area": "3",
+    "title": "Clerk",
+    "email": "kerickson@orangeusd.org",
+    "image": "/board-members/member-3.jpg",
+    "bio": "Board member information to be updated"
+  },
+  {
+    "name": "Madison Miner",
+    "area": "4",
+    "title": "Member",
+    "email": "mminer@orangeusd.org",
+    "image": "/board-members/member-4.jpg",
+    "bio": "Board member information to be updated"
+  },
+  {
+    "name": "Brenda Lebsack",
+    "area": "5",
+    "title": "Member",
+    "email": "blebsack@orangeusd.org",
+    "image": "/board-members/member-5.jpg",
+    "bio": "Board member information to be updated"
+  },
+  {
+    "name": "Rick Ledesma",
+    "area": "6",
+    "title": "Member",
+    "email": "rledesma@orangeusd.org",
+    "image": "/board-members/member-6.jpg",
+    "bio": "Board member information to be updated"
+  },
+  {
+    "name": "John Ortega",
+    "area": "7",
+    "title": "Member",
+    "email": "jortega@orangeusd.org",
+    "image": "/board-members/member-7.jpg",
+    "bio": "Board member information to be updated"
+  }
+]
+
