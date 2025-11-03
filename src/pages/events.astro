@@ -34,26 +34,26 @@ const pastEvents = allEvents
   <!-- School Board Meetings Info -->
   <section class="py-12 bg-white">
     <div class="container-custom max-w-5xl">
-      <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 md:p-10 text-white shadow-2xl mb-8">
+      <div class="bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-3xl p-8 md:p-10 shadow-lg mb-8">
         <div class="flex items-center gap-4 mb-6">
-          <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
           </div>
-          <h2 class="text-3xl font-bold">Orange Unified School Board Meetings</h2>
+          <h2 class="text-3xl font-bold text-gray-900">Orange Unified School Board Meetings</h2>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
           <!-- Meeting Details -->
           <div>
-            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               When & Where
             </h3>
-            <ul class="space-y-3 text-orange-50">
+            <ul class="space-y-3 text-gray-700">
               <li class="flex items-start gap-3">
                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
@@ -79,7 +79,7 @@ const pastEvents = allEvents
                 </svg>
                 <div>
                   <strong>Watch Online</strong><br/>
-                  <a href="https://www.orangeusd.org" target="_blank" class="underline hover:text-white">orangeusd.org livestream</a>
+                  <a href="https://www.orangeusd.org" target="_blank" class="text-orange-600 underline hover:text-orange-700">orangeusd.org livestream</a>
                 </div>
               </li>
             </ul>
@@ -87,13 +87,13 @@ const pastEvents = allEvents
 
           <!-- How to Participate -->
           <div>
-            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
               How to Participate
             </h3>
-            <ul class="space-y-3 text-orange-50">
+            <ul class="space-y-3 text-gray-700">
               <li class="flex items-start gap-3">
                 <span class="flex-shrink-0 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold">1</span>
                 <div>
@@ -126,11 +126,11 @@ const pastEvents = allEvents
           </div>
         </div>
 
-        <div class="mt-8 pt-8 border-t border-white/20 text-center">
-          <p class="text-orange-100 mb-4">
-            First time attending? We can help! Orange United members often attend meetings together.
+        <div class="mt-8 pt-8 border-t border-gray-200 text-center">
+          <p class="text-gray-700 mb-4">
+            <strong>First time attending?</strong> We can help! Orange United members often attend meetings together.
           </p>
-          <a href="/contact" class="btn bg-white text-orange-600 hover:bg-orange-50 inline-flex items-center gap-2">
+          <a href="/contact" class="btn btn-primary inline-flex items-center gap-2">
             Get Meeting Support
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -163,10 +163,30 @@ const pastEvents = allEvents
           }))}
         </div>
       ) : (
-        <div class="max-w-2xl mx-auto text-center py-8">
-          <p class="text-gray-600">
-            Check back for community meetings and gatherings. Board meetings happen monthly (see above).
-          </p>
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-white rounded-3xl p-12 shadow-xl text-center">
+            <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">No Upcoming Community Events</h3>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+              We're planning community meetings and gatherings. Subscribe to our newsletter 
+              to be the first to know when events are scheduled.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/#newsletter" class="btn btn-primary inline-flex items-center gap-2">
+                Subscribe for Updates
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+              </a>
+              <a href="/contact" class="btn btn-outline inline-flex items-center gap-2">
+                Contact Us
+              </a>
+            </div>
+          </div>
         </div>
       )}
     </div>
