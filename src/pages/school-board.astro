@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import boardMembers from '../data/board-members.json';
+---
+
+<BaseLayout
+  title="School Board Members"
+  description="Meet the Orange Unified School District Board of Education. Learn about each trustee, their positions, and how to contact them."
+>
+  <div class="bg-gradient-to-br from-red-50 via-orange-50 to-white py-12">
+    <div class="container-custom">
+      <div class="text-center mb-8">
+        <span class="inline-block px-4 py-1.5 bg-red-100 text-red-700 rounded-full text-sm font-semibold mb-4">Know Your Representatives</span>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Orange Unified School Board
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          These seven elected officials make critical decisions about curriculum, spending, and policies affecting Orange students.
+        </p>
+      </div>
+
+      <!-- 7-0 Alert Box -->
+      <div class="max-w-4xl mx-auto mb-12">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border-2 border-red-200">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">7-0 Disadvantage</h2>
+              <p class="text-gray-700">
+                Parents who prioritize academic excellence and transparency currently have no representation on this board. 
+                Understanding who these trustees are and how they vote is the first step toward change.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Board Members Section -->
+  <section class="py-12">
+    <div class="container-custom max-w-6xl">
+      <div class="space-y-8">
+        {boardMembers.map((member) => (
+          <div class="card p-8 hover:shadow-2xl transition-all">
+            <div class="grid md:grid-cols-4 gap-8">
+              <!-- Photo -->
+              <div class="md:col-span-1">
+                <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50">
+                  <img 
+                    src={member.image}
+                    alt={member.name}
+                    class="w-full aspect-square object-cover"
+                    onerror="this.src='/placeholder.png'"
+                  />
+                  <div class="absolute top-3 left-3">
+                    <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                      Area {member.area}
+                    </span>
+                  </div>
+                  {member.title !== 'Member' && (
+                    <div class="absolute bottom-3 left-3 right-3">
+                      <span class="bg-gray-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full block text-center">
+                        {member.title}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <!-- Info -->
+              <div class="md:col-span-3">
+                <div class="mb-4">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                    {member.name}
+                  </h2>
+                  <div class="flex flex-wrap gap-3 mb-3">
+                    <span class="text-sm font-semibold text-orange-600">
+                      Trustee Area {member.area}
+                    </span>
+                    {member.title !== 'Member' && (
+                      <span class="text-sm font-semibold text-gray-600">
+                        • {member.title}
+                      </span>
+                    )}
+                    <span class="text-sm text-gray-600">
+                      • Term: {member.term}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Bio Section -->
+                <div class="prose prose-sm max-w-none mb-6">
+                  <div class="bg-orange-50 rounded-xl p-6 mb-4">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">Biography</h3>
+                    <div class="text-gray-700 space-y-3">
+                      <p>{member.bio}</p>
+                      <p class="italic text-sm text-orange-700">
+                        ✏️ <strong>Update this bio:</strong> Edit in <code>/src/data/board-members.json</code> or via CMS
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Voting Record Placeholder -->
+                  <div class="bg-gray-50 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">Voting Record</h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                      Track how this trustee votes on key issues. Voting records coming soon.
+                    </p>
+                    <div class="flex gap-2">
+                      <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-600 border border-gray-200">
+                        Curriculum Votes
+                      </span>
+                      <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-600 border border-gray-200">
+                        Budget Votes
+                      </span>
+                      <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-600 border border-gray-200">
+                        Policy Votes
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="flex flex-wrap gap-4">
+                  <a 
+                    href={`mailto:${member.email}`}
+                    class="btn btn-primary text-sm inline-flex items-center gap-2"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Email {member.name.split(' ')[0]}
+                  </a>
+                  <a 
+                    href={`https://www.orangeusd.org/Board-of-Education/Board-Members/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-outline text-sm inline-flex items-center gap-2"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Official Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Call to Action -->
+      <div class="mt-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 text-white text-center shadow-2xl">
+        <h2 class="text-3xl font-bold mb-4">Hold The Board Accountable</h2>
+        <p class="text-lg text-orange-100 mb-6 max-w-2xl mx-auto">
+          Attend board meetings, submit public comments, and stay informed on how these trustees vote on issues affecting your children.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/events" class="btn bg-white text-orange-600 hover:bg-orange-50">
+            View Meeting Schedule
+          </a>
+          <a href="/articles?category=Board%20Meetings" class="btn border-2 border-white text-white hover:bg-orange-700">
+            Read Meeting Recaps
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
