@@ -110,14 +110,9 @@ const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   </div>
 </div>
 
-<script>
+<script define:vars={{ monthName }}>
   // Make calendar interactive
   document.addEventListener('DOMContentLoaded', () => {
-    const eventsByDay = new Map();
-    
-    // Parse events data from the page
-    {JSON.stringify(Array.from(eventsByDay.entries()))}
-    
     document.querySelectorAll('[data-day]').forEach(dayElement => {
       dayElement.addEventListener('click', () => {
         const day = dayElement.getAttribute('data-day');
@@ -125,7 +120,7 @@ const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         const selectedDate = document.getElementById('selected-date');
         const eventsList = document.getElementById('events-list');
         
-        if (detailsDiv && selectedDate && eventsList) {
+        if (detailsDiv && selectedDate && eventsList && day) {
           selectedDate.textContent = `${monthName} ${day}`;
           detailsDiv.classList.remove('hidden');
           

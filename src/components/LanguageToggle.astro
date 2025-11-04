@@ -16,17 +16,17 @@
 </div>
 
 <script>
-  function getCurrentLanguage() {
+  function getCurrentLanguage(): string {
     return localStorage.getItem('language') || 'en';
   }
 
-  function setLanguage(lang) {
+  function setLanguage(lang: string): void {
     localStorage.setItem('language', lang);
     updateLanguageDisplay();
     applyTranslations(lang);
   }
 
-  function updateLanguageDisplay() {
+  function updateLanguageDisplay(): void {
     const langSpan = document.getElementById('current-lang');
     const currentLang = getCurrentLanguage();
     if (langSpan) {
@@ -34,16 +34,18 @@
     }
   }
 
-  function applyTranslations(lang) {
+  function applyTranslations(lang: string): void {
     // Update page content based on language
     document.documentElement.lang = lang;
     
     // Translate all elements with data-en and data-es attributes
-    document.querySelectorAll('[data-en][data-es]').forEach(element => {
-      if (lang === 'es' && element.dataset.es) {
-        element.textContent = element.dataset.es;
-      } else if (element.dataset.en) {
-        element.textContent = element.dataset.en;
+    document.querySelectorAll('[data-en][data-es]').forEach((el) => {
+      if (el instanceof HTMLElement) {
+        if (lang === 'es' && el.dataset.es) {
+          el.textContent = el.dataset.es;
+        } else if (el.dataset.en) {
+          el.textContent = el.dataset.en;
+        }
       }
     });
     
@@ -53,7 +55,7 @@
     }));
   }
 
-  function toggleLanguage() {
+  function toggleLanguage(): void {
     const currentLang = getCurrentLanguage();
     const newLang = currentLang === 'en' ? 'es' : 'en';
     setLanguage(newLang);
