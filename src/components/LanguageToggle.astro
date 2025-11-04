@@ -1,11 +1,11 @@
 ---
-// Language toggle component - uses client-side i18next
+// Language toggle component - Simple localStorage-based toggle
 ---
 
 <div class="language-toggle">
   <button
     id="lang-toggle"
-    class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-orange-500 transition-colors rounded-lg hover:bg-gray-100"
+    class="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-700 hover:text-orange-500 transition-colors rounded-lg hover:bg-orange-50 border border-gray-200"
     aria-label="Toggle language"
   >
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -16,36 +16,83 @@
 </div>
 
 <script>
-  import i18next from '../i18n/i18n';
+  function getCurrentLanguage() {
+    return localStorage.getItem('language') || 'en';
+  }
+
+  function setLanguage(lang) {
+    localStorage.setItem('language', lang);
+    updateLanguageDisplay();
+    applyTranslations(lang);
+  }
 
   function updateLanguageDisplay() {
     const langSpan = document.getElementById('current-lang');
+    const currentLang = getCurrentLanguage();
     if (langSpan) {
-      langSpan.textContent = i18next.language?.toUpperCase() || 'EN';
+      langSpan.textContent = currentLang.toUpperCase();
     }
-    
-    // Dispatch custom event for other components to listen to
-    window.dispatchEvent(new CustomEvent('languageChanged', { 
-      detail: { language: i18next.language } 
-    }));
   }
 
-  function toggleLanguage() {
-    const currentLang = i18next.language;
-    const newLang = currentLang === 'en' ? 'es' : 'en';
-    i18next.changeLanguage(newLang).then(() => {
-      updateLanguageDisplay();
-      // Reload page to apply translations
-      window.location.reload();
+  function applyTranslations(lang) {
+    // Update page content based on language
+    document.documentElement.lang = lang;
+    
+    // Dispatch event for other components
+    window.dispatchEvent(new CustomEvent('languageChanged', { 
+      detail: { language: lang } 
+    }));
+    
+    // Apply translations to navigation
+    const translations = {
+      en: {
+        'Home': 'Home',
+        'About': 'About',
+        'School Board': 'School Board',
+        'Articles': 'Articles',
+        'Events': 'Events',
+        'Get Involved': 'Get Involved',
+        'Contact': 'Contact',
+        'Subscribe': 'Subscribe',
+      },
+      es: {
+        'Home': 'Inicio',
+        'About': 'Acerca de',
+        'School Board': 'Junta Escolar',
+        'Articles': 'Artículos',
+        'Events': 'Eventos',
+        'Get Involved': 'Participa',
+        'Contact': 'Contacto',
+        'Subscribe': 'Suscríbete',
+      }
+    };
+
+    // Update navigation text
+    document.querySelectorAll('nav a, header a').forEach(link => {
+      const text = link.textContent?.trim();
+      if (text && translations[lang][text]) {
+        link.textContent = translations[lang][text];
+      }
     });
   }
 
+  function toggleLanguage() {
+    const currentLang = getCurrentLanguage();
+    const newLang = currentLang === 'en' ? 'es' : 'en';
+    setLanguage(newLang);
+  }
+
+  // Initialize on page load
   document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById('lang-toggle');
     if (toggleButton) {
       toggleButton.addEventListener('click', toggleLanguage);
     }
+    
+    // Apply saved language
+    const savedLang = getCurrentLanguage();
     updateLanguageDisplay();
+    applyTranslations(savedLang);
   });
 </script>
 
