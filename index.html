@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orange United - Coming Soon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fff7ed 0%, #ffffff 50%, #fff7ed 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 600px;
+      text-align: center;
+    }
+    
+    .logo {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 30px;
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #111827;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    
+    .orange {
+      color: #f97316;
+    }
+    
+    .tagline {
+      font-size: 1.5rem;
+      color: #6b7280;
+      margin-bottom: 40px;
+    }
+    
+    .description {
+      font-size: 1.125rem;
+      color: #4b5563;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    
+    .newsletter-form {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(249, 115, 22, 0.1);
+      border: 2px solid #fed7aa;
+    }
+    
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+    
+    .form-subtitle {
+      color: #6b7280;
+      margin-bottom: 30px;
+    }
+    
+    input[type="email"],
+    input[type="text"] {
+      width: 100%;
+      padding: 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #f97316;
+    }
+    
+    button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+    }
+    
+    .social-links {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .social-links a {
+      color: #9ca3af;
+      transition: color 0.2s;
+    }
+    
+    .social-links a:hover {
+      color: #f97316;
+    }
+    
+    .footer {
+      margin-top: 60px;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <img src="public/logo.png" alt="Orange United Logo" class="logo">
+    
+    <!-- Heading -->
+    <h1>
+      Orange <span class="orange">United</span>
+    </h1>
+    <p class="tagline">Protecting Parent Choice</p>
+    
+    <!-- Description -->
+    <p class="description">
+      We're building a resource for Orange parents to stay informed about school board meetings, 
+      education policy, and curriculum decisions. Sign up to be notified when we launch.
+    </p>
+    
+    <!-- Newsletter Form -->
+    <div class="newsletter-form">
+      <h2 class="form-title">Get Notified at Launch</h2>
+      <p class="form-subtitle">Be the first to know when we go live</p>
+      
+      <form name="coming-soon" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="coming-soon">
+        <div style="display: none;">
+          <label>Don't fill this out: <input name="bot-field"></label>
+        </div>
+        
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <button type="submit">Notify Me at Launch</button>
+      </form>
+      
+      <p style="margin-top: 20px; font-size: 0.875rem; color: #9ca3af;">
+        We respect your privacy. Unsubscribe anytime.
+      </p>
+    </div>
+    
+    <!-- Social Links -->
+    <div class="social-links">
+      <a href="https://twitter.com/orangeunitedca" target="_blank" aria-label="Twitter">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+        </svg>
+      </a>
+      <a href="https://instagram.com/orangeunited.ca" target="_blank" aria-label="Instagram">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61582066048374" target="_blank" aria-label="Facebook">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Footer -->
+    <p class="footer">
+      Paid for by The Community Action Network.
+    </p>
+  </div>
+</body>
+</html>
+
