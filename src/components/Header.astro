@@ -4,13 +4,13 @@ import LanguageToggle from './LanguageToggle.astro';
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/school-board', label: 'School Board' },
-  { href: '/articles', label: 'Articles' },
-  { href: '/events', label: 'Events' },
-  { href: '/get-involved', label: 'Get Involved' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/', label: 'Home', labelEs: 'Inicio' },
+  { href: '/about', label: 'About', labelEs: 'Acerca de' },
+  { href: '/school-board', label: 'School Board', labelEs: 'Junta Escolar' },
+  { href: '/articles', label: 'Articles', labelEs: 'Artículos' },
+  { href: '/events', label: 'Events', labelEs: 'Eventos' },
+  { href: '/get-involved', label: 'Get Involved', labelEs: 'Participa' },
+  { href: '/contact', label: 'Contact', labelEs: 'Contacto' },
 ];
 ---
 
@@ -71,6 +71,8 @@ const navItems = [
                 : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
             }`}
             style="font-family: 'Arial Black', sans-serif;"
+            data-en={item.label}
+            data-es={item.labelEs}
           >
             {item.label}
           </a>
@@ -90,6 +92,8 @@ const navItems = [
                 : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
             }`}
             style="font-family: 'Arial Black', sans-serif;"
+            data-en={item.label}
+            data-es={item.labelEs}
           >
             {item.label}
           </a>

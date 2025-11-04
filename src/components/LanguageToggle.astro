@@ -38,42 +38,19 @@
     // Update page content based on language
     document.documentElement.lang = lang;
     
+    // Translate all elements with data-en and data-es attributes
+    document.querySelectorAll('[data-en][data-es]').forEach(element => {
+      if (lang === 'es' && element.dataset.es) {
+        element.textContent = element.dataset.es;
+      } else if (element.dataset.en) {
+        element.textContent = element.dataset.en;
+      }
+    });
+    
     // Dispatch event for other components
     window.dispatchEvent(new CustomEvent('languageChanged', { 
       detail: { language: lang } 
     }));
-    
-    // Apply translations to navigation
-    const translations = {
-      en: {
-        'Home': 'Home',
-        'About': 'About',
-        'School Board': 'School Board',
-        'Articles': 'Articles',
-        'Events': 'Events',
-        'Get Involved': 'Get Involved',
-        'Contact': 'Contact',
-        'Subscribe': 'Subscribe',
-      },
-      es: {
-        'Home': 'Inicio',
-        'About': 'Acerca de',
-        'School Board': 'Junta Escolar',
-        'Articles': 'Artículos',
-        'Events': 'Eventos',
-        'Get Involved': 'Participa',
-        'Contact': 'Contacto',
-        'Subscribe': 'Suscríbete',
-      }
-    };
-
-    // Update navigation text
-    document.querySelectorAll('nav a, header a').forEach(link => {
-      const text = link.textContent?.trim();
-      if (text && translations[lang][text]) {
-        link.textContent = translations[lang][text];
-      }
-    });
   }
 
   function toggleLanguage() {
