@@ -86,9 +86,9 @@ collections:
             name: "socials"
             widget: "object"
             fields:
-              - { label: "Twitter URL", name: "twitter", widget: "string" }
-              - { label: "Instagram URL", name: "instagram", widget: "string" }
-              - { label: "Facebook URL", name: "facebook", widget: "string" }
+              - { label: "Twitter URL", name: "twitter", widget: "string", default: "https://twitter.com/orangeunitedca" }
+              - { label: "Instagram URL", name: "instagram", widget: "string", default: "https://instagram.com/orangeunited.ca" }
+              - { label: "Facebook URL", name: "facebook", widget: "string", default: "https://www.facebook.com/profile.php?id=61582066048374" }
           - {
               label: "Newsletter Provider",
               name: "newsletterProvider",
