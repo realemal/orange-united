@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Orange United//Board Meetings//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:OUSD Board Meetings
+X-WR-TIMEZONE:America/Los_Angeles
+X-WR-CALDESC:Orange Unified School District Board Meetings
+BEGIN:VEVENT
+UID:ousd-board-meeting@orangeunited.org
+DTSTART:20251202T020000Z
+DURATION:PT3H
+SUMMARY:Orange Unified School Board Meeting
+DESCRIPTION:Monthly Orange Unified School District Board of Education meeting. Public attendance welcome. More info: https://orangeunited.org/events
+LOCATION:District Office Board Room\, 1401 N. Handy Street\, Orange\, CA 92867
+RRULE:FREQ=MONTHLY;BYDAY=1TU
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

@@ -7,11 +7,16 @@ export default defineConfig({
   site: 'https://orangeunited.org',
   integrations: [
     tailwind(),
-    sitemap()
+    sitemap({
+      filter: (page) => !page.includes('/admin'),
+      changefreq: 'weekly',
+      priority: 0.7,
+    })
   ],
   output: 'static',
   build: {
     inlineStylesheets: 'auto'
-  }
+  },
+  compressHTML: true,
 });
 

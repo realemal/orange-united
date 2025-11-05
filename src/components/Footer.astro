@@ -64,22 +64,34 @@ const footerLinks = [
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-      <div class="text-center md:text-left">
-        <p class="mb-1">
-          &copy; {currentYear} Orange United. All rights reserved.
-        </p>
-        <p class="text-xs italic">
-          Paid for by The Community Action Network.
+    <div class="border-t border-gray-800 pt-8 text-sm text-gray-400">
+      <div class="text-center md:text-left mb-4">
+        <p class="text-xs leading-relaxed max-w-4xl">
+          <strong class="text-gray-300">Orange United</strong> is a 501(c)(4) social welfare organization focused on parent education and civic engagement in Orange schools. 
+          Donations are not tax-deductible. We do not endorse or oppose candidates for public office. 
+          We provide nonpartisan education information to help parents engage in their children's schooling.
         </p>
       </div>
-      <div class="flex gap-6">
-        <a href="/privacy" class="hover:text-orange-400 transition-colors">
-          Privacy Policy
-        </a>
-        <a href="/terms" class="hover:text-orange-400 transition-colors">
-          Terms of Use
-        </a>
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-center md:text-left">
+          <p class="mb-1">
+            &copy; {currentYear} Orange United. All rights reserved.
+          </p>
+          <p class="text-xs italic">
+            Paid for by The Community Action Network.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-6 justify-center md:justify-end">
+          <a href="/editorial-standards" class="hover:text-orange-400 transition-colors">
+            Editorial Standards
+          </a>
+          <a href="/privacy" class="hover:text-orange-400 transition-colors">
+            Privacy Policy
+          </a>
+          <a href="/terms" class="hover:text-orange-400 transition-colors">
+            Terms of Use
+          </a>
+        </div>
       </div>
     </div>
   </div>
