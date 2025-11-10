@@ -40,7 +40,7 @@ const trustees = records[0] ? Object.keys(records[0].votes) : [];
               )}
             </td>
             {trustees.map(trustee => {
-              const vote = record.votes[trustee];
+              const vote = record.votes[trustee as keyof typeof record.votes];
               const voteClass = 
                 vote === 'Yes' ? 'text-green-700 font-semibold' :
                 vote === 'No' ? 'text-red-700 font-semibold' :
