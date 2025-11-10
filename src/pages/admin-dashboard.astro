@@ -1,0 +1,360 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// Get articles count
+const articles = await getCollection('articles');
+const publishedArticles = articles.filter(a => a.data.status === 'published');
+
+// Get events count
+const events = await getCollection('events');
+
+// Get search index stats
+let searchStats = { articles: 0, boardMembers: 0, generated: null };
+try {
+  const searchIndexPath = path.join(process.cwd(), 'src/data/search/index.json');
+  if (fs.existsSync(searchIndexPath)) {
+    const searchIndex = JSON.parse(fs.readFileSync(searchIndexPath, 'utf8'));
+    searchStats = {
+      articles: searchIndex.articles?.length || 0,
+      boardMembers: searchIndex.boardMembers?.length || 0,
+      generated: searchIndex.generated
+    };
+  }
+} catch (e) {
+  console.error('Error reading search index:', e);
+}
+
+// Get vote tracker stats
+let voteStats = { meetings: 0, items: 0, votes: 0 };
+try {
+  const votesPath = path.join(process.cwd(), 'src/data/votes');
+  if (fs.existsSync(votesPath)) {
+    voteStats = {
+      meetings: fs.existsSync(path.join(votesPath, 'meetings')) ? fs.readdirSync(path.join(votesPath, 'meetings')).filter(f => f.endsWith('.json')).length : 0,
+      items: fs.existsSync(path.join(votesPath, 'items')) ? fs.readdirSync(path.join(votesPath, 'items')).filter(f => f.endsWith('.json')).length : 0,
+      votes: fs.existsSync(path.join(votesPath, 'votes')) ? fs.readdirSync(path.join(votesPath, 'votes')).filter(f => f.endsWith('.json')).length : 0
+    };
+  }
+} catch (e) {
+  console.error('Error reading vote stats:', e);
+}
+
+// Get board members count
+let boardMembersCount = 0;
+try {
+  const boardPath = path.join(process.cwd(), 'src/data/board-members.json');
+  if (fs.existsSync(boardPath)) {
+    const boardData = JSON.parse(fs.readFileSync(boardPath, 'utf8'));
+    boardMembersCount = boardData.length;
+  }
+} catch (e) {
+  console.error('Error reading board members:', e);
+}
+---
+
+<BaseLayout 
+  title="Admin Dashboard" 
+  description="Orange United administrative dashboard - manage content, track votes, and monitor submissions"
+>
+  <div class="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50 py-12">
+    <div class="container-custom max-w-7xl">
+      
+      <!-- Header -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-4xl font-black text-gray-900 mb-2">
+              Admin Dashboard
+            </h1>
+            <p class="text-lg text-gray-600">
+              Manage your Orange United site from one place
+            </p>
+          </div>
+          <a 
+            href="/admin" 
+            class="btn btn-primary inline-flex items-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Open CMS Editor
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Stats Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        
+        <!-- Articles -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-orange-100 rounded-xl">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">{publishedArticles.length}</h3>
+          <p class="text-sm text-gray-600 mt-1">Published Articles</p>
+          <p class="text-xs text-gray-400 mt-2">{articles.length} total ({articles.length - publishedArticles.length} drafts)</p>
+        </div>
+
+        <!-- Events -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-blue-100 rounded-xl">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">{events.length}</h3>
+          <p class="text-sm text-gray-600 mt-1">Upcoming Events</p>
+        </div>
+
+        <!-- Search Index -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-green-100 rounded-xl">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">{searchStats.articles + searchStats.boardMembers}</h3>
+          <p class="text-sm text-gray-600 mt-1">Searchable Items</p>
+          <p class="text-xs text-gray-400 mt-2">{searchStats.articles} articles, {searchStats.boardMembers} board members</p>
+        </div>
+
+        <!-- Vote Records -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-purple-100 rounded-xl">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">{voteStats.votes}</h3>
+          <p class="text-sm text-gray-600 mt-1">Vote Records</p>
+          <p class="text-xs text-gray-400 mt-2">{voteStats.meetings} meetings, {voteStats.items} items</p>
+        </div>
+
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left Column: Content Management -->
+        <div class="lg:col-span-2 space-y-6">
+          
+          <!-- Content Management -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Content Management
+            </h2>
+            
+            <div class="space-y-4">
+              <a href="/admin/#/collections/articles" class="block p-4 bg-orange-50 hover:bg-orange-100 rounded-xl transition group">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 group-hover:text-orange-600 transition">Articles</h3>
+                    <p class="text-sm text-gray-600 mt-1">Write and publish blog posts</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400 group-hover:text-orange-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+
+              <a href="/admin/#/collections/events" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-xl transition group">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition">Events</h3>
+                    <p class="text-sm text-gray-600 mt-1">Manage upcoming events and meetings</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+
+              <a href="/admin/#/collections/pages" class="block p-4 bg-green-50 hover:bg-green-100 rounded-xl transition group">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 group-hover:text-green-600 transition">Pages</h3>
+                    <p class="text-sm text-gray-600 mt-1">Edit site pages (About, Get Involved, etc.)</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400 group-hover:text-green-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Vote Tracker -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              Board Vote Tracker
+            </h2>
+            
+            <div class="space-y-4">
+              <a href="/admin/#/collections/meetings" class="block p-4 bg-purple-50 hover:bg-purple-100 rounded-xl transition group">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 group-hover:text-purple-600 transition">Board Meetings</h3>
+                    <p class="text-sm text-gray-600 mt-1">Record meeting metadata and agendas</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+
+              <a href="/admin/#/collections/items" class="block p-4 bg-purple-50 hover:bg-purple-100 rounded-xl transition group">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 group-hover:text-purple-600 transition">Agenda Items</h3>
+                    <p class="text-sm text-gray-600 mt-1">Track items voted on at meetings</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+
+              <a href="/admin/#/collections/votes" class="block p-4 bg-purple-50 hover:bg-purple-100 rounded-xl transition group">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 group-hover:text-purple-600 transition">Individual Votes</h3>
+                    <p class="text-sm text-gray-600 mt-1">Record how each trustee voted</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: System Info & Quick Actions -->
+        <div class="space-y-6">
+          
+          <!-- Quick Actions -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
+            <div class="space-y-3">
+              <a href="/admin/#/collections/articles/new" class="block w-full btn btn-primary text-center">
+                <span class="flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                  </svg>
+                  New Article
+                </span>
+              </a>
+              <a href="/admin/#/collections/events/new" class="block w-full btn btn-secondary text-center">
+                <span class="flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                  </svg>
+                  New Event
+                </span>
+              </a>
+              <a href="/school-board" class="block w-full btn btn-secondary text-center">
+                View School Board
+              </a>
+            </div>
+          </div>
+
+          <!-- System Status -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">System Status</h2>
+            <div class="space-y-3">
+              
+              <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span class="text-sm font-medium text-gray-700">Search Index</span>
+                </div>
+                <span class="text-xs text-green-700 font-semibold">Active</span>
+              </div>
+
+              <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span class="text-sm font-medium text-gray-700">Vote Tracker</span>
+                </div>
+                <span class="text-xs text-green-700 font-semibold">Active</span>
+              </div>
+
+              <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                  <span class="text-sm font-medium text-gray-700">Form Storage</span>
+                </div>
+                <span class="text-xs text-yellow-700 font-semibold">Setup Needed</span>
+              </div>
+
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                <p class="text-xs text-blue-800">
+                  <strong>Note:</strong> See ARCHITECTURE_SETUP.md for Supabase and Netlify configuration steps.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Board Members -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Board Members</h2>
+            <div class="space-y-2">
+              <p class="text-3xl font-bold text-orange-600">{boardMembersCount}</p>
+              <p class="text-sm text-gray-600">Active trustees</p>
+              <a href="/school-board" class="text-sm text-orange-600 hover:text-orange-700 font-medium inline-flex items-center gap-1 mt-2">
+                View all
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Documentation</h2>
+            <div class="space-y-2 text-sm">
+              <a href="https://github.com/realemal/orange-united" target="_blank" class="block text-orange-600 hover:text-orange-700 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub Repository
+              </a>
+              <a href="/ARCHITECTURE_SETUP.md" target="_blank" class="block text-orange-600 hover:text-orange-700 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Setup Guide
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
