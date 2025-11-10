@@ -58,6 +58,9 @@ const ogImage = image || '/logo.png';
     {isProd && import.meta.env.PLAUSIBLE_DOMAIN && (
       <script defer data-domain={import.meta.env.PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
     )}
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <!-- Skip to main content link for accessibility -->
@@ -74,6 +77,19 @@ const ogImage = image || '/logo.png';
     <!-- Translation system -->
     <script>
       import '../scripts/translate.js';
+    </script>
+    
+    <!-- Netlify Identity redirect handler -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
     </script>
   </body>
 </html>
