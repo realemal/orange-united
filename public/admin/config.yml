@@ -105,3 +105,46 @@ collections:
             }
           - { label: "Google Analytics ID", name: "ga4Id", widget: "string", required: false }
 
+  # Vote Tracker - Meetings Collection
+  - name: "meetings"
+    label: "Board Meetings"
+    folder: "src/data/votes/meetings"
+    create: true
+    extension: "json"
+    identifier_field: id
+    fields:
+      - { label: "ID", name: "id", widget: "string", hint: "Format: YYYY-MM-DD" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Location", name: "location", widget: "string", default: "1401 N. Handy Street, Orange, CA 92867" }
+      - { label: "Agenda URL", name: "agendaUrl", widget: "string", required: false }
+      - { label: "Minutes URL", name: "minutesUrl", widget: "string", required: false }
+
+  # Vote Tracker - Agenda Items Collection
+  - name: "items"
+    label: "Agenda Items"
+    folder: "src/data/votes/items"
+    create: true
+    extension: "json"
+    identifier_field: id
+    fields:
+      - { label: "ID", name: "id", widget: "string", hint: "Unique identifier for this item" }
+      - { label: "Meeting ID", name: "meetingId", widget: "relation", collection: "meetings", value_field: "id", search_fields: ["id", "date"], display_fields: ["date"] }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Category", name: "category", widget: "select", options: ["Curriculum", "Budget", "Policy", "Personnel", "Facilities", "Other"], default: "Other" }
+      - { label: "Attachments", name: "attachments", widget: "list", required: false, field: { label: "URL", name: "url", widget: "string" } }
+
+  # Vote Tracker - Votes Collection
+  - name: "votes"
+    label: "Individual Votes"
+    folder: "src/data/votes/votes"
+    create: true
+    extension: "json"
+    identifier_field: id
+    fields:
+      - { label: "ID", name: "id", widget: "string", hint: "Auto-generate or use format: item-id-member-name" }
+      - { label: "Item ID", name: "itemId", widget: "relation", collection: "items", value_field: "id", search_fields: ["id", "title"], display_fields: ["title"] }
+      - { label: "Member", name: "memberId", widget: "select", options: ["erickson", "yamasaki", "page", "vane", "pelly", "thomas", "glass"], hint: "Trustee last name (lowercase)" }
+      - { label: "Vote", name: "vote", widget: "select", options: ["Y", "N", "A", "P"], hint: "Y=Yes, N=No, A=Abstain, P=Absent" }
+      - { label: "Notes", name: "notes", widget: "text", required: false }
+

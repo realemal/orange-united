@@ -1,0 +1,3 @@
+# This folder stores the generated search index
+# The index.json file is generated at build time by scripts/build-search-index.ts
+

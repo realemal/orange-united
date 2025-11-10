@@ -55,8 +55,8 @@ const ogImage = image || '/logo.png';
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
     
     <!-- Analytics - Plausible (privacy-friendly) -->
-    {isProd && (
-      <script defer data-domain="orangeunited.org" src="https://plausible.io/js/script.js"></script>
+    {isProd && import.meta.env.PLAUSIBLE_DOMAIN && (
+      <script defer data-domain={import.meta.env.PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
     )}
   </head>
   <body class="min-h-screen flex flex-col">
