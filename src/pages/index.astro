@@ -1,95 +1,143 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
-import SocialIcons from '../components/SocialIcons.astro';
 ---
 
 <BaseLayout
   title="Orange United - Protecting Parent Choice"
-  description="Parents and Schools. Together. Stay informed and get involved in Orange education."
+  description="Get weekly updates on Orange schools. Clear info about classrooms, safety, and budgets."
 >
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-orange-50/30 py-32 md:py-48">
-    <!-- Orange gradient orbs -->
-    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-400/20 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-300/20 rounded-full blur-3xl"></div>
-    
+  <!-- Hero with Email Signup -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 py-24 md:py-32">
     <div class="container-custom relative">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 mb-6 tracking-tight leading-none" data-translate="hero.title">
-          <span data-en="Parents and Schools." data-es="Padres y Escuelas.">Parents and Schools.</span><br/>
-          <span class="text-orange-500" data-en="Together." data-es="Juntos.">Together.</span>
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-tight">
+          <span data-en="Know What's Happening in " data-es="Sepa qué está sucediendo en las escuelas de ">Know What's Happening in </span><br class="hidden sm:block"/><span data-en="Orange Schools" data-es="Orange">Orange Schools</span>
         </h1>
-        <p class="text-xl md:text-2xl text-gray-700 mb-12 max-w-2xl mx-auto" data-translate="hero.subtitle">
-          <span data-en="Protecting parent choice in " data-es="Protegiendo la elección de los padres en la educación de ">Protecting parent choice in </span><span class="text-orange-600 font-semibold">Orange</span><span data-en=" education" data-es=""> education</span>
+        <p class="text-xl md:text-2xl text-orange-100 mb-10">
+          <span data-en="Weekly updates on classrooms, safety, and how your tax dollars are spent." data-es="Actualizaciones semanales sobre aulas, seguridad y cómo se gastan sus impuestos.">Weekly updates on classrooms, safety, and how your tax dollars are spent.</span>
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/school-board" class="group btn btn-primary text-base px-10 py-4 shadow-xl shadow-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/40">
-            <span data-en="Meet The School Board" data-es="Conoce la Junta Escolar">Meet The School Board</span>
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-          <a href="/articles" class="btn btn-outline text-base px-10 py-4 border-2">
-            <span data-en="Read Coverage" data-es="Leer Cobertura">Read Coverage</span>
-          </a>
+        
+        <!-- Inline Newsletter Signup -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl max-w-2xl mx-auto">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4" data-en="Join the Weekly Brief" data-es="Únase al Boletín Semanal">Join the Weekly Brief</h2>
+          <NewsletterForm />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Why We Exist -->
-  <section class="py-32 bg-white">
-    <div class="container-custom max-w-4xl">
-      <div class="text-center">
-        <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-12 tracking-tight">
-          <span data-en="Our " data-es="Nuestra ">Our </span><span class="text-orange-500" data-en="Mission" data-es="Misión">Mission</span>
-        </h2>
-        <div class="bg-gradient-to-br from-orange-50 to-white rounded-3xl p-12 md:p-16 shadow-lg border-2 border-orange-200">
-          <p class="text-2xl md:text-3xl text-gray-800 leading-relaxed mb-8 font-light">
-            <span data-en="We believe parents deserve clear, accessible information about what's happening in Orange schools." data-es="Creemos que los padres merecen información clara y accesible sobre lo que sucede en las escuelas de Orange.">We believe parents deserve clear, accessible information about what's happening in Orange schools.</span>
+  <!-- Three Priority Tiles -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Transparency Tile -->
+        <a href="/articles/transparency-weekly-window" class="group block bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-2 border-blue-200 hover:border-blue-400 hover:shadow-xl transition-all">
+          <div class="flex items-center justify-center w-16 h-16 bg-blue-500 rounded-xl mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">
+            <span data-en="Transparency" data-es="Transparencia">Transparency</span>
+          </h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <span data-en="Parents deserve weekly updates on what's being taught in classrooms." data-es="Los padres merecen actualizaciones semanales sobre lo que se enseña en las aulas.">Parents deserve weekly updates on what's being taught in classrooms.</span>
           </p>
-          <div class="h-1 bg-gradient-to-r from-orange-200 via-orange-400 to-orange-200 rounded-full my-12"></div>
-          <p class="text-xl text-gray-700 leading-relaxed mb-8" data-en="We attend school board meetings, track education policy decisions, and provide parents with information to engage effectively in their children's education." data-es="Asistimos a reuniones de la junta escolar, rastreamos decisiones de política educativa y proporcionamos a los padres información para participar efectivamente en la educación de sus hijos.">
-            We attend school board meetings, track education policy decisions, and provide parents with information to engage effectively in their children's education.
-          </p>
-          <a href="/school-board" class="btn btn-primary inline-flex items-center gap-2" data-en="Learn About The Board" data-es="Conoce la Junta">
-            Learn About The Board
+          <span class="text-blue-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+            <span data-en="Read the plan" data-es="Lea el plan">Read the plan</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
-        </div>
+          </span>
+        </a>
+
+        <!-- Safety Tile -->
+        <a href="/articles/safety-restoring-order" class="group block bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border-2 border-green-200 hover:border-green-400 hover:shadow-xl transition-all">
+          <div class="flex items-center justify-center w-16 h-16 bg-green-500 rounded-xl mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">
+            <span data-en="Safety & Order" data-es="Seguridad y Orden">Safety & Order</span>
+          </h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <span data-en="Clear rules, real consequences, and safe campuses for all students." data-es="Reglas claras, consecuencias reales y campus seguros para todos los estudiantes.">Clear rules, real consequences, and safe campuses for all students.</span>
+          </p>
+          <span class="text-green-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+            <span data-en="See the policy" data-es="Vea la política">See the policy</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </a>
+
+        <!-- Fiscal Tile -->
+        <a href="/articles/fiscal-classrooms-first" class="group block bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-400 hover:shadow-xl transition-all">
+          <div class="flex items-center justify-center w-16 h-16 bg-purple-500 rounded-xl mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">
+            <span data-en="Classrooms First" data-es="Aulas Primero">Classrooms First</span>
+          </h3>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <span data-en="Stop paying consultants. Fund teachers, textbooks, and core curriculum." data-es="Deje de pagar consultores. Financie maestros, libros de texto y plan de estudios básico.">Stop paying consultants. Fund teachers, textbooks, and core curriculum.</span>
+          </p>
+          <span class="text-purple-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+            <span data-en="Follow the money" data-es="Siga el dinero">Follow the money</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </a>
+
       </div>
     </div>
   </section>
 
-  <!-- Stay Connected -->
-  <section id="newsletter" class="py-32 bg-gradient-to-br from-gray-50 to-orange-50">
+  <!-- Next Board Meeting Card -->
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-orange-50">
     <div class="container-custom">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
-          <span data-en="Stay " data-es="Mantente ">Stay </span><span class="text-orange-500" data-en="Connected" data-es="Conectado">Connected</span>
-        </h2>
-        <p class="text-xl text-gray-700 mb-12" data-en="Get board meeting recaps, curriculum updates, and action alerts." data-es="Recibe resúmenes de reuniones, actualizaciones curriculares y alertas de acción.">
-          Get board meeting recaps, curriculum updates, and action alerts.
-        </p>
-        <div class="bg-white rounded-3xl p-10 border-2 border-orange-200 shadow-xl shadow-orange-500/10">
-          <NewsletterForm />
-        </div>
-        <div class="mt-10 flex flex-col items-center gap-6">
-          <div class="flex items-center gap-4 text-gray-700">
-            <a href="mailto:info@orangeunited.org" class="flex items-center gap-2 hover:text-orange-600 transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              info@orangeunited.org
-            </a>
-          </div>
-          <div class="flex flex-col items-center gap-2">
-            <span class="text-sm text-gray-600 uppercase tracking-wider">Follow us on social</span>
-            <SocialIcons />
+      <div class="max-w-2xl mx-auto">
+        <div class="bg-white rounded-2xl p-10 border-2 border-orange-300 shadow-xl">
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0">
+              <div class="w-20 h-20 bg-orange-500 rounded-xl flex items-center justify-center">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-3xl font-bold text-gray-900 mb-2">
+                <span data-en="Next Board Meeting" data-es="Próxima Reunión de la Junta">Next Board Meeting</span>
+              </h3>
+              <p class="text-xl text-gray-700 mb-1">
+                <span data-en="First Tuesday of Every Month" data-es="Primer martes de cada mes">First Tuesday of Every Month</span>
+              </p>
+              <p class="text-lg text-gray-600 mb-6">
+                6:00 PM | 1401 N. Handy Street, Orange, CA 92867
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a href="/board-meeting.ics" download class="btn btn-primary inline-flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span data-en="Add to Calendar" data-es="Agregar al Calendario">Add to Calendar</span>
+                </a>
+                <a href="/events" class="btn btn-secondary inline-flex items-center justify-center gap-2">
+                  <span data-en="View All Events" data-es="Ver Todos los Eventos">View All Events</span>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
