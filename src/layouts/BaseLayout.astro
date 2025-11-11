@@ -80,11 +80,11 @@ const ogImage = image || '/logo.png';
     </script>
     
     <!-- Netlify Identity redirect handler -->
-    <script is:inline>
+    <script>
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
+        window.netlifyIdentity?.on("init", (user) => {
           if (!user) {
-            window.netlifyIdentity.on("login", () => {
+            window.netlifyIdentity?.on("login", () => {
               document.location.href = "/admin/";
             });
           }

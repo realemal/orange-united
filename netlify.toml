@@ -6,6 +6,16 @@
   directory = "netlify/functions"
 
 [[redirects]]
+  from = "/api/submissions"
+  to = "/.netlify/functions/admin-submissions"
+  status = 200
+
+[[redirects]]
+  from = "/api/submissions.csv"
+  to = "/.netlify/functions/admin-submissions-csv"
+  status = 200
+
+[[redirects]]
   from = "/admin"
   to = "/admin/index.html"
   status = 200

@@ -1,43 +1,70 @@
 import type { Handler } from '@netlify/functions'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.SUPABASE_URL!
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE!
-const supabase = createClient(supabaseUrl, supabaseKey)
+const supabase = createClient(
+  process.env.SUPABASE_URL!, 
+  process.env.SUPABASE_SERVICE_ROLE!
+)
 
 export const handler: Handler = async (event) => {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' }
+  }
+
+  let payload: any
   try {
-    if (event.httpMethod !== 'POST') {
-      return { statusCode: 405, body: 'Method Not Allowed' }
+    // Try JSON first (Netlify form webhook)
+    payload = JSON.parse(event.body || '{}')
+  } catch {
+    // Fallback to form-encoded (sometimes Netlify sends this)
+    const params = new URLSearchParams(event.body || '')
+    payload = Object.fromEntries(params.entries())
+  }
+
+  // Extract form data (handle both wrapped and direct formats)
+  const data = payload?.payload ?? payload
+  
+  const form = data.form_name || data.form || 'unknown'
+  const name = data.data?.name || data.name || ''
+  const email = data.data?.email || data.email || data._replyto || ''
+  const message = data.data?.message || data.message || data.body || ''
+  const subject = data.data?.subject || data.subject || ''
+  const tags = (data.data?.tags && Array.isArray(data.data.tags)) 
+    ? data.data.tags 
+    : (data.tags && Array.isArray(data.tags)) 
+      ? data.tags 
+      : []
+
+  const userAgent = event.headers['user-agent'] || ''
+  const ip = event.headers['x-nf-client-connection-ip'] || event.headers['x-forwarded-for'] || ''
+
+  // Insert into Supabase
+  const { error } = await supabase.from('submissions').insert({
+    form,
+    name,
+    email,
+    message: subject ? `${subject}\n\n${message}` : message,
+    tags,
+    user_agent: userAgent,
+    ip,
+    raw: data
+  })
+
+  if (error) {
+    console.error('Supabase insert error:', error)
+    return { 
+      statusCode: 500, 
+      body: JSON.stringify({ ok: false, error: error.message }),
+      headers: { 'content-type': 'application/json' }
     }
+  }
 
-    const payload = JSON.parse(event.body || '{}')
-    // Netlify form notifications often wrap submission in { payload: {...} }
-    const data = payload?.payload ?? payload
-
-    const form = data?.form_name || 'unknown'
-    const name = data?.data?.name ?? data?.name ?? null
-    const email = data?.data?.email ?? data?.email ?? null
-    const message = data?.data?.message ?? data?.message ?? null
-    const tags = Array.isArray(data?.data?.tags) ? data.data.tags : []
-
-    const userAgent = event.headers['user-agent'] || null
-    const ip = (event.headers['x-nf-client-connection-ip'] || event.headers['x-forwarded-for'] || null) as any
-
-    const { error } = await supabase
-      .from('submissions')
-      .insert({ form, name, email, message, tags, user_agent: userAgent, ip, raw: data })
-
-    if (error) {
-      console.error('Supabase insert error', error)
-      return { statusCode: 500, body: 'Failed to store submission' }
-    }
-
-    // Netlify will still forward the email as configured; nothing else to do
-    return { statusCode: 200, body: 'Stored' }
-  } catch (e) {
-    console.error('Handler error', e)
-    return { statusCode: 500, body: 'Internal Error' }
+  // Netlify will still forward the email as configured
+  return { 
+    statusCode: 200, 
+    body: JSON.stringify({ ok: true }),
+    headers: { 'content-type': 'application/json' }
   }
 }
+
 
