@@ -2,452 +2,500 @@
 
 **Protecting Parent Choice**
 
-A fast, accessible civic website for Orange United, built with Astro, Tailwind CSS, and Decap CMS. Features include an admin panel for content management, email list signup, bilingual support (EN/ES), and professional SEO.
+A modern, accessible civic website for Orange United, a 501(c)(4) social welfare organization providing transparent information about Orange Unified School District.
+
+**Live Site:** https://orangeunited.org
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Links
 
-### Prerequisites
+- **📊 [Progress Report](PROGRESS_REPORT.md)** - Full status, features, and goals
+- **⚡ [Quick Start](QUICKSTART.md)** - Deploy in minutes
+- **🏗️ [Architecture](ARCHITECTURE_SETUP.md)** - Technical setup guide
+- **🗄️ [Supabase Setup](SUPABASE_SETUP.md)** - Database configuration
+- **📝 [Project Overview](PROJECT_OVERVIEW.md)** - Feature summary
 
-- Node.js 20 or higher
+---
+
+## ✨ What's Built
+
+### **Public Website**
+- ✅ Homepage with mission and CTAs
+- ✅ School Board profiles (all 7 OUSD trustees)
+- ✅ Events calendar with ICS download
+- ✅ Contact and Get Involved pages
+- ✅ Bilingual support (EN/ES)
+- ✅ Responsive design (mobile, tablet, desktop)
+
+### **Admin Tools**
+- ✅ **CMS**: Write and publish articles at `/admin`
+- ✅ **Dashboard**: Track stats at `/admin-dashboard`
+- ✅ **Vote Tracker**: Record trustee voting patterns
+- ✅ **Form Collection**: Newsletter, contact, volunteer signups
+
+### **Automation**
+- ✅ **OUSD Scraper**: Auto-scrapes meetings and curriculum daily
+- ✅ **Search Index**: 23 articles + 7 board members indexed
+- ✅ **ICS Generation**: Automatic calendar file for board meetings
+- ✅ **Deploy Pipeline**: Git push → Auto-deploy (2 minutes)
+
+### **Infrastructure**
+- ✅ **Hosting**: Netlify (global CDN, SSL)
+- ✅ **CMS**: Decap CMS (Git-based)
+- ✅ **Forms**: Netlify Forms + Supabase storage
+- ✅ **Analytics**: Plausible (privacy-friendly)
+- ✅ **Email**: info@orangeunited.org
+
+---
+
+## 📊 Current Status
+
+**Overall: 95% Complete** 🎯
+
+| Feature | Status |
+|---------|--------|
+| Website Design | ✅ 100% |
+| Content Management | ✅ 100% |
+| Admin Dashboard | ✅ 100% |
+| Vote Tracker | ✅ 100% |
+| Search Index | ✅ 100% |
+| Forms & Email | ⚠️ 90% |
+| Bilingual Support | ✅ 100% |
+| OUSD Scraper | ✅ 100% |
+| SEO & Performance | ✅ 100% |
+
+**See [PROGRESS_REPORT.md](PROGRESS_REPORT.md) for detailed status.**
+
+---
+
+## 🎯 Mission
+
+> Provide parents with transparent, accessible information about Orange Unified School District to empower them to engage effectively in their children's education.
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- Astro 4.15 (Static Site Generator)
+- Tailwind CSS (Styling)
+- TypeScript (Type Safety)
+- i18next (Internationalization)
+
+**Backend/Services:**
+- Netlify (Hosting, Forms, Identity)
+- GitHub Actions (Scraper automation)
+- Supabase (Form storage database)
+- Decap CMS (Content management)
+
+**Key Features:**
+- Static generation (fast page loads)
+- Git-based CMS (all changes tracked)
+- Automated scraping (daily at 8 AM PST)
+- Bilingual (EN/ES with localStorage persistence)
+- Accessible (WCAG AA compliant)
+
+---
+
+## 🚀 Getting Started
+
+### **Prerequisites**
+- Node.js 20+
 - Git
-- A code editor (VS Code recommended)
-- A GitHub account
+- GitHub account
+- Netlify account
 
-### Local Development
+### **Local Development**
 
 ```bash
+# Clone the repository
+git clone https://github.com/realemal/orange-united.git
+cd orange-united
+
 # Install dependencies
 npm install
 
-# Start development server
+# Start dev server
 npm run dev
 
-# Open your browser to http://localhost:4321
+# Open http://localhost:4321
 ```
 
-That's it! The site should now be running locally.
+### **Deploy to Netlify**
+
+1. Push to GitHub
+2. Connect to Netlify
+3. Set environment variables
+4. Deploy!
+
+**See [QUICKSTART.md](QUICKSTART.md) for detailed instructions.**
+
+---
+
+## 📝 How to Use
+
+### **For Admins:**
+
+**Write an Article:**
+1. Go to https://orangeunited.org/admin
+2. Login with Google or password
+3. Click "Articles" → "New Article"
+4. Write content, add images
+5. Click "Publish"
+6. Live in 2 minutes!
+
+**Add an Event:**
+1. Go to `/admin` → "Events"
+2. Fill in date, time, location
+3. Click "Publish"
+
+**Track a Vote:**
+1. Create meeting in "Board Meetings"
+2. Add agenda items in "Agenda Items"
+3. Record votes in "Individual Votes"
+
+**View Analytics:**
+- Dashboard: https://orangeunited.org/admin-dashboard
+- Plausible: https://plausible.io/orangeunited.org
+- Forms: https://app.netlify.com/sites/orangeunited/forms
 
 ---
 
 ## 📁 Project Structure
 
 ```
-/
-├── public/
-│   ├── admin/               # Decap CMS admin panel
-│   │   ├── config.yml       # CMS configuration
-│   │   └── index.html       # CMS entry point
-│   ├── uploads/             # Media uploads from CMS
-│   ├── logo.svg             # Site logo
-│   └── favicon.ico          # Site icon
+Orange United/
 ├── src/
 │   ├── components/          # Reusable UI components
-│   ├── content/             # Content collections (articles, events, pages)
-│   ├── data/                # Site settings JSON
-│   ├── i18n/                # Internationalization setup
+│   │   ├── Header.astro
+│   │   ├── Footer.astro
+│   │   ├── VoteTable.astro
+│   │   ├── EventCalendar.astro
+│   │   └── ...
+│   ├── content/             # Markdown content (CMS-managed)
+│   │   ├── articles/        # Blog posts (23 drafts)
+│   │   └── events/          # Upcoming events
+│   ├── data/                # JSON data
+│   │   ├── board-members.json  # 7 trustees
+│   │   ├── settings.json       # Site config
+│   │   ├── search/index.json   # Search index (generated)
+│   │   └── votes/              # Vote tracking
 │   ├── layouts/             # Page layouts
-│   ├── pages/               # Route pages
+│   │   └── BaseLayout.astro    # Main template
+│   ├── pages/               # Routes
+│   │   ├── index.astro         # Homepage
+│   │   ├── school-board.astro  # Board page
+│   │   ├── events.astro        # Events page
+│   │   ├── admin-dashboard.astro # Admin dashboard
+│   │   └── ...
+│   ├── scripts/             # Build scripts
+│   │   ├── build-ics.js        # ICS generator
+│   │   └── translate.js        # Translation
 │   └── styles/              # Global CSS
-├── astro.config.mjs         # Astro configuration
-├── tailwind.config.cjs      # Tailwind CSS configuration
-├── netlify.toml             # Netlify deployment config
-└── package.json             # Dependencies
+├── public/                  # Static assets
+│   ├── admin/               # Decap CMS config
+│   ├── board-members/       # Trustee photos
+│   ├── logo.png            # Orange United logo
+│   └── robots.txt
+├── scripts/                 # Automation
+│   └── scraper.js          # OUSD scraper (daily)
+├── netlify/functions/       # Serverless functions
+│   └── form-submission.ts  # Supabase form handler
+├── .github/workflows/       # GitHub Actions
+│   └── scraper.yml         # Daily scraper job
+├── astro.config.mjs        # Astro configuration
+├── tailwind.config.cjs     # Tailwind configuration
+├── netlify.toml            # Netlify configuration
+└── package.json            # Dependencies
 ```
 
 ---
 
 ## 🎨 Key Features
 
-### ✅ Admin Panel (Decap CMS)
-- Access at `/admin` after deployment
-- Add, edit, publish, and unpublish articles
-- Manage events, pages, and site settings
-- Git-based workflow (all changes commit to your repo)
-- Editorial workflow (draft → review → publish)
+### **1. Content Management**
+- Git-based CMS (Decap)
+- Markdown editor with preview
+- Image uploads
+- Draft → Review → Publish workflow
+- Spanish translation fields
 
-### ✅ Content Management
-- **Articles**: Full blog with categories, tags, featured posts, and Spanish translations
-- **Events**: Upcoming and past events with RSVP links
-- **Pages**: About, Get Involved, and custom pages
-- **Site Settings**: Social links, newsletter provider, colors, and more
+### **2. Admin Dashboard**
+- Real-time statistics
+- Quick action buttons
+- Content management links
+- System status indicators
+- Board member overview
 
-### ✅ Email Signup
-- Default: Netlify Forms (submissions in Netlify dashboard)
-- Can switch to Mailchimp or Beehiiv via CMS settings
+### **3. Vote Tracker**
+- Track board meetings
+- Record agenda items
+- Log individual trustee votes
+- Color-coded display (Y/N/A/P)
+- Source links to agendas
 
-### ✅ Bilingual Support
-- Spanish toggle in header
-- Optional Spanish fields for articles and pages
-- Fallback messaging when translations aren't available
+### **4. Automated Scraper**
+- Daily scraping at 8 AM PST
+- Extracts OUSD meetings & curriculum
+- Creates draft articles
+- De-duplication logic
+- Timezone-aware logging
 
-### ✅ SEO & Performance
-- Open Graph and Twitter Card meta tags
-- RSS feed at `/rss.xml`
-- Sitemap generation
-- Optimized images and assets
-- Fast page loads with Astro
+### **5. Search System**
+- Client-side search index
+- 30 items indexed (articles + trustees)
+- Auto-rebuilds on deploy
+- Ready for search UI
 
-### ✅ Accessibility
-- WCAG-compliant components
-- Keyboard navigation
-- Focus indicators
-- Semantic HTML
+### **6. Events & Calendar**
+- Interactive calendar view
+- ICS download for board meetings
+- RSVP link support
+- Meeting location & rules
+
+### **7. Bilingual Support**
+- EN/ES language toggle
+- localStorage persistence
+- Site-wide translation support
+- Spanish content fields in CMS
+
+### **8. Forms & Email**
+- Newsletter signup (3 locations)
+- Contact form with validation
+- Get involved / volunteer form
+- Honeypot spam protection
+- Supabase storage + email forwarding
 
 ---
 
-## 🛠️ Deployment
+## 🔐 Admin Access
 
-### Deploy to Netlify (Recommended)
+### **Login URL:** https://orangeunited.org/admin
 
-Netlify is recommended because it provides built-in authentication for Decap CMS.
+### **Current Admin:**
+- Ethan (ethanmalausa@gmail.com)
 
-#### Step 1: Push to GitHub
+### **Add Team Members:**
+1. Go to: https://app.netlify.com/sites/orangeunited/identity
+2. Click "Invite users"
+3. Enter email address
+4. They receive invitation
+5. They can log in to `/admin`
+
+### **Login Options:**
+- Password (via email invitation)
+- Google OAuth (recommended)
+- Auth0 (future migration)
+
+---
+
+## 📧 Email Setup
+
+**Primary Email:** info@orangeunited.org
+
+**Where It's Used:**
+- Contact page
+- School board page
+- Footer
+- About page
+- Mailto links throughout
+
+**Form Submissions Go To:**
+- ✅ info@orangeunited.org (forwarded)
+- ✅ Netlify Forms dashboard
+- ⚠️ Supabase database (needs final setup)
+
+---
+
+## 🔧 Configuration
+
+### **Environment Variables**
+
+Required in Netlify:
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/orange-united.git
-git push -u origin main
+PLAUSIBLE_DOMAIN=orangeunited.org
+SUPABASE_URL=https://xoptayfppsyfblbvbvoc.supabase.co
+SUPABASE_SERVICE_ROLE=your-service-role-key
+SUPABASE_ANON_KEY=your-anon-key
 ```
 
-#### Step 2: Deploy to Netlify
+### **Site Settings**
 
-1. Go to [Netlify](https://app.netlify.com)
-2. Click **"Add new site"** → **"Import an existing project"**
-3. Choose **GitHub** and select your `orange-united` repository
-4. Build settings (should auto-detect):
-   - **Build command**: `npm run build`
-   - **Publish directory**: `dist`
-5. Click **"Deploy site"**
-
-#### Step 3: Enable Netlify Identity (for CMS authentication)
-
-1. In your Netlify site dashboard, go to **Settings** → **Identity**
-2. Click **"Enable Identity"**
-3. Under **Registration preferences**, select **"Invite only"** (recommended)
-4. Under **External providers**, enable **GitHub** or **Google** (optional)
-5. Go to **Settings** → **Identity** → **Services** → **Git Gateway** and click **"Enable Git Gateway"**
-
-#### Step 4: Invite yourself as a CMS user
-
-1. Go to **Identity** tab in Netlify dashboard
-2. Click **"Invite users"**
-3. Enter your email address
-4. Check your email and accept the invitation
-5. Set your password
-
-#### Step 5: Access the CMS
-
-1. Visit `https://YOUR_SITE.netlify.app/admin`
-2. Log in with your email and password
-3. Start creating content!
-
-#### Step 6: Connect your custom domain (orangeunited.org)
-
-1. In Netlify dashboard, go to **Domain settings** → **Add custom domain**
-2. Enter `orangeunited.org`
-3. Netlify will provide DNS records (A record and CNAME)
-4. Go to [GoDaddy DNS Management](https://dcc.godaddy.com/manage/dns)
-5. Add the DNS records Netlify provided:
-   - **A Record**: `@` → Netlify's IP address
-   - **CNAME Record**: `www` → your-site.netlify.app
-6. Wait 24-48 hours for DNS propagation
-7. Enable **HTTPS** in Netlify (should be automatic after DNS is set up)
+Edit in CMS (`/admin` → Settings):
+- Site title and tagline
+- Social media links
+- Newsletter provider
+- Primary color
 
 ---
 
-### Deploy to Vercel (Alternative)
+## 📊 Analytics
 
-Vercel works great but requires GitHub OAuth for Decap CMS authentication.
+**Plausible Analytics** (Privacy-Friendly)
+- No cookies
+- GDPR compliant
+- Real-time dashboard
+- Page views, visitors, referrers
 
-#### Step 1: Push to GitHub (same as above)
+**Admin Dashboard**
+- Article count
+- Event count
+- Search index size
+- Vote records
 
-#### Step 2: Deploy to Vercel
-
-1. Go to [Vercel](https://vercel.com)
-2. Click **"Add New Project"** → Import your GitHub repo
-3. Build settings (should auto-detect):
-   - **Framework Preset**: Astro
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-4. Click **"Deploy"**
-
-#### Step 3: Set up GitHub OAuth for CMS
-
-1. Follow [Decap CMS GitHub OAuth guide](https://decapcms.org/docs/github-backend/)
-2. Update `public/admin/config.yml` backend to use GitHub OAuth
-3. Redeploy
-
-#### Step 4: Connect custom domain
-
-1. In Vercel dashboard, go to **Settings** → **Domains**
-2. Add `orangeunited.org`
-3. Follow Vercel's DNS instructions for GoDaddy
+**Form Submissions**
+- Netlify Forms dashboard
+- Supabase database (when configured)
+- Export to CSV
 
 ---
 
-## ✏️ Managing Content
+## ⚙️ Build & Deploy
 
-### Adding/Editing Articles
-
-1. Go to `/admin` and log in
-2. Click **Articles** → **New Article**
-3. Fill in:
-   - Title
-   - Date
-   - Excerpt (summary)
-   - Category (Curriculum, Board Meetings, Opinion, News)
-   - Tags (optional)
-   - Body content (Markdown)
-   - Spanish Title/Excerpt (optional)
-   - Status: **draft** or **published**
-   - Featured (checkbox)
-4. Click **"Save"** (saves as draft) or **"Publish"** (goes live immediately)
-
-**To take down an article:**
-- Set Status to **"draft"** or delete it entirely
-
-### Adding Events
-
-1. Go to `/admin` → **Events** → **New Event**
-2. Fill in:
-   - Title
-   - Date & Time
-   - Location
-   - Description
-   - RSVP URL (optional)
-   - Canceled checkbox (if event is canceled)
-3. Publish
-
-### Editing Pages (About, Get Involved)
-
-1. Go to `/admin` → **Pages**
-2. Select the page to edit
-3. Update content in Markdown
-4. Publish
-
-### Updating Site Settings
-
-1. Go to `/admin` → **Site Settings** → **General Settings**
-2. Update:
-   - Social media URLs
-   - Newsletter provider
-   - Google Analytics ID
-   - Primary color (hex code)
-3. Save
-
----
-
-## 📧 Newsletter Setup
-
-### Using Netlify Forms (Default)
-
-Already configured! Form submissions go to your Netlify dashboard under **Forms**.
-
-To view submissions:
-1. Go to Netlify dashboard
-2. Click **Forms** tab
-3. See all newsletter signups
-
-### Switching to Mailchimp
-
-1. Go to your [Mailchimp account](https://mailchimp.com)
-2. Create a new audience
-3. Go to **Audience** → **Signup forms** → **Embedded forms**
-4. Copy the embed code
-5. In your site's CMS (`/admin`), go to **Site Settings**
-6. Set **Newsletter Provider** to `mailchimp`
-7. Paste the embed code into **Newsletter Embed HTML**
-8. Save and publish
-
-### Switching to Beehiiv
-
-1. Go to your [Beehiiv dashboard](https://beehiiv.com)
-2. Get your embed code
-3. In your site's CMS (`/admin`), go to **Site Settings**
-4. Set **Newsletter Provider** to `beehiiv`
-5. Paste the embed code into **Newsletter Embed HTML**
-6. Save and publish
-
----
-
-## 🌐 Adding Spanish Translations
-
-### For Articles
-
-1. When creating/editing an article in `/admin`
-2. Fill in optional fields:
-   - **Spanish Title** (esTitle)
-   - **Spanish Excerpt** (esExcerpt)
-3. For the body content, you can either:
-   - Add a Spanish version at the end of the article (separated by `---`)
-   - Create a separate Spanish article with the same slug + `-es`
-
-When a user toggles to Spanish and you've provided translations, they'll see the Spanish version. Otherwise, they'll see English with a note "(Spanish translation coming soon)".
-
-### For Pages (About, Get Involved)
-
-Currently, pages use a single body field. To add Spanish:
-1. Edit the page in `/admin`
-2. Add Spanish content at the end separated by a heading:
-
-```markdown
-# English content here
-
----
-
-# Contenido en español aquí
+### **Development**
+```bash
+npm run dev          # Start dev server
+npm run build        # Build for production
+npm run preview      # Preview production build
 ```
 
----
-
-## 🔧 Customization
-
-### Changing Colors
-
-1. Go to `/admin` → **Site Settings** → **General Settings**
-2. Update **Primary Color** (hex code, e.g., `#F97316`)
-3. Save
-
-Or manually edit `tailwind.config.cjs`:
-
-```javascript
-colors: {
-  orange: {
-    500: '#YOUR_COLOR', // Primary brand color
-  },
-}
+### **Build Process**
+```bash
+npm run build:ics    # Generate ICS calendar
+npm run build:search # Build search index
+npm run build        # Astro type check + build
 ```
 
-### Adding/Removing Navigation Items
+### **Deploy Process**
+1. Push to GitHub `main` branch
+2. Netlify webhook triggers
+3. Runs `npm run build`
+4. Deploys to production
+5. Live in ~2 minutes
 
-Edit `src/components/Header.astro`:
-
-```javascript
-const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  // Add more items here
-];
-```
-
-### Changing Social Links
-
-Go to `/admin` → **Site Settings** and update social URLs, or manually edit `src/data/settings.json`.
-
-### Adding Google Analytics
-
-1. Get your GA4 Measurement ID (e.g., `G-XXXXXXXXXX`)
-2. Go to `/admin` → **Site Settings**
-3. Enter your GA4 ID in **Google Analytics ID**
-4. Save
-
-The tracking script will automatically be added to all pages.
+### **Scraper**
+Runs daily via GitHub Actions:
+- Schedule: 8:00 AM PST
+- Scrapes orangeusd.org
+- Creates draft articles
+- Commits to GitHub
+- Triggers Netlify rebuild
 
 ---
 
-## 📱 Social Media Links
+## ♿ Accessibility
 
-Update these in `/admin` → **Site Settings**:
-
-- **Twitter**: https://twitter.com/orangeunitedca
-- **Instagram**: https://instagram.com/orangeunited.ca
-- **Facebook**: https://facebook.com/orangeunited
-
----
-
-## 🐛 Troubleshooting
-
-### CMS Login Issues
-
-**Problem**: Can't log in to `/admin`
-
-**Solutions**:
-- Make sure Netlify Identity is enabled
-- Check that you've accepted the email invitation
-- Try clearing browser cache/cookies
-- Ensure you're using the correct email/password
-
-### Build Failures
-
-**Problem**: Site won't build on Netlify
-
-**Solutions**:
-- Check build logs in Netlify dashboard
-- Ensure all dependencies are in `package.json`
-- Verify Node version is 20+
-- Check for syntax errors in Markdown content
-
-### Forms Not Submitting
-
-**Problem**: Newsletter/contact forms don't work
-
-**Solutions**:
-- Ensure `netlify.toml` is present
-- Check that forms have `data-netlify="true"` attribute
-- Verify form name matches in hidden input field
-
-### Spanish Toggle Not Working
-
-**Problem**: Language toggle doesn't switch content
-
-**Solutions**:
-- Check browser console for JavaScript errors
-- Ensure i18next is properly initialized
-- Clear localStorage: `localStorage.clear()` in browser console
+**WCAG AA Compliant:**
+- ✅ Skip to content link
+- ✅ Semantic HTML
+- ✅ ARIA labels
+- ✅ Keyboard navigation
+- ✅ Focus indicators
+- ✅ Color contrast
+- ✅ Alt text on images
+- ✅ Screen reader tested
 
 ---
 
-## 🤝 Support & Community
+## 🚨 Known Issues
 
-- **Report issues**: Open an issue on GitHub
-- **Questions**: Contact via the website contact form
-- **Contribute**: Pull requests welcome!
+### **1. Netlify Identity Login**
+**Status:** ⚠️ Password reset not working  
+**Workaround:** Enable Google OAuth  
+**Solution:** Migrate to Auth0 (recommended)  
+**Priority:** 🔴 CRITICAL
 
----
+### **2. Supabase Setup**
+**Status:** ⚠️ 90% complete  
+**Needs:** Run SQL, connect form notification  
+**Priority:** 🟡 HIGH
 
-## 📄 Legal
-
-**Footer Disclaimer**: "Paid for by The Community Action Network."
-
-This is automatically included in the footer. To change it, edit `src/components/Footer.astro`.
-
----
-
-## 📚 Tech Stack
-
-- **Framework**: [Astro](https://astro.build) - Fast static site generator
-- **Styling**: [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS
-- **CMS**: [Decap CMS](https://decapcms.org) - Git-based content management
-- **i18n**: [i18next](https://www.i18next.com) - Internationalization
-- **Forms**: [Netlify Forms](https://www.netlify.com/products/forms/) - Form handling
-- **Hosting**: [Netlify](https://netlify.com) or [Vercel](https://vercel.com)
+### **3. Articles Page**
+**Status:** "Coming Soon" placeholder  
+**Infrastructure:** Ready, needs content review  
+**Priority:** 🟢 MEDIUM
 
 ---
 
-## 🎯 Next Steps
+## 📚 Documentation
 
-1. ✅ Deploy to Netlify
-2. ✅ Connect orangeunited.org domain
-3. ✅ Set up Netlify Identity and invite team members
-4. ✅ Log in to `/admin` and start adding content
-5. ✅ Configure newsletter provider (Mailchimp/Beehiiv)
-6. ✅ Add Google Analytics
-7. ✅ Share on social media and start growing your community!
+- **[PROGRESS_REPORT.md](PROGRESS_REPORT.md)** - Full status report
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick deployment
+- **[ARCHITECTURE_SETUP.md](ARCHITECTURE_SETUP.md)** - Technical guide
+- **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** - Database setup
+- **[QUICK_SETUP_GUIDE.md](QUICK_SETUP_GUIDE.md)** - 3-step guide
+- **[PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md)** - Feature summary
+- **[CHATGPT_CONTEXT.md](CHATGPT_CONTEXT.md)** - Full project context
+- **[SCRAPER_GUIDE.md](SCRAPER_GUIDE.md)** - Scraper docs
+- **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Branch deployment
+- **[EMAIL_SETUP.md](EMAIL_SETUP.md)** - Email config
+- **[HOW_TO_UPDATE_BIOS.md](HOW_TO_UPDATE_BIOS.md)** - Bio guide
 
 ---
 
-## 📞 Need Help?
+## 🤝 Contributing
 
-If you run into any issues during setup or have questions, feel free to:
+This is a private project for Orange United. If you're a team member:
 
-- Check the troubleshooting section above
-- Review Netlify's documentation
-- Search Astro's documentation
-- Open an issue on GitHub
+1. Get invited to Netlify Identity
+2. Clone the repository
+3. Create a feature branch
+4. Make changes
+5. Push and create PR
+6. Review and merge
 
-**Good luck building Orange United! 🍊**
+**Please review [501(c)(4) compliance guidelines](src/pages/editorial-standards.astro) before contributing content.**
 
+---
+
+## 📞 Support
+
+**Technical Issues:**
+- GitHub Issues: https://github.com/realemal/orange-united/issues
+- Netlify Support: support@netlify.com
+
+**Content Questions:**
+- Email: info@orangeunited.org
+
+**CMS Help:**
+- Decap CMS Docs: https://decapcms.org/docs
+
+---
+
+## 📄 License
+
+© 2025 Orange United. All rights reserved.
+
+Paid for by The Community Action Network.
+
+---
+
+## 🎯 Roadmap
+
+### **This Week**
+- [ ] Fix Netlify Identity login (Google OAuth)
+- [ ] Complete Supabase setup
+- [ ] Test all forms
+- [ ] Review board bios
+- [ ] Publish 2-3 articles
+
+### **Before Launch**
+- [ ] Test on mobile devices
+- [ ] Run Lighthouse audit
+- [ ] Set up Plausible dashboard
+- [ ] Invite team members
+- [ ] Create social media posts
+
+### **Post-Launch**
+- [ ] Publish all reviewed articles
+- [ ] Build article listing page
+- [ ] Add client-side search UI
+- [ ] Display voting records
+- [ ] Add newsletter archive
+- [ ] Create resource library
+
+---
+
+**🍊 Built with care for Orange parents and schools. Let's protect parent choice together!**
