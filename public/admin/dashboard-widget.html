@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Orange United</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    .gradient-orange { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
+    .gradient-blue { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+    .gradient-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+    .gradient-purple { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 via-white to-orange-50 min-h-screen">
+  
+  <!-- Top Navigation Bar -->
+  <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-4">
+          <img src="/logo.png" alt="Orange United" class="w-12 h-12 rounded-full shadow-md">
+          <div>
+            <h1 class="text-2xl font-black text-gray-900">Orange United</h1>
+            <p class="text-sm text-gray-500">Admin Dashboard</p>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="flex items-center gap-3">
+          <a href="/admin/cms" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 font-semibold text-sm transition shadow-md hover:shadow-lg">
+            ✏️ Edit Content
+          </a>
+          <a href="https://orangeunited.org" target="_blank" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-semibold text-sm transition">
+            🌐 View Site
+          </a>
+          <button onclick="logout()" class="text-sm text-gray-600 hover:text-gray-900 font-medium">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    
+    <!-- Welcome Message -->
+    <div class="mb-8 fade-in">
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back! 👋</h2>
+      <p class="text-lg text-gray-600">Here's what's happening with Orange United</p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="gradient-orange rounded-2xl p-6 shadow-lg hover:shadow-xl transition fade-in text-white">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 rounded-xl">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+        </div>
+        <div id="total-submissions" class="text-4xl font-black mb-1">-</div>
+        <div class="text-sm text-orange-100 font-medium">Total Submissions</div>
+      </div>
+
+      <div class="gradient-blue rounded-2xl p-6 shadow-lg hover:shadow-xl transition fade-in text-white">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 rounded-xl">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+          </div>
+        </div>
+        <div id="newsletter-count" class="text-4xl font-black mb-1">-</div>
+        <div class="text-sm text-blue-100 font-medium">Newsletter Signups</div>
+      </div>
+
+      <div class="gradient-green rounded-2xl p-6 shadow-lg hover:shadow-xl transition fade-in text-white">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 rounded-xl">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </div>
+        </div>
+        <div id="contact-count" class="text-4xl font-black mb-1">-</div>
+        <div class="text-sm text-green-100 font-medium">Contact Messages</div>
+      </div>
+
+      <div class="gradient-purple rounded-2xl p-6 shadow-lg hover:shadow-xl transition fade-in text-white">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 rounded-xl">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+        </div>
+        <div id="volunteer-count" class="text-4xl font-black mb-1">-</div>
+        <div class="text-sm text-purple-100 font-medium">Volunteer Requests</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions Bar -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8 fade-in">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <a href="/admin/cms#/collections/articles/new" class="group flex items-center gap-3 p-4 rounded-xl bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 hover:border-orange-400 transition">
+          <div class="p-2 bg-orange-600 rounded-lg group-hover:scale-110 transition">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+          </div>
+          <span class="font-semibold text-gray-900">New Article</span>
+        </a>
+
+        <a href="/admin/cms#/collections/events/new" class="group flex items-center gap-3 p-4 rounded-xl bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-400 transition">
+          <div class="p-2 bg-blue-600 rounded-lg group-hover:scale-110 transition">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <span class="font-semibold text-gray-900">New Event</span>
+        </a>
+
+        <a href="/api/submissions.csv" download class="group flex items-center gap-3 p-4 rounded-xl bg-green-50 hover:bg-green-100 border-2 border-green-200 hover:border-green-400 transition">
+          <div class="p-2 bg-green-600 rounded-lg group-hover:scale-110 transition">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <span class="font-semibold text-gray-900">Export CSV</span>
+        </a>
+
+        <a href="/admin/cms" class="group flex items-center gap-3 p-4 rounded-xl bg-purple-50 hover:bg-purple-100 border-2 border-purple-200 hover:border-purple-400 transition">
+          <div class="p-2 bg-purple-600 rounded-lg group-hover:scale-110 transition">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </div>
+          <span class="font-semibold text-gray-900">Full CMS</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Email Submissions Section -->
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 fade-in">
+      <div class="p-6 border-b border-gray-100">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="p-3 bg-orange-100 rounded-xl">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900">Email Submissions</h2>
+              <p class="text-sm text-gray-500">Newsletter signups, contacts, and volunteer requests</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <select id="form-filter" onchange="loadSubmissions()" class="px-4 py-2 border-2 border-gray-200 rounded-lg text-sm font-medium focus:border-orange-500 focus:outline-none">
+              <option value="">All Forms</option>
+              <option value="newsletter">📧 Newsletter</option>
+              <option value="contact">💬 Contact</option>
+              <option value="volunteer">🤝 Volunteer</option>
+            </select>
+            <button onclick="loadSubmissions()" class="p-2 hover:bg-gray-100 rounded-lg transition" title="Refresh">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="submissions-container" class="p-6">
+        <div class="flex items-center justify-center py-12">
+          <div class="text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-orange-600 mx-auto mb-4"></div>
+            <p class="text-gray-600 font-medium">Loading email submissions...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentPage = 1;
+    let totalSubmissions = 0;
+
+    async function loadSubmissions() {
+      const container = document.getElementById('submissions-container');
+      const formFilter = document.getElementById('form-filter').value;
+      
+      try {
+        let url = `/api/submissions?limit=50&page=${currentPage}`;
+        if (formFilter) url += `&form=${formFilter}`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          container.innerHTML = `
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-300 rounded-2xl p-8 text-center">
+              <svg class="w-20 h-20 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <p class="text-2xl font-bold text-yellow-800 mb-3">Setup Required</p>
+              <p class="text-yellow-700 mb-4">Complete Supabase configuration to view email submissions.</p>
+              <a href="/UNIFIED_ADMIN_GUIDE.md" target="_blank" class="inline-block px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 font-semibold">
+                View Setup Guide
+              </a>
+            </div>
+          `;
+          return;
+        }
+        
+        const data = await response.json();
+        const submissions = data.items || [];
+        totalSubmissions = data.total || 0;
+        
+        // Update stats with smooth animation
+        updateStat('total-submissions', totalSubmissions);
+        updateStat('newsletter-count', submissions.filter(s => s.form === 'newsletter' || s.form === 'newsletter-signup').length);
+        updateStat('contact-count', submissions.filter(s => s.form === 'contact').length);
+        updateStat('volunteer-count', submissions.filter(s => s.form === 'volunteer' || s.form === 'get-involved').length);
+        
+        if (submissions.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-16">
+              <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+              <p class="text-2xl font-bold text-gray-700 mb-2">No submissions yet</p>
+              <p class="text-gray-500 mb-6">Email submissions will appear here when people use your forms.</p>
+              <a href="https://orangeunited.org/contact" target="_blank" class="inline-block px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 font-semibold transition shadow-md hover:shadow-lg">
+                Test Contact Form →
+              </a>
+            </div>
+          `;
+          return;
+        }
+        
+        const html = submissions.map((s, index) => {
+          const formIcons = {
+            'newsletter': '📧',
+            'contact': '💬',
+            'volunteer': '🤝',
+            'donate-interest': '💰'
+          };
+          const formColors = {
+            'newsletter': 'from-blue-50 to-blue-100 border-blue-200',
+            'contact': 'from-green-50 to-green-100 border-green-200',
+            'volunteer': 'from-purple-50 to-purple-100 border-purple-200',
+            'donate-interest': 'from-pink-50 to-pink-100 border-pink-200'
+          };
+          const formBadge = {
+            'newsletter': 'bg-blue-100 text-blue-700',
+            'contact': 'bg-green-100 text-green-700',
+            'volunteer': 'bg-purple-100 text-purple-700',
+            'donate-interest': 'bg-pink-100 text-pink-700'
+          };
+          
+          const icon = formIcons[s.form] || '📝';
+          const colorClass = formColors[s.form] || 'from-gray-50 to-gray-100 border-gray-200';
+          const badgeClass = formBadge[s.form] || 'bg-gray-100 text-gray-700';
+          
+          const date = new Date(s.created_at).toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          
+          return `
+            <div class="bg-gradient-to-br ${colorClass} border-2 rounded-xl p-6 hover:shadow-lg transition" style="animation-delay: ${index * 50}ms;">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl">${icon}</span>
+                  <span class="px-3 py-1 rounded-full text-xs font-bold ${badgeClass}">
+                    ${s.form || 'unknown'}
+                  </span>
+                </div>
+                <span class="text-xs text-gray-500 font-medium">${date}</span>
+              </div>
+              
+              ${s.name ? `
+                <div class="flex items-center gap-2 mb-3">
+                  <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span class="font-semibold text-gray-900">${s.name}</span>
+                </div>
+              ` : ''}
+              
+              ${s.email ? `
+                <div class="flex items-center gap-2 mb-3">
+                  <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <a href="mailto:${s.email}" class="text-orange-600 hover:text-orange-700 font-semibold hover:underline">
+                    ${s.email}
+                  </a>
+                </div>
+              ` : ''}
+              
+              ${s.message ? `
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                  <p class="text-gray-700 text-sm leading-relaxed">${s.message}</p>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+        
+        container.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            ${html}
+          </div>
+          <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+            <p class="text-sm text-gray-600">
+              Showing <span class="font-semibold text-gray-900">${submissions.length}</span> of <span class="font-semibold text-gray-900">${totalSubmissions}</span> total submissions
+            </p>
+            ${totalSubmissions > 50 ? `
+              <div class="flex gap-2">
+                ${currentPage > 1 ? `
+                  <button onclick="prevPage()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg font-semibold text-sm transition">
+                    ← Previous
+                  </button>
+                ` : ''}
+                <span class="px-4 py-2 bg-orange-50 text-orange-700 rounded-lg font-semibold text-sm">
+                  Page ${currentPage}
+                </span>
+                ${submissions.length === 50 ? `
+                  <button onclick="nextPage()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg font-semibold text-sm transition">
+                    Next →
+                  </button>
+                ` : ''}
+              </div>
+            ` : ''}
+          </div>
+        `;
+        
+      } catch (error) {
+        console.error('Error loading submissions:', error);
+        container.innerHTML = `
+          <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-8 text-center">
+            <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="text-xl font-bold text-red-800 mb-2">Error Loading Submissions</p>
+            <p class="text-red-600 text-sm">${error.message}</p>
+          </div>
+        `;
+      }
+    }
+    
+    function updateStat(id, value) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.opacity = '0.5';
+        setTimeout(() => {
+          el.textContent = value;
+          el.style.opacity = '1';
+          el.style.transition = 'opacity 0.3s';
+        }, 150);
+      }
+    }
+    
+    function nextPage() {
+      currentPage++;
+      loadSubmissions();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        loadSubmissions();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+    
+    function logout() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.logout();
+        window.netlifyIdentity.on('logout', () => {
+          window.location.href = '/';
+        });
+      }
+    }
+    
+    // Check auth and initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.netlifyIdentity) {
+        const user = window.netlifyIdentity.currentUser();
+        if (!user) {
+          window.location.href = '/admin/cms';
+          return;
+        }
+      }
+      
+      loadSubmissions();
+      // Auto-refresh every 30 seconds
+      setInterval(loadSubmissions, 30000);
+    });
+  </script>
+</body>
+</html>
+

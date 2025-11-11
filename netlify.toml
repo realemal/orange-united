@@ -22,7 +22,7 @@
 
 [[redirects]]
   from = "/admin"
-  to = "/admin/unified.html"
+  to = "/admin/dashboard-widget.html"
   status = 200
 
 [[headers]]
