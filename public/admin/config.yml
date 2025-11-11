@@ -155,21 +155,23 @@ collections:
   # Board Members Collection
   - name: "board_members"
     label: "Board Members"
-    label_singular: "Board Member"
-    file: "src/data/board-members.json"
-    fields:
+    files:
       - label: "Board Members"
         name: "members"
-        widget: "list"
+        file: "src/data/board-members.json"
         fields:
-          - { label: "ID", name: "id", widget: "number" }
-          - { label: "Name", name: "name", widget: "string" }
-          - { label: "Title", name: "title", widget: "select", options: ["President", "Vice President", "Clerk", "Member"] }
-          - { label: "Area", name: "area", widget: "string", hint: "e.g., Area 1, Area 2, etc." }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Term", name: "term", widget: "string", hint: "e.g., 2024-2028" }
-          - { label: "Photo", name: "photo", widget: "image", required: false }
-          - { label: "Bio", name: "bio", widget: "text", required: false }
+          - label: "Board Members"
+            name: "members"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "number" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Title", name: "title", widget: "select", options: ["President", "Vice President", "Clerk", "Member"] }
+              - { label: "Area", name: "area", widget: "string", hint: "e.g., Area 1, Area 2, etc." }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Term", name: "term", widget: "string", hint: "e.g., 2024-2028" }
+              - { label: "Photo", name: "photo", widget: "image", required: false }
+              - { label: "Bio", name: "bio", widget: "text", required: false }
 
   # Homepage Customization
   - name: "homepage"
@@ -202,13 +204,16 @@ collections:
   # Navigation Menu
   - name: "navigation"
     label: "Navigation Menu"
-    file: "src/data/navigation.json"
-    fields:
+    files:
       - label: "Main Navigation"
         name: "mainNav"
-        widget: "list"
+        file: "src/data/navigation.json"
         fields:
-          - { label: "Label", name: "label", widget: "string" }
-          - { label: "URL", name: "url", widget: "string" }
-          - { label: "Order", name: "order", widget: "number" }
+          - label: "Main Navigation"
+            name: "mainNav"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Order", name: "order", widget: "number" }
 
