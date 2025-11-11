@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Orange United</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 p-6">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+      <p class="text-gray-600">View submissions, stats, and quick actions</p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-lg p-6 shadow">
+        <div class="text-sm text-gray-600 mb-1">Total Submissions</div>
+        <div id="total-submissions" class="text-3xl font-bold text-orange-600">-</div>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow">
+        <div class="text-sm text-gray-600 mb-1">Newsletter Signups</div>
+        <div id="newsletter-count" class="text-3xl font-bold text-blue-600">-</div>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow">
+        <div class="text-sm text-gray-600 mb-1">Contact Messages</div>
+        <div id="contact-count" class="text-3xl font-bold text-green-600">-</div>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow">
+        <div class="text-sm text-gray-600 mb-1">Volunteer Requests</div>
+        <div id="volunteer-count" class="text-3xl font-bold text-purple-600">-</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-lg p-6 shadow mb-8">
+      <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+      <div class="flex gap-3">
+        <a href="/#/collections/articles/new" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+          ✏️ New Article
+        </a>
+        <a href="/#/collections/events/new" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          📅 New Event
+        </a>
+        <a href="/api/submissions.csv" download class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          📥 Export All Emails (CSV)
+        </a>
+      </div>
+    </div>
+
+    <!-- Email Submissions -->
+    <div class="bg-white rounded-lg p-6 shadow">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold">Recent Email Submissions</h2>
+        <button onclick="loadSubmissions()" class="text-orange-600 hover:text-orange-700 text-sm font-semibold">
+          🔄 Refresh
+        </button>
+      </div>
+      
+      <div id="submissions-container">
+        <div class="text-center py-12 text-gray-500">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+          <p>Loading submissions...</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function loadSubmissions() {
+      const container = document.getElementById('submissions-container');
+      
+      try {
+        const response = await fetch('/api/submissions?limit=20');
+        
+        if (!response.ok) {
+          container.innerHTML = `
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
+              <p class="text-yellow-800 font-semibold mb-2">⚠️ Supabase Setup Required</p>
+              <p class="text-yellow-700 text-sm">Run the SQL in scripts/enable-rls-supabase.sql to enable email viewing.</p>
+            </div>
+          `;
+          return;
+        }
+        
+        const data = await response.json();
+        const submissions = data.items || [];
+        
+        // Update stats
+        document.getElementById('total-submissions').textContent = data.total || 0;
+        
+        const newsletter = submissions.filter(s => s.form === 'newsletter').length;
+        const contact = submissions.filter(s => s.form === 'contact').length;
+        const volunteer = submissions.filter(s => s.form === 'volunteer').length;
+        
+        document.getElementById('newsletter-count').textContent = newsletter;
+        document.getElementById('contact-count').textContent = contact;
+        document.getElementById('volunteer-count').textContent = volunteer;
+        
+        if (submissions.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-12 text-gray-500">
+              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+              <p class="text-lg font-semibold">No submissions yet</p>
+              <p class="text-sm mt-2">Submissions will appear here once forms are submitted.</p>
+            </div>
+          `;
+          return;
+        }
+        
+        const html = submissions.map(s => {
+          const formColor = s.form === 'newsletter' ? 'blue' : s.form === 'contact' ? 'green' : 'purple';
+          const date = new Date(s.created_at).toLocaleString();
+          
+          return `
+            <div class="border border-gray-200 rounded-lg p-4 hover:border-orange-300 hover:bg-orange-50/30 transition">
+              <div class="flex items-start justify-between mb-3">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-${formColor}-100 text-${formColor}-700">
+                  ${s.form || 'unknown'}
+                </span>
+                <span class="text-xs text-gray-500">${date}</span>
+              </div>
+              ${s.name ? `
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span class="text-sm font-medium">${s.name}</span>
+                </div>
+              ` : ''}
+              ${s.email ? `
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <a href="mailto:${s.email}" class="text-sm text-orange-600 hover:text-orange-700 font-medium">${s.email}</a>
+                </div>
+              ` : ''}
+              ${s.message ? `
+                <div class="mt-3 pt-3 border-t border-gray-100">
+                  <p class="text-sm text-gray-700">${s.message}</p>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+        
+        container.innerHTML = `<div class="space-y-4">${html}</div>`;
+        
+      } catch (error) {
+        container.innerHTML = `
+          <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+            <p class="text-red-800 font-semibold">Error loading submissions</p>
+            <p class="text-red-700 text-sm mt-2">${error.message}</p>
+          </div>
+        `;
+      }
+    }
+    
+    // Load on page load
+    loadSubmissions();
+    
+    // Auto-refresh every 30 seconds
+    setInterval(loadSubmissions, 30000);
+  </script>
+</body>
+</html>
+
