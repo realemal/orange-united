@@ -148,3 +148,63 @@ collections:
       - { label: "Vote", name: "vote", widget: "select", options: ["Y", "N", "A", "P"], hint: "Y=Yes, N=No, A=Abstain, P=Absent" }
       - { label: "Notes", name: "notes", widget: "text", required: false }
 
+  # Board Members Collection
+  - name: "board_members"
+    label: "Board Members"
+    label_singular: "Board Member"
+    file: "src/data/board-members.json"
+    fields:
+      - label: "Board Members"
+        name: "members"
+        widget: "list"
+        fields:
+          - { label: "ID", name: "id", widget: "number" }
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Title", name: "title", widget: "select", options: ["President", "Vice President", "Clerk", "Member"] }
+          - { label: "Area", name: "area", widget: "string", hint: "e.g., Area 1, Area 2, etc." }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Term", name: "term", widget: "string", hint: "e.g., 2024-2028" }
+          - { label: "Photo", name: "photo", widget: "image", required: false }
+          - { label: "Bio", name: "bio", widget: "text", required: false }
+
+  # Homepage Customization
+  - name: "homepage"
+    label: "Homepage Settings"
+    files:
+      - label: "Hero Section"
+        name: "hero"
+        file: "src/data/homepage-hero.json"
+        fields:
+          - { label: "Headline", name: "headline", widget: "string", default: "Know What's Happening in Orange Schools" }
+          - { label: "Subheadline", name: "subheadline", widget: "string", default: "Weekly updates on classrooms, safety, and how your tax dollars are spent." }
+          - { label: "CTA Button Text", name: "ctaText", widget: "string", default: "Join the Weekly Brief" }
+          - { label: "Background Color", name: "bgColor", widget: "select", options: ["orange", "blue", "purple", "gray"], default: "orange" }
+
+      - label: "Priority Tiles"
+        name: "tiles"
+        file: "src/data/homepage-tiles.json"
+        fields:
+          - label: "Tiles"
+            name: "tiles"
+            widget: "list"
+            max: 3
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Link URL", name: "url", widget: "string" }
+              - { label: "CTA Text", name: "ctaText", widget: "string" }
+              - { label: "Color", name: "color", widget: "select", options: ["blue", "green", "purple", "orange", "red"] }
+
+  # Navigation Menu
+  - name: "navigation"
+    label: "Navigation Menu"
+    file: "src/data/navigation.json"
+    fields:
+      - label: "Main Navigation"
+        name: "mainNav"
+        widget: "list"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+          - { label: "Order", name: "order", widget: "number" }
+

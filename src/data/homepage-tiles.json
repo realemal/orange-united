@@ -1,0 +1,26 @@
+{
+  "tiles": [
+    {
+      "title": "Transparency",
+      "description": "Parents deserve weekly updates on what's being taught in classrooms.",
+      "url": "/articles/transparency-weekly-window",
+      "ctaText": "Read the plan",
+      "color": "blue"
+    },
+    {
+      "title": "Safety & Order",
+      "description": "Clear rules, real consequences, and safe campuses for all students.",
+      "url": "/articles/safety-restoring-order",
+      "ctaText": "See the policy",
+      "color": "green"
+    },
+    {
+      "title": "Classrooms First",
+      "description": "Stop paying consultants. Fund teachers, textbooks, and core curriculum.",
+      "url": "/articles/fiscal-classrooms-first",
+      "ctaText": "Follow the money",
+      "color": "purple"
+    }
+  ]
+}
+
