@@ -16,8 +16,13 @@
   status = 200
 
 [[redirects]]
-  from = "/admin"
+  from = "/admin/cms"
   to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/unified.html"
   status = 200
 
 [[headers]]
