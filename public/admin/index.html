@@ -6,9 +6,25 @@
     <title>Content Manager - Orange United</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
-      /* Custom CMS styling */
+      /* Custom CMS styling with Orange United branding */
       :root {
         --primary-color: #f97316;
+      }
+      /* Add custom dashboard link to CMS */
+      .nc-appHeader-nav::before {
+        content: "📊 View Dashboard";
+        display: inline-block;
+        padding: 8px 16px;
+        margin-right: 16px;
+        background: #f97316;
+        color: white;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .nc-appHeader-nav::before:hover {
+        background: #ea580c;
       }
     </style>
   </head>
@@ -16,9 +32,28 @@
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
-    <!-- Add custom dashboard link -->
+    <!-- Add dashboard button to CMS header -->
     <script>
-      CMS.registerPreviewStyle('/admin/dashboard-preview.css');
+      CMS.registerEventListener({
+        name: 'mounted',
+        handler: () => {
+          // Add dashboard link to CMS header
+          setTimeout(() => {
+            const header = document.querySelector('.nc-appHeader-nav') || document.querySelector('header');
+            if (header && !document.getElementById('dashboard-link')) {
+              const link = document.createElement('a');
+              link.id = 'dashboard-link';
+              link.href = '/admin-dashboard';
+              link.target = '_blank';
+              link.textContent = '📊 View Dashboard';
+              link.style.cssText = 'display:inline-block;padding:8px 16px;margin-right:16px;background:#f97316;color:white;border-radius:6px;font-weight:600;text-decoration:none;';
+              link.onmouseover = () => link.style.background = '#ea580c';
+              link.onmouseout = () => link.style.background = '#f97316';
+              header.prepend(link);
+            }
+          }, 1000);
+        }
+      });
       
       // Redirect to home page after successful login
       if (window.netlifyIdentity) {
@@ -30,13 +65,6 @@
           }
         });
       }
-      
-      // Add custom menu item for external dashboard
-      CMS.init({
-        config: {
-          load_config_file: true
-        }
-      });
     </script>
   </body>
 </html>

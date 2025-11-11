@@ -15,16 +15,6 @@ display_url: https://orangeunited.org
 site_url: https://orangeunited.org
 
 collections:
-  # Admin Dashboard (Custom Page)
-  - name: "dashboard"
-    label: "📊 Dashboard"
-    files:
-      - label: "Email Submissions & Stats"
-        name: "submissions_viewer"
-        file: "public/admin/dashboard.html"
-        fields:
-          - { label: "Dashboard", name: "body", widget: "html", hint: "View email submissions, export CSV, and see stats. This page auto-refreshes." }
-
   # Articles Collection
   - name: "articles"
     label: "Articles"
