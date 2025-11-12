@@ -37,21 +37,46 @@
       CMS.registerEventListener({
         name: 'mounted',
         handler: () => {
-          // Add dashboard link to CMS header
+          // Add prominent dashboard link to CMS
           setTimeout(() => {
-            const header = document.querySelector('.nc-appHeader-nav') || document.querySelector('header');
+            // Try multiple selectors to find the header
+            const header = document.querySelector('[class*="AppHeader"]') || 
+                          document.querySelector('[class*="TopBar"]') ||
+                          document.querySelector('header') ||
+                          document.querySelector('.css-1');
+            
             if (header && !document.getElementById('dashboard-link')) {
               const link = document.createElement('a');
               link.id = 'dashboard-link';
-              link.href = '/admin-dashboard';
-              link.target = '_blank';
-              link.textContent = '📊 View Dashboard';
-              link.style.cssText = 'display:inline-block;padding:8px 16px;margin-right:16px;background:#f97316;color:white;border-radius:6px;font-weight:600;text-decoration:none;';
-              link.onmouseover = () => link.style.background = '#ea580c';
-              link.onmouseout = () => link.style.background = '#f97316';
-              header.prepend(link);
+              link.href = '/admin/dashboard-widget.html';
+              link.textContent = '📊 Email Dashboard';
+              link.style.cssText = `
+                display: inline-block;
+                padding: 10px 20px;
+                margin: 8px;
+                background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+                color: white;
+                border-radius: 8px;
+                font-weight: 700;
+                text-decoration: none;
+                box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3);
+                transition: all 0.2s;
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+              `;
+              link.onmouseover = () => {
+                link.style.transform = 'scale(1.05)';
+                link.style.boxShadow = '0 10px 15px -3px rgba(249, 115, 22, 0.4)';
+              };
+              link.onmouseout = () => {
+                link.style.transform = 'scale(1)';
+                link.style.boxShadow = '0 4px 6px -1px rgba(249, 115, 22, 0.3)';
+              };
+              document.body.appendChild(link);
             }
-          }, 1000);
+          }, 1500);
         }
       });
       
