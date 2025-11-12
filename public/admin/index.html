@@ -113,7 +113,7 @@
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8 fade-in">
           <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <button onclick="switchTab('content'); setTimeout(() => window.location.hash = '#/collections/articles/new', 100)" class="group flex items-center gap-3 p-4 rounded-xl bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 hover:border-orange-400 transition">
+            <button onclick="switchTab('content'); setTimeout(() => { const iframe = document.getElementById('cms-iframe'); if (iframe) iframe.src = '/admin/cms.html#/collections/articles/new'; }, 100)" class="group flex items-center gap-3 p-4 rounded-xl bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 hover:border-orange-400 transition">
               <div class="p-2 bg-orange-600 rounded-lg group-hover:scale-110 transition">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -122,7 +122,7 @@
               <span class="font-semibold text-gray-900">New Article</span>
             </button>
 
-            <button onclick="switchTab('content'); setTimeout(() => window.location.hash = '#/collections/events/new', 100)" class="group flex items-center gap-3 p-4 rounded-xl bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-400 transition">
+            <button onclick="switchTab('content'); setTimeout(() => { const iframe = document.getElementById('cms-iframe'); if (iframe) iframe.src = '/admin/cms.html#/collections/events/new'; }, 100)" class="group flex items-center gap-3 p-4 rounded-xl bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-400 transition">
               <div class="p-2 bg-blue-600 rounded-lg group-hover:scale-110 transition">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -198,15 +198,10 @@
 
     <!-- Content Tab (CMS) -->
     <div id="content-tab" class="tab-content">
-      <div id="cms-container"></div>
+      <iframe id="cms-iframe" src="/admin/cms.html" style="width: 100%; height: calc(100vh - 130px); border: none;"></iframe>
     </div>
-
-    <!-- Decap CMS Script -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
     <script>
-      let cmsInitialized = false;
-      
       function switchTab(tab) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
@@ -219,13 +214,25 @@
           document.getElementById('content-tab').classList.add('active');
           document.querySelector('[onclick*="content"]').classList.add('active');
           
-          if (!cmsInitialized) {
-            const container = document.getElementById('cms-container');
-            CMS.init({ config: { load_config_file: true } });
-            cmsInitialized = true;
+          // Ensure iframe loads when tab is switched
+          const iframe = document.getElementById('cms-iframe');
+          if (iframe && !iframe.src.includes('#')) {
+            // Handle hash navigation from quick actions
+            const hash = window.location.hash;
+            if (hash) {
+              iframe.src = `/admin/cms.html${hash}`;
+            }
           }
         }
       }
+      
+      // Handle hash changes for deep linking to CMS
+      window.addEventListener('hashchange', () => {
+        const iframe = document.getElementById('cms-iframe');
+        if (iframe && window.location.hash) {
+          iframe.src = `/admin/cms.html${window.location.hash}`;
+        }
+      });
       
       // Load submissions
       async function loadSubmissions() {
@@ -255,10 +262,23 @@
           const submissions = data.items || [];
           const total = data.total || 0;
           
-          document.getElementById('total-submissions').textContent = total;
-          document.getElementById('newsletter-count').textContent = submissions.filter(s => s.form?.includes('newsletter')).length;
-          document.getElementById('contact-count').textContent = submissions.filter(s => s.form === 'contact').length;
-          document.getElementById('volunteer-count').textContent = submissions.filter(s => s.form === 'volunteer' || s.form === 'get-involved').length;
+          // Fetch counts for each form type separately
+          const [totalRes, newsletterRes, contactRes, volunteerRes] = await Promise.all([
+            fetch('/api/submissions?limit=1'),
+            fetch('/api/submissions?form=newsletter&limit=1'),
+            fetch('/api/submissions?form=contact&limit=1'),
+            fetch('/api/submissions?form=volunteer&limit=1')
+          ]);
+          
+          const totalData = await totalRes.json();
+          const newsletterData = await newsletterRes.json();
+          const contactData = await contactRes.json();
+          const volunteerData = await volunteerRes.json();
+          
+          document.getElementById('total-submissions').textContent = totalData.total || 0;
+          document.getElementById('newsletter-count').textContent = newsletterData.total || 0;
+          document.getElementById('contact-count').textContent = contactData.total || 0;
+          document.getElementById('volunteer-count').textContent = volunteerData.total || 0;
           
           if (submissions.length === 0) {
             container.innerHTML = `

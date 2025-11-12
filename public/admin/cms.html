@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS - Orange United</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <script>
+      // Initialize Netlify Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.open('login');
+            window.netlifyIdentity.on("login", () => window.location.reload());
+          } else {
+            // Initialize CMS after authentication
+            CMS.init({ config: { load_config_file: true } });
+          }
+        });
+      } else {
+        // Fallback: initialize CMS directly if identity widget fails to load
+        setTimeout(() => {
+          CMS.init({ config: { load_config_file: true } });
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
+

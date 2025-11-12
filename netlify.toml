@@ -17,12 +17,12 @@
 
 [[redirects]]
   from = "/admin/cms"
-  to = "/admin/index.html"
+  to = "/admin/cms.html"
   status = 200
 
 [[redirects]]
   from = "/admin"
-  to = "/admin/dashboard-widget.html"
+  to = "/admin/index.html"
   status = 200
 
 [[headers]]
@@ -33,6 +33,12 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Allow CMS page to be framed
+[[headers]]
+  for = "/admin/cms.html"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
 
 # Enable Netlify Forms
 [build.environment]
