@@ -76,9 +76,37 @@ const ogImage = image || '/logo.png?v=2';
     </main>
     <Footer />
     
-    <!-- Translation system -->
+    <!-- Translation system - loads on every page -->
     <script>
       import '../scripts/translate.js';
+    </script>
+    <script is:inline>
+      // Ensure language is applied immediately on page load
+      (function() {
+        const STORAGE_KEY = 'orange-united-language';
+        function applySavedLanguage() {
+          try {
+            const savedLang = localStorage.getItem(STORAGE_KEY) || 'en';
+            if (document.documentElement) {
+              document.documentElement.setAttribute('lang', savedLang);
+            }
+            // Update language button if it exists
+            const langSpan = document.getElementById('current-lang');
+            if (langSpan) {
+              langSpan.textContent = savedLang.toUpperCase();
+            }
+          } catch (e) {
+            // Ignore
+          }
+        }
+        
+        // Run immediately
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', applySavedLanguage);
+        } else {
+          applySavedLanguage();
+        }
+      })();
     </script>
     
     <!-- Netlify Identity redirect handler -->

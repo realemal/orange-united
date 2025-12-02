@@ -16,8 +16,8 @@
   </button>
 </div>
 
-<script define:vars={{}}>
-  // Language toggle functionality
+<script is:inline>
+  // Language toggle button - works with translate.js
   (function() {
     'use strict';
     
@@ -34,51 +34,18 @@
     function setLanguage(lang) {
       try {
         localStorage.setItem(STORAGE_KEY, lang);
-      } catch (e) {
-        console.warn('Could not save language preference');
-      }
-      updateLanguageDisplay();
-      applyTranslations(lang);
-    }
-
-    function updateLanguageDisplay() {
-      const langSpan = document.getElementById('current-lang');
-      const currentLang = getCurrentLanguage();
-      if (langSpan) {
-        langSpan.textContent = currentLang.toUpperCase();
-      }
-      if (document.documentElement) {
-        document.documentElement.setAttribute('lang', currentLang);
-      }
-    }
-
-    function applyTranslations(lang) {
-      if (!document) return;
-      
-      // Update HTML lang attribute
-      if (document.documentElement) {
-        document.documentElement.setAttribute('lang', lang);
-      }
-      
-      // Translate all elements with data-en and data-es attributes
-      const elements = document.querySelectorAll('[data-en][data-es]');
-      elements.forEach((el) => {
-        if (el instanceof HTMLElement) {
-          if (lang === 'es' && el.dataset.es) {
-            el.textContent = el.dataset.es;
-          } else if (el.dataset.en) {
-            el.textContent = el.dataset.en;
-          }
-        }
-      });
-      
-      // Dispatch event for other components
-      try {
+        // Dispatch event so translate.js picks it up
         window.dispatchEvent(new CustomEvent('languageChanged', { 
           detail: { language: lang } 
         }));
+        // Also trigger storage event for cross-tab sync
+        window.dispatchEvent(new StorageEvent('storage', {
+          key: STORAGE_KEY,
+          newValue: lang,
+          oldValue: getCurrentLanguage()
+        }));
       } catch (e) {
-        // Ignore if window not available
+        console.warn('Could not save language preference');
       }
     }
 
@@ -93,31 +60,30 @@
       return false;
     }
 
-    // Initialize
+    // Initialize button
     function init() {
       const toggleButton = document.getElementById('lang-toggle');
       if (toggleButton) {
-        // Remove any existing listeners
+        // Remove existing listeners by cloning
         const newButton = toggleButton.cloneNode(true);
         toggleButton.parentNode?.replaceChild(newButton, toggleButton);
         
-        // Add fresh listeners
+        // Add click handler
         newButton.addEventListener('click', handleToggle);
-        newButton.addEventListener('mousedown', function(e) { e.preventDefault(); });
       }
       
-      // Apply saved language
-      const savedLang = getCurrentLanguage();
-      updateLanguageDisplay();
-      applyTranslations(savedLang);
+      // Update button display with current language
+      const langSpan = document.getElementById('current-lang');
+      if (langSpan) {
+        langSpan.textContent = getCurrentLanguage().toUpperCase();
+      }
     }
 
     // Run when ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
-      // DOM already ready
-      setTimeout(init, 0);
+      init();
     }
   })();
 </script>
