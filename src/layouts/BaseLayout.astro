@@ -118,6 +118,17 @@ const ogImage = image || '/logo.png?v=2';
                 }
               }
             });
+            
+            // Translate form placeholders
+            document.querySelectorAll('[data-placeholder-en][data-placeholder-es]').forEach((el) => {
+              if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+                if (lang === 'es' && el.dataset.placeholderEs) {
+                  el.placeholder = el.dataset.placeholderEs;
+                } else if (el.dataset.placeholderEn) {
+                  el.placeholder = el.dataset.placeholderEn;
+                }
+              }
+            });
           } catch (e) {
             console.warn('Language application error:', e);
           }
