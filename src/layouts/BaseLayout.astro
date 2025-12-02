@@ -76,36 +76,68 @@ const ogImage = image || '/logo.png?v=2';
     </main>
     <Footer />
     
-    <!-- Translation system - loads on every page -->
+    <!-- Translation system - loads on every page and applies immediately -->
     <script>
       import '../scripts/translate.js';
     </script>
     <script is:inline>
-      // Ensure language is applied immediately on page load
+      // Ensure language is applied immediately on every page load
       (function() {
+        'use strict';
         const STORAGE_KEY = 'orange-united-language';
+        
+        function getSavedLanguage() {
+          try {
+            return localStorage.getItem(STORAGE_KEY) || 'en';
+          } catch (e) {
+            return 'en';
+          }
+        }
+        
         function applySavedLanguage() {
           try {
-            const savedLang = localStorage.getItem(STORAGE_KEY) || 'en';
+            const savedLang = getSavedLanguage();
+            
+            // Update HTML lang attribute immediately
             if (document.documentElement) {
               document.documentElement.setAttribute('lang', savedLang);
             }
-            // Update language button if it exists
+            
+            // Update language button display if it exists
             const langSpan = document.getElementById('current-lang');
             if (langSpan) {
               langSpan.textContent = savedLang.toUpperCase();
             }
+            
+            // Apply translations to all elements with data-en/data-es
+            document.querySelectorAll('[data-en][data-es]').forEach((el) => {
+              if (el instanceof HTMLElement) {
+                if (savedLang === 'es' && el.dataset.es) {
+                  el.textContent = el.dataset.es;
+                } else if (el.dataset.en) {
+                  el.textContent = el.dataset.en;
+                }
+              }
+            });
           } catch (e) {
-            // Ignore
+            console.warn('Language application error:', e);
           }
         }
         
-        // Run immediately
+        // Run immediately if DOM is ready, otherwise wait
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', applySavedLanguage);
         } else {
+          // DOM already ready - apply immediately
           applySavedLanguage();
         }
+        
+        // Also listen for language changes
+        window.addEventListener('languageChanged', function(e) {
+          if (e.detail && e.detail.language) {
+            applySavedLanguage();
+          }
+        });
       })();
     </script>
     
