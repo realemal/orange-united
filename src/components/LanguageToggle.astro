@@ -5,7 +5,8 @@
 <div class="language-toggle">
   <button
     id="lang-toggle"
-    class="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-white bg-blue-dark-600/50 hover:bg-blue-dark-600 border-2 border-orange-500/30 hover:border-orange-500/50 rounded-lg transition-all backdrop-blur-sm"
+    type="button"
+    class="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-700 hover:text-orange-500 transition-colors rounded-lg hover:bg-orange-50 border border-gray-200"
     aria-label="Toggle language"
   >
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -15,16 +16,27 @@
   </button>
 </div>
 
-<script is:inline>
+<script define:vars={{}}>
+  // Language toggle functionality
   (function() {
+    'use strict';
+    
+    const STORAGE_KEY = 'orange-united-language';
+    
     function getCurrentLanguage() {
-      if (typeof window === 'undefined' || !window.localStorage) return 'en';
-      return localStorage.getItem('language') || 'en';
+      try {
+        return localStorage.getItem(STORAGE_KEY) || 'en';
+      } catch (e) {
+        return 'en';
+      }
     }
 
     function setLanguage(lang) {
-      if (typeof window === 'undefined' || !window.localStorage) return;
-      localStorage.setItem('language', lang);
+      try {
+        localStorage.setItem(STORAGE_KEY, lang);
+      } catch (e) {
+        console.warn('Could not save language preference');
+      }
       updateLanguageDisplay();
       applyTranslations(lang);
     }
@@ -36,20 +48,21 @@
         langSpan.textContent = currentLang.toUpperCase();
       }
       if (document.documentElement) {
-        document.documentElement.lang = currentLang;
+        document.documentElement.setAttribute('lang', currentLang);
       }
     }
 
     function applyTranslations(lang) {
-      if (typeof document === 'undefined') return;
+      if (!document) return;
       
       // Update HTML lang attribute
       if (document.documentElement) {
-        document.documentElement.lang = lang;
+        document.documentElement.setAttribute('lang', lang);
       }
       
       // Translate all elements with data-en and data-es attributes
-      document.querySelectorAll('[data-en][data-es]').forEach((el) => {
+      const elements = document.querySelectorAll('[data-en][data-es]');
+      elements.forEach((el) => {
         if (el instanceof HTMLElement) {
           if (lang === 'es' && el.dataset.es) {
             el.textContent = el.dataset.es;
@@ -60,28 +73,37 @@
       });
       
       // Dispatch event for other components
-      if (typeof window !== 'undefined') {
+      try {
         window.dispatchEvent(new CustomEvent('languageChanged', { 
           detail: { language: lang } 
         }));
+      } catch (e) {
+        // Ignore if window not available
       }
     }
 
-    function toggleLanguage(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    function handleToggle(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       const currentLang = getCurrentLanguage();
       const newLang = currentLang === 'en' ? 'es' : 'en';
       setLanguage(newLang);
       return false;
     }
 
-    // Initialize when DOM is ready
+    // Initialize
     function init() {
       const toggleButton = document.getElementById('lang-toggle');
       if (toggleButton) {
-        toggleButton.addEventListener('click', toggleLanguage);
-        toggleButton.addEventListener('touchstart', toggleLanguage);
+        // Remove any existing listeners
+        const newButton = toggleButton.cloneNode(true);
+        toggleButton.parentNode?.replaceChild(newButton, toggleButton);
+        
+        // Add fresh listeners
+        newButton.addEventListener('click', handleToggle);
+        newButton.addEventListener('mousedown', function(e) { e.preventDefault(); });
       }
       
       // Apply saved language
@@ -90,11 +112,12 @@
       applyTranslations(savedLang);
     }
 
-    // Run immediately if DOM is ready, otherwise wait
+    // Run when ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
-      init();
+      // DOM already ready
+      setTimeout(init, 0);
     }
   })();
 </script>

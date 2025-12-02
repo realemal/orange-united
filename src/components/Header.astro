@@ -22,34 +22,34 @@ const navItems = [
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-blue-dark-500 backdrop-blur-md border-b-2 border-orange-500/30 shadow-xl">
+<header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
   <div class="container-custom">
     <!-- Header with logo on left, text centered -->
-    <div class="relative flex items-center justify-between py-3 md:py-4">
+    <div class="relative flex items-center justify-between py-4">
       <!-- Logo on left -->
       <a href="/" class="group z-10 flex-shrink-0">
         <img 
           src="/logo.png?v=2" 
           alt="Orange United Logo" 
-          class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-contain transition-transform group-hover:scale-105 drop-shadow-xl"
+          class="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain transition-transform group-hover:scale-105"
         />
       </a>
 
       <!-- Centered branding text -->
       <a href="/" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center hidden sm:block group">
-        <div class="text-xl md:text-2xl lg:text-3xl font-black text-white uppercase tracking-wider transition-all" style="font-family: 'Arial Black', sans-serif; letter-spacing: 0.12em; -webkit-text-stroke: 2.5px black; text-stroke: 2.5px black; paint-order: stroke fill; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+        <div class="text-2xl lg:text-3xl font-bold text-gray-900 uppercase tracking-wide transition-colors group-hover:text-orange-600" style="font-family: 'Arial Black', sans-serif; letter-spacing: 0.1em;">
           Orange United
         </div>
-        <div class="text-xs md:text-sm lg:text-base text-orange-400 font-bold mt-1.5 tracking-wider" style="letter-spacing: 0.2em; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
+        <div class="text-sm lg:text-base text-orange-600 font-semibold mt-1 tracking-wide" style="letter-spacing: 0.15em;">
           YOUR SCHOOLS • YOUR CHOICE
         </div>
       </a>
 
       <!-- Right side actions -->
-      <div class="flex items-center gap-2 sm:gap-3 z-10">
-        <div class="hidden sm:flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-3 z-10">
+        <div class="hidden sm:flex items-center gap-3">
           <LanguageToggle />
-          <a href="#newsletter" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 py-2.5 rounded-lg font-bold text-xs sm:text-sm uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/40 hover:shadow-orange-500/60 active:scale-95">
+          <a href="#newsletter" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50">
             Subscribe
           </a>
         </div>
@@ -57,7 +57,7 @@ const navItems = [
         <!-- Mobile menu button -->
         <button
           id="mobile-menu-button"
-          class="lg:hidden p-2 text-white hover:text-orange-400 hover:bg-blue-dark-600 rounded-lg transition-colors active:scale-95"
+          class="lg:hidden p-2 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-colors"
           aria-label="Toggle menu"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,19 +68,19 @@ const navItems = [
     </div>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden lg:block border-t border-orange-500/30">
-      <div class="flex items-center justify-center gap-1.5 py-2.5">
+    <nav class="hidden lg:block border-t border-gray-100">
+      <div class="flex items-center justify-center gap-2 py-3">
         {navItems.map((item) => {
           const active = isActive(item.href, currentPath);
           return (
             <a
               href={item.href}
-              class={`px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wider transition-all ${
+              class={`px-5 py-2.5 rounded-lg text-base font-bold uppercase tracking-wide transition-all ${
                 active
-                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/50 scale-105'
-                  : 'bg-orange-500/0 border-2 border-orange-500/30 text-orange-400 hover:bg-orange-500/25 hover:border-orange-500/60 hover:scale-105'
+                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                  : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
               }`}
-              style="font-family: 'Arial Black', sans-serif; letter-spacing: 0.08em;"
+              style="font-family: 'Arial Black', sans-serif;"
               data-en={item.label}
               data-es={item.labelEs}
             >
@@ -92,19 +92,19 @@ const navItems = [
     </nav>
 
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-orange-500/30 py-4 bg-blue-dark-600 backdrop-blur-md">
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 py-4">
       <div class="flex flex-col gap-2">
         {navItems.map((item) => {
           const active = isActive(item.href, currentPath);
           return (
             <a
               href={item.href}
-              class={`px-4 py-3 rounded-lg text-sm font-black uppercase tracking-wider transition-all ${
+              class={`px-4 py-3 rounded-lg text-base font-bold uppercase tracking-wide transition-all ${
                 active
-                  ? 'bg-orange-500 text-white shadow-lg'
-                  : 'bg-orange-500/0 border-2 border-orange-500/30 text-orange-400 hover:bg-orange-500/25 hover:border-orange-500/60'
+                  ? 'bg-orange-500 text-white'
+                  : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
               }`}
-              style="font-family: 'Arial Black', sans-serif; letter-spacing: 0.08em;"
+              style="font-family: 'Arial Black', sans-serif;"
               data-en={item.label}
               data-es={item.labelEs}
             >
@@ -112,9 +112,9 @@ const navItems = [
             </a>
           );
         })}
-        <div class="flex sm:hidden items-center justify-between pt-4 border-t border-orange-500/30 mt-2">
+        <div class="flex sm:hidden items-center justify-between pt-4 border-t border-gray-200 mt-2">
           <LanguageToggle />
-          <a href="#newsletter" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-lg font-bold text-sm uppercase tracking-wide shadow-lg">
+          <a href="#newsletter" class="btn btn-primary">
             Subscribe
           </a>
         </div>
