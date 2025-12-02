@@ -50,6 +50,17 @@ export function applyTranslations(lang) {
     }
   });
   
+  // Translate form placeholders
+  document.querySelectorAll('[data-placeholder-en][data-placeholder-es]').forEach(element => {
+    if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+      if (lang === 'es' && element.dataset.placeholderEs) {
+        element.placeholder = element.dataset.placeholderEs;
+      } else if (element.dataset.placeholderEn) {
+        element.placeholder = element.dataset.placeholderEn;
+      }
+    }
+  });
+  
   // Update language toggle button display
   const langSpan = document.getElementById('current-lang');
   if (langSpan) {
