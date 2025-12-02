@@ -33,20 +33,45 @@
 
     function setLanguage(lang) {
       try {
+        const oldLang = getCurrentLanguage();
         localStorage.setItem(STORAGE_KEY, lang);
-        // Dispatch event so translate.js picks it up
+        
+        // Dispatch custom event for immediate update
         window.dispatchEvent(new CustomEvent('languageChanged', { 
           detail: { language: lang } 
         }));
-        // Also trigger storage event for cross-tab sync
-        window.dispatchEvent(new StorageEvent('storage', {
-          key: STORAGE_KEY,
-          newValue: lang,
-          oldValue: getCurrentLanguage()
-        }));
+        
+        // Trigger storage event for cross-tab synchronization
+        // Note: StorageEvent only fires in OTHER tabs, not the current one
+        // So we manually apply translations here
+        applyTranslations(lang);
       } catch (e) {
         console.warn('Could not save language preference');
       }
+    }
+    
+    function applyTranslations(lang) {
+      // Update HTML lang attribute
+      if (document.documentElement) {
+        document.documentElement.setAttribute('lang', lang);
+      }
+      
+      // Update button display
+      const langSpan = document.getElementById('current-lang');
+      if (langSpan) {
+        langSpan.textContent = lang.toUpperCase();
+      }
+      
+      // Apply translations to all elements
+      document.querySelectorAll('[data-en][data-es]').forEach((el) => {
+        if (el instanceof HTMLElement) {
+          if (lang === 'es' && el.dataset.es) {
+            el.textContent = el.dataset.es;
+          } else if (el.dataset.en) {
+            el.textContent = el.dataset.en;
+          }
+        }
+      });
     }
 
     function handleToggle(e) {
