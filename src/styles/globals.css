@@ -85,7 +85,7 @@
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 active:scale-95 transform;
+    @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 active:scale-95 transform shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50;
   }
 
   .btn-secondary {

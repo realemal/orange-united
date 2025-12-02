@@ -8,19 +8,35 @@ import NewsletterForm from '../components/NewsletterForm.astro';
   description="Get weekly updates on Orange schools. Clear info about classrooms, safety, and budgets."
 >
   <!-- Hero with Email Signup -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 py-24 md:py-32">
+  <section class="relative overflow-hidden bg-gradient-to-br from-blue-dark-500 via-blue-dark-600 to-blue-dark-700 py-24 md:py-32">
+    <!-- Decorative elements inspired by logo -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-40 h-40 bg-blue-fountain-500 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-orange-400 rounded-full blur-3xl"></div>
+    </div>
+    
     <div class="container-custom relative">
       <div class="max-w-3xl mx-auto text-center">
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-tight">
-          <span data-en="Know What's Happening in " data-es="Sepa qué está sucediendo en las escuelas de ">Know What's Happening in </span><br class="hidden sm:block"/><span data-en="Orange Schools" data-es="Orange">Orange Schools</span>
+        <!-- Logo-inspired badge -->
+        <div class="mb-6 inline-block">
+          <div class="bg-white/10 backdrop-blur-sm border-2 border-orange-500/30 rounded-full px-6 py-2">
+            <p class="text-orange-400 font-bold uppercase tracking-widest text-sm" style="letter-spacing: 0.2em;">
+              YOUR SCHOOLS • YOUR CHOICE
+            </p>
+          </div>
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
+          <span data-en="Know What's Happening in " data-es="Sepa qué está sucediendo en las escuelas de ">Know What's Happening in </span><br class="hidden sm:block"/><span class="text-orange-400" data-en="Orange Schools" data-es="Orange">Orange Schools</span>
         </h1>
-        <p class="text-xl md:text-2xl text-orange-100 mb-10">
+        <p class="text-xl md:text-2xl text-blue-100 mb-10">
           <span data-en="Weekly updates on classrooms, safety, and how your tax dollars are spent." data-es="Actualizaciones semanales sobre aulas, seguridad y cómo se gastan sus impuestos.">Weekly updates on classrooms, safety, and how your tax dollars are spent.</span>
         </p>
         
         <!-- Inline Newsletter Signup -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl max-w-2xl mx-auto">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4" data-en="Join the Weekly Brief" data-es="Únase al Boletín Semanal">Join the Weekly Brief</h2>
+        <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl max-w-2xl mx-auto border-2 border-orange-500/20">
+          <h2 class="text-2xl font-bold text-blue-dark-700 mb-4" data-en="Join the Weekly Brief" data-es="Únase al Boletín Semanal">Join the Weekly Brief</h2>
           <NewsletterForm />
         </div>
       </div>

@@ -15,7 +15,7 @@ const footerLinks = [
 ];
 ---
 
-<footer class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white mt-20">
+<footer class="bg-gradient-to-br from-blue-dark-600 via-blue-dark-500 to-blue-dark-700 text-white mt-20 border-t-2 border-orange-500/20">
   <div class="container-custom py-12">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
       <!-- About -->
@@ -24,13 +24,21 @@ const footerLinks = [
           <img 
             src="/logo.png" 
             alt="Orange United Logo" 
-            class="w-16 h-16 object-contain"
+            class="w-16 h-16 object-contain drop-shadow-lg"
           />
+          <div>
+            <div class="text-white font-bold uppercase tracking-wide text-sm" style="font-family: 'Arial Black', sans-serif;">
+              Orange United
+            </div>
+            <div class="text-orange-400 font-semibold text-xs tracking-wider mt-1">
+              YOUR SCHOOLS • YOUR CHOICE
+            </div>
+          </div>
         </div>
-        <p class="text-gray-400 text-sm mb-4">
+        <p class="text-blue-100 text-sm mb-4">
           Protecting Parent Choice. Stay informed and get involved in Orange education.
         </p>
-        <a href="mailto:info@orangeunited.org" class="text-gray-400 hover:text-orange-400 text-sm flex items-center gap-2 mb-4">
+        <a href="mailto:info@orangeunited.org" class="text-blue-100 hover:text-orange-400 text-sm flex items-center gap-2 mb-4 transition-colors">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
@@ -41,13 +49,13 @@ const footerLinks = [
 
       <!-- Quick Links -->
       <div>
-        <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+        <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
         <ul class="space-y-2">
           {footerLinks.map((link) => (
             <li>
               <a
                 href={link.href}
-                class="text-gray-400 hover:text-orange-400 transition-colors text-sm"
+                class="text-blue-100 hover:text-orange-400 transition-colors text-sm"
               >
                 {link.label}
               </a>
@@ -64,20 +72,20 @@ const footerLinks = [
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-gray-800 pt-8 text-sm text-gray-400">
+    <div class="border-t border-orange-500/20 pt-8 text-sm text-blue-100">
       <div class="text-center md:text-left mb-4">
         <p class="text-xs leading-relaxed max-w-4xl">
-          <strong class="text-gray-300">Orange United</strong> is a 501(c)(4) social welfare organization focused on parent education and civic engagement in Orange schools. 
+          <strong class="text-white">Orange United</strong> is a 501(c)(4) social welfare organization focused on parent education and civic engagement in Orange schools. 
           Donations are not tax-deductible. We do not endorse or oppose candidates for public office. 
           We provide nonpartisan education information to help parents engage in their children's schooling.
         </p>
       </div>
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="text-center md:text-left">
-          <p class="mb-1">
+          <p class="mb-1 text-white">
             &copy; {currentYear} Orange United. All rights reserved.
           </p>
-          <p class="text-xs italic">
+          <p class="text-xs italic text-blue-200">
             Paid for by The Community Action Network.
           </p>
         </div>
