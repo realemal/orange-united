@@ -19,25 +19,6 @@ import boardMembers from '../data/board-members.json';
         </p>
       </div>
 
-      <!-- Info Box -->
-      <div class="max-w-4xl mx-auto mb-12">
-        <div class="bg-white rounded-3xl p-8 shadow-xl border-2 border-orange-200">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h2 class="text-2xl font-bold text-gray-900 mb-2">Know Your Board Members</h2>
-              <p class="text-gray-700">
-                These seven elected trustees make important decisions about curriculum, school spending, and education policy. 
-                Understanding their positions and voting records helps parents engage effectively on education issues.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -73,80 +54,37 @@ import boardMembers from '../data/board-members.json';
               </div>
 
               <!-- Info -->
-              <div class="md:col-span-3">
-                <div class="mb-4">
-                  <h2 class="text-2xl font-bold text-gray-900 mb-2">
+              <div class="md:col-span-3 flex flex-col justify-center">
+                <div>
+                  <h2 class="text-3xl font-bold text-gray-900 mb-4">
                     {member.name}
                   </h2>
-                  <div class="flex flex-wrap gap-3 mb-3">
-                    <span class="text-sm font-semibold text-orange-600">
-                      Trustee Area {member.area}
-                    </span>
-                    {member.title !== 'Member' && (
-                      <span class="text-sm font-semibold text-gray-600">
-                        • {member.title}
-                      </span>
-                    )}
-                    <span class="text-sm text-gray-600">
-                      • Term: {member.term}
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Bio Section -->
-                <div class="prose prose-sm max-w-none mb-6">
-                  <div class="bg-orange-50 rounded-xl p-6 mb-4">
-                    <h3 class="text-lg font-bold text-gray-900 mb-3">Biography</h3>
-                    <div class="text-gray-700 space-y-3">
-                      <p>{member.bio}</p>
-                      <p class="italic text-sm text-orange-700">
-                        ✏️ <strong>Update this bio:</strong> Edit in <code>/src/data/board-members.json</code> or via CMS
-                      </p>
-                    </div>
-                  </div>
-
-                  <!-- Voting Record Placeholder -->
-                  <div class="bg-gray-50 rounded-xl p-6">
-                    <h3 class="text-lg font-bold text-gray-900 mb-3">Voting Record</h3>
-                    <p class="text-gray-600 text-sm mb-3">
-                      Track how this trustee votes on key issues. Voting records coming soon.
+                  {member.title !== 'Member' && (
+                    <p class="text-lg font-semibold text-gray-700 mb-3">
+                      {member.title}
                     </p>
-                    <div class="flex gap-2">
-                      <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-600 border border-gray-200">
-                        Curriculum Votes
-                      </span>
-                      <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-600 border border-gray-200">
-                        Budget Votes
-                      </span>
-                      <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-600 border border-gray-200">
-                        Policy Votes
-                      </span>
-                    </div>
+                  )}
+                  <div class="space-y-2 mb-6">
+                    <p class="text-lg text-orange-600 font-semibold">
+                      Trustee Area {member.area}
+                    </p>
+                    <p class="text-base text-gray-600">
+                      Current Term: {member.term}
+                    </p>
                   </div>
-                </div>
-
-                <!-- Contact -->
-                <div class="flex flex-wrap gap-4">
-                  <a 
-                    href={`mailto:${member.email}`}
-                    class="btn btn-primary text-sm inline-flex items-center gap-2"
-                  >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    Email {member.name.split(' ')[0]}
-                  </a>
-                  <a 
-                    href={`https://www.orangeusd.org/Board-of-Education/Board-Members/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-outline text-sm inline-flex items-center gap-2"
-                  >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    Official Profile
-                  </a>
+                  
+                  <!-- Contact -->
+                  <div class="flex flex-wrap gap-3">
+                    <a 
+                      href={`mailto:${member.email}`}
+                      class="btn btn-primary text-sm inline-flex items-center gap-2"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      Email
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
