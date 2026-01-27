@@ -1,202 +1,124 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const pages = await getCollection('pages');
-const getInvolvedPage = pages.find(page => page.slug === 'get-involved');
-
-let Content;
-if (getInvolvedPage) {
-  const rendered = await getInvolvedPage.render();
-  Content = rendered.Content;
-}
+const RSVP_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeoUyvLPYixA-7IgVr3OwKNwDXIi8MjIe_57O9-mRaMhgDsYw/viewform?usp=dialog';
 ---
 
 <BaseLayout
-  title="Get Involved"
-  description="Volunteer, donate, or join our community. Find out how you can make a difference in Orange education."
+  title="Get Involved - Orange United"
+  description="Join Orange United and help shape the future of our schools. RSVP for our January 28 kickoff event."
 >
-  <div class="bg-gradient-to-br from-orange-50 to-white py-12">
-    <div class="container-custom">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4" data-en="Get Involved" data-es="Participa">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-blue-dark-600 to-blue-dark-500 py-16 md:py-20">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-40 h-40 bg-orange-400 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="container-custom relative text-center">
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight">
         Get Involved
       </h1>
-      <p class="text-xl text-gray-600 max-w-3xl" data-en="Every voice matters. Here's how you can make a difference." data-es="Cada voz importa. Así es como puedes hacer la diferencia.">
-        Every voice matters. Here's how you can make a difference.
+      <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
+        Orange is our home, and it's worth fighting for.
       </p>
     </div>
-  </div>
+  </section>
 
-  <section class="py-12">
-    <div class="container-custom max-w-4xl">
-      {Content && (
-        <div class="article-content mb-12">
-          <Content />
-        </div>
-      )}
+  <!-- Main CTA -->
+  <section class="py-12 bg-gradient-to-b from-blue-dark-500 to-gray-50">
+    <div class="container-custom">
+      <div class="max-w-2xl mx-auto bg-white rounded-2xl p-8 shadow-lg text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+          Join Our January 28 Kickoff
+        </h2>
+        <p class="text-gray-600 mb-6">
+          Connect with like-minded residents and take an active role in the future of our schools and our city.
+        </p>
+        <a 
+          href={RSVP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all shadow-xl shadow-orange-500/30"
+        >
+          RSVP Now
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <p class="text-gray-500 text-sm mt-4">
+          January 28, 2026 • 6:30–8:30 PM • Orange, CA
+        </p>
+      </div>
+    </div>
+  </section>
 
-      <!-- Volunteer Section -->
-      <div id="volunteer" class="mb-12 scroll-mt-20">
-        <div class="card p-8">
-          <div class="flex items-start gap-4 mb-6">
+  <!-- Ways to Help -->
+  <section class="py-12 bg-gray-50">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-8">
+          Ways to Help
+        </h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg mb-1">Attend Events</h3>
+              <p class="text-gray-600 text-sm">Show up to community meetings and board sessions.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
-            <div class="flex-1">
-              <h2 class="text-2xl font-bold text-gray-900 mb-3" data-en="Volunteer with Us" data-es="Voluntario con Nosotros">Volunteer with Us</h2>
-              <p class="text-gray-700 mb-6" data-en="Help us amplify parent voices. Volunteers help with events, outreach, board meeting coverage, and more." data-es="Ayúdanos a amplificar las voces de los padres. Los voluntarios ayudan con eventos, alcance comunitario, cobertura de reuniones de la junta y más.">
-                Help us amplify parent voices. Volunteers help with events, outreach, board meeting coverage, and more.
-              </p>
-              
-              <form
-                name="volunteer"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                class="space-y-4"
-              >
-                <input type="hidden" name="form-name" value="volunteer" />
-                <div class="hidden">
-                  <label>Don't fill this out: <input name="bot-field" /></label>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your name"
-                    required
-                    class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email address"
-                    required
-                    class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  />
-                </div>
-                
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone number (optional)"
-                  data-placeholder-en="Phone number (optional)"
-                  data-placeholder-es="Número de teléfono (opcional)"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                />
-                
-                <textarea
-                  name="message"
-                  rows="4"
-                  placeholder="Tell us about your interests and availability..."
-                  data-placeholder-en="Tell us about your interests and availability..."
-                  data-placeholder-es="Cuéntanos sobre tus intereses y disponibilidad..."
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                ></textarea>
-                
-                <button type="submit" class="btn btn-primary">
-                  <span data-en="Sign Up to Volunteer" data-es="Regístrate como Voluntario">Sign Up to Volunteer</span>
-                </button>
-              </form>
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg mb-1">Volunteer</h3>
+              <p class="text-gray-600 text-sm">Help with outreach, events, and community organizing.</p>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Donate Section -->
-      <div id="donate" class="mb-12 scroll-mt-20">
-        <div class="card p-8">
-          <div class="flex items-start gap-4 mb-6">
-            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
             </div>
-            <div class="flex-1">
-              <h2 class="text-2xl font-bold text-gray-900 mb-3" data-en="Support Our Work" data-es="Apoya Nuestro Trabajo">Support Our Work</h2>
-              <p class="text-gray-700 mb-6" data-en="Your donations help us maintain this website, attend board meetings, and organize community events. Every contribution makes a difference." data-es="Tus donaciones nos ayudan a mantener este sitio web, asistir a las reuniones de la junta y organizar eventos comunitarios. Cada contribución marca la diferencia.">
-                Your donations help us maintain this website, attend board meetings, and organize community events. 
-                Every contribution makes a difference.
-              </p>
-              
-              <form
-                name="donate-interest"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                class="space-y-4"
-              >
-                <input type="hidden" name="form-name" value="donate-interest" />
-                <div class="hidden">
-                  <label>Don't fill this out: <input name="bot-field" /></label>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your name"
-                    data-placeholder-en="Your name"
-                    data-placeholder-es="Tu nombre"
-                    required
-                    class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email address"
-                    data-placeholder-en="Email address"
-                    data-placeholder-es="Dirección de correo electrónico"
-                    required
-                    class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  />
-                </div>
-                
-                <textarea
-                  name="message"
-                  rows="3"
-                  placeholder="Message or questions (optional)"
-                  data-placeholder-en="Message or questions (optional)"
-                  data-placeholder-es="Mensaje o preguntas (opcional)"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                ></textarea>
-                
-                <button type="submit" class="btn btn-primary">
-                  <span data-en="Learn About Donating" data-es="Aprende Sobre Donar">Learn About Donating</span>
-                </button>
-              </form>
-              
-              <p class="text-sm text-gray-500 mt-4 italic" data-en="Paid for by The Community Action Network." data-es="Pagado por The Community Action Network.">
-                Paid for by The Community Action Network.
-              </p>
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg mb-1">Share Updates</h3>
+              <p class="text-gray-600 text-sm">Spread the word to neighbors, friends, and family.</p>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Newsletter -->
-      <div class="bg-orange-50 rounded-xl p-8 text-center">
-        <h2 class="text-2xl font-bold text-gray-900 mb-3" data-en="Stay Informed" data-es="Mantente Informado">Stay Informed</h2>
-        <p class="text-gray-700 mb-6" data-en="The easiest way to stay involved is to subscribe to our newsletter for updates on meetings, events, and action opportunities." data-es="La forma más fácil de mantenerse involucrado es suscribirse a nuestro boletín para recibir actualizaciones sobre reuniones, eventos y oportunidades de acción.">
-          The easiest way to stay involved is to subscribe to our newsletter for updates on 
-          meetings, events, and action opportunities.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/#newsletter" class="btn btn-primary">
-            <span data-en="Subscribe to Newsletter" data-es="Suscribirse al Boletín">Subscribe to Newsletter</span>
-          </a>
-          <a href="mailto:info@orangeunited.org" class="btn btn-outline inline-flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span data-en="Email Us" data-es="Envíanos un Correo">Email Us</span>
-          </a>
+          <div class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg mb-1">Canvass</h3>
+              <p class="text-gray-600 text-sm">Talk to neighbors about what's happening in our schools.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
-</BaseLayout>
 
+  <!-- Contact -->
+  <section class="py-12 bg-blue-dark-600">
+    <div class="container-custom text-center">
+      <p class="text-lg text-blue-100">
+        Questions? <a href="mailto:ethan@orangeunited.org" class="text-orange-400 hover:text-orange-300 font-semibold">ethan@orangeunited.org</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,12 +1,7 @@
 {
   "mainNav": [
     { "label": "Home", "url": "/", "order": 1 },
-    { "label": "About", "url": "/about", "order": 2 },
-    { "label": "School Board", "url": "/school-board", "order": 3 },
-    { "label": "Articles", "url": "/articles", "order": 4 },
-    { "label": "Events", "url": "/events", "order": 5 },
-    { "label": "Get Involved", "url": "/get-involved", "order": 6 },
-    { "label": "Contact", "url": "/contact", "order": 7 }
+    { "label": "Get Involved", "url": "/get-involved", "order": 2 },
+    { "label": "Events", "url": "/events", "order": 3 }
   ]
 }
-

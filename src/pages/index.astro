@@ -1,161 +1,250 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import NewsletterForm from '../components/NewsletterForm.astro';
+
+const RSVP_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeoUyvLPYixA-7IgVr3OwKNwDXIi8MjIe_57O9-mRaMhgDsYw/viewform?usp=dialog';
 ---
 
 <BaseLayout
-  title="Orange United - Protecting Parent Choice"
-  description="Get weekly updates on Orange schools. Clear info about classrooms, safety, and budgets."
+  title="Orange United - Join Our January 28 Kickoff"
+  description="Orange is our home. Join neighbors fighting for transparency, accountability, and student success in Orange schools. RSVP for our January 28 kickoff event."
 >
-  <!-- Hero with Email Signup -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-blue-dark-500 via-blue-dark-600 to-blue-dark-700 py-24 md:py-32">
-    <!-- Decorative elements inspired by logo -->
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-blue-dark-600 to-blue-dark-500 py-16 md:py-20">
+    <!-- Decorative elements -->
     <div class="absolute inset-0 opacity-10">
-      <div class="absolute top-20 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-20 right-10 w-40 h-40 bg-blue-fountain-500 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-orange-400 rounded-full blur-3xl"></div>
+      <div class="absolute top-10 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-40 h-40 bg-orange-400 rounded-full blur-3xl"></div>
     </div>
     
     <div class="container-custom relative">
       <div class="max-w-3xl mx-auto text-center">
-        <!-- Logo-inspired badge -->
-        <div class="mb-6 inline-block">
-          <div class="bg-white/10 backdrop-blur-sm border-2 border-orange-500/30 rounded-full px-6 py-2">
-            <p class="text-orange-400 font-bold uppercase tracking-widest text-sm" style="letter-spacing: 0.2em;">
+        <!-- Badge -->
+        <div class="mb-4 inline-block">
+          <div class="bg-white/10 backdrop-blur-sm border border-orange-500/30 rounded-full px-4 py-1.5">
+            <p class="text-orange-400 font-bold uppercase tracking-widest text-xs" style="letter-spacing: 0.2em;">
               YOUR SCHOOLS • YOUR CHOICE
             </p>
           </div>
         </div>
         
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
-          <span data-en="Know What's Happening in " data-es="Sepa qué está sucediendo en las escuelas de ">Know What's Happening in </span><br class="hidden sm:block"/><span class="text-orange-400" data-en="Orange Schools" data-es="Orange">Orange Schools</span>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight leading-tight">
+          Orange is our home, and it's worth <span class="text-orange-400">fighting for.</span>
         </h1>
-        <p class="text-xl md:text-2xl text-blue-100 mb-10">
-          <span data-en="Weekly updates on classrooms, safety, and how your tax dollars are spent." data-es="Actualizaciones semanales sobre aulas, seguridad y cómo se gastan sus impuestos.">Weekly updates on classrooms, safety, and how your tax dollars are spent.</span>
+        
+        <p class="text-lg md:text-xl text-blue-100 mb-6 max-w-2xl mx-auto">
+          Join neighbors who refuse to sit on the sidelines while decisions are made without us.
         </p>
         
-        <!-- Inline Newsletter Signup -->
-        <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl max-w-2xl mx-auto border-2 border-orange-500/20">
-          <h2 class="text-2xl font-bold text-blue-dark-700 mb-4" data-en="Join the Weekly Brief" data-es="Únase al Boletín Semanal">Join the Weekly Brief</h2>
-          <NewsletterForm />
-        </div>
+        <a 
+          href={RSVP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50"
+        >
+          RSVP for Our January 28 Kickoff
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Three Priority Tiles -->
-  <section class="py-20 bg-white">
+  <!-- Event Flyer Section -->
+  <section class="py-12 bg-gradient-to-b from-blue-dark-500 to-gray-100">
     <div class="container-custom">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        
-        <!-- Transparency Tile -->
-        <a href="/articles/transparency-weekly-window" class="group block bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-2 border-blue-200 hover:border-blue-400 hover:shadow-xl transition-all">
-          <div class="flex items-center justify-center w-16 h-16 bg-blue-500 rounded-xl mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-3">
-            <span data-en="Transparency" data-es="Transparencia">Transparency</span>
-          </h3>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            <span data-en="Parents deserve weekly updates on what's being taught in classrooms." data-es="Los padres merecen actualizaciones semanales sobre lo que se enseña en las aulas.">Parents deserve weekly updates on what's being taught in classrooms.</span>
-          </p>
-          <span class="text-blue-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
-            <span data-en="Read the plan" data-es="Lea el plan">Read the plan</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </span>
-        </a>
-
-        <!-- Safety Tile -->
-        <a href="/articles/safety-restoring-order" class="group block bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border-2 border-green-200 hover:border-green-400 hover:shadow-xl transition-all">
-          <div class="flex items-center justify-center w-16 h-16 bg-green-500 rounded-xl mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-3">
-            <span data-en="Safety & Order" data-es="Seguridad y Orden">Safety & Order</span>
-          </h3>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            <span data-en="Clear rules, real consequences, and safe campuses for all students." data-es="Reglas claras, consecuencias reales y campus seguros para todos los estudiantes.">Clear rules, real consequences, and safe campuses for all students.</span>
-          </p>
-          <span class="text-green-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
-            <span data-en="See the policy" data-es="Vea la política">See the policy</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </span>
-        </a>
-
-        <!-- Fiscal Tile -->
-        <a href="/articles/fiscal-classrooms-first" class="group block bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-400 hover:shadow-xl transition-all">
-          <div class="flex items-center justify-center w-16 h-16 bg-purple-500 rounded-xl mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-3">
-            <span data-en="Classrooms First" data-es="Aulas Primero">Classrooms First</span>
-          </h3>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            <span data-en="Stop paying consultants. Fund teachers, textbooks, and core curriculum." data-es="Deje de pagar consultores. Financie maestros, libros de texto y plan de estudios básico.">Stop paying consultants. Fund teachers, textbooks, and core curriculum.</span>
-          </p>
-          <span class="text-purple-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
-            <span data-en="Follow the money" data-es="Siga el dinero">Follow the money</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Next Board Meeting Card -->
-  <section class="py-20 bg-gradient-to-br from-gray-50 to-orange-50">
-    <div class="container-custom">
-      <div class="max-w-2xl mx-auto">
-        <div class="bg-white rounded-2xl p-10 border-2 border-orange-300 shadow-xl">
-          <div class="flex items-start gap-6">
-            <div class="flex-shrink-0">
-              <div class="w-20 h-20 bg-orange-500 rounded-xl flex items-center justify-center">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+      <div class="max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          
+          <!-- Flyer Visual -->
+          <div class="relative">
+            <div class="bg-cream-200 rounded-lg p-6 shadow-2xl border border-gray-300 relative overflow-hidden" style="background: #F5F0E6;">
+              <!-- Background text -->
+              <div class="absolute inset-0 flex flex-col justify-between py-2 pointer-events-none select-none overflow-hidden opacity-15">
+                <div class="text-[4rem] font-black text-[#2B4B8C] leading-none tracking-tight" style="font-family: 'Arial Black', Impact, sans-serif;">
+                  ORANGE
+                </div>
+                <div class="text-[4rem] font-black text-[#2B4B8C] leading-none tracking-tight text-right" style="font-family: 'Arial Black', Impact, sans-serif;">
+                  UNITED
+                </div>
+              </div>
+              
+              <!-- Flyer Content -->
+              <div class="relative bg-white/90 rounded p-5 border border-gray-200 shadow-sm">
+                <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-300">
+                  <img src="/logo.png?v=2" alt="Orange United" class="w-12 h-12 object-contain" />
+                  <div>
+                    <div class="font-bold text-gray-900 text-lg" style="font-family: 'Courier New', monospace;">ORANGE UNITED</div>
+                    <div class="text-gray-600 text-sm" style="font-family: 'Courier New', monospace;">KICKOFF EVENT</div>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <span class="inline-block bg-[#2B4B8C] text-white px-2 py-0.5 text-xs font-bold tracking-wider mb-1">DATE</span>
+                  <div class="border-b border-gray-300 pb-2">
+                    <p class="text-2xl font-bold text-gray-900" style="font-family: 'Courier New', monospace;">28 JANUARY 2026</p>
+                    <p class="text-gray-600" style="font-family: 'Courier New', monospace;">6:30 PM</p>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <span class="inline-block bg-[#2B4B8C] text-white px-2 py-0.5 text-xs font-bold tracking-wider mb-1">ADDRESS</span>
+                  <div class="border-b border-gray-300 pb-2">
+                    <p class="text-gray-900" style="font-family: 'Courier New', monospace;">RSVP FOR ADDRESS</p>
+                  </div>
+                </div>
+                
+                <p class="text-gray-700 text-sm border-b border-gray-300 pb-2 mb-2" style="font-family: 'Courier New', monospace;">
+                  JOIN US TO HELP SHAPE THE FUTURE OF OUSD SCHOOLS
+                </p>
+                
+                <div class="text-center text-xs text-gray-600 space-y-0.5" style="font-family: 'Courier New', monospace;">
+                  <p><span class="font-bold">LEARN</span> THE MISSION</p>
+                  <p><span class="font-bold">CONNECT</span> WITH PARENTS AND LEADERS</p>
+                  <p><span class="font-bold">GET INVOLVED.</span></p>
+                </div>
               </div>
             </div>
-            <div class="flex-1">
-              <h3 class="text-3xl font-bold text-gray-900 mb-2">
-                <span data-en="Next Board Meeting" data-es="Próxima Reunión de la Junta">Next Board Meeting</span>
-              </h3>
-              <p class="text-xl text-gray-700 mb-1">
-                <span data-en="First Tuesday of Every Month" data-es="Primer martes de cada mes">First Tuesday of Every Month</span>
-              </p>
-              <p class="text-lg text-gray-600 mb-6">
-                6:00 PM | 1401 N. Handy Street, Orange, CA 92867
-              </p>
-              <div class="flex flex-col sm:flex-row gap-3">
-                <a href="/board-meeting.ics" download class="btn btn-primary inline-flex items-center justify-center gap-2">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          </div>
+
+          <!-- Event Details -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              Kickoff Event
+            </h2>
+            <div class="space-y-3 text-gray-700">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span data-en="Add to Calendar" data-es="Agregar al Calendario">Add to Calendar</span>
-                </a>
-                <a href="/events" class="btn btn-secondary inline-flex items-center justify-center gap-2">
-                  <span data-en="View All Events" data-es="Ver Todos los Eventos">View All Events</span>
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-900">January 28, 2026</p>
+                  <p class="text-sm text-gray-500">Save the date</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                </a>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-900">6:30 – 8:30 PM</p>
+                  <p class="text-sm text-gray-500">Evening gathering</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-900">Orange, CA</p>
+                  <p class="text-sm text-gray-500">Address shared after RSVP</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      
+      <!-- Big RSVP Button -->
+      <div class="mt-10 text-center">
+        <a 
+          href={RSVP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-5 rounded-2xl font-bold text-xl uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all shadow-xl shadow-orange-500/40 hover:shadow-orange-500/60 hover:scale-105 transform"
+        >
+          RSVP for January 28
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <p class="mt-3 text-gray-500 text-sm">Free event • Address shared after RSVP</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why This Matters + Mission Section - Single flowing container -->
+  <div class="bg-gray-50">
+    <section class="py-12">
+      <div class="container-custom">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-8">
+            Why This Matters
+          </h2>
+          <div class="grid gap-4">
+            <!-- Transparency -->
+            <div class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 text-lg mb-1">Transparency</h3>
+                <p class="text-gray-600">Parents deserve to know what's happening in our schools—from curriculum to budgets to board decisions.</p>
+              </div>
+            </div>
+
+            <!-- Accountability -->
+            <div class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 text-lg mb-1">Accountability</h3>
+                <p class="text-gray-600">Elected officials work for us. We're here to make sure our voices are heard and our concerns are addressed.</p>
+              </div>
+            </div>
+
+            <!-- Student Success -->
+            <div class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 text-lg mb-1">Student Success</h3>
+                <p class="text-gray-600">Every decision should put students first. Safe campuses, quality teachers, and resources in the classroom.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Mission + Trust Cues -->
+  <section class="py-12 bg-blue-dark-600">
+    <div class="container-custom">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">
+          Community-led. Local. Focused on Students.
+        </h2>
+        <p class="text-blue-100 leading-relaxed mb-6">
+          Orange is our home and it's worth fighting for.
+        </p>
+        <a 
+          href={RSVP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-base uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/30"
+        >
+          Join Us January 28
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>

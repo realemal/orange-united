@@ -1,6 +1,4 @@
 ---
-import LanguageToggle from './LanguageToggle.astro';
-
 const currentPath = Astro.url.pathname;
 
 // Helper function to check if a path is active
@@ -12,112 +10,83 @@ function isActive(href: string, currentPath: string): boolean {
 }
 
 const navItems = [
-  { href: '/', label: 'Home', labelEs: 'Inicio' },
-  { href: '/about', label: 'About', labelEs: 'Acerca de' },
-  { href: '/school-board', label: 'School Board', labelEs: 'Junta Escolar' },
-  { href: '/articles', label: 'Articles', labelEs: 'Artículos' },
-  { href: '/events', label: 'Events', labelEs: 'Eventos' },
-  { href: '/get-involved', label: 'Get Involved', labelEs: 'Participa' },
-  { href: '/contact', label: 'Contact', labelEs: 'Contacto' },
+  { href: '/', label: 'Home' },
+  { href: '/get-involved', label: 'Get Involved' },
+  { href: '/events', label: 'Events' },
 ];
 ---
 
 <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
   <div class="container-custom">
-    <!-- Header with logo on left, text centered -->
-    <div class="relative flex items-center justify-between py-4">
-      <!-- Logo on left -->
-      <a href="/" class="group z-10 flex-shrink-0">
+    <div class="flex items-center justify-center py-3 gap-8">
+      <!-- Logo -->
+      <a href="/" class="group flex-shrink-0 flex items-center gap-3">
         <img 
           src="/logo.png?v=2" 
           alt="Orange United Logo" 
-          class="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain transition-transform group-hover:scale-105"
+          class="w-12 h-12 sm:w-14 sm:h-14 object-contain transition-transform group-hover:scale-105"
         />
-      </a>
-
-      <!-- Centered branding text -->
-      <a href="/" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center hidden sm:block group">
-        <div class="text-2xl lg:text-3xl font-bold text-gray-900 uppercase tracking-wide transition-colors group-hover:text-orange-600" style="font-family: 'Arial Black', sans-serif; letter-spacing: 0.1em;" data-en="Orange United" data-es="Orange United">
-          Orange United
-        </div>
-        <div class="text-sm lg:text-base text-orange-600 font-semibold mt-1 tracking-wide" style="letter-spacing: 0.15em;" data-en="YOUR SCHOOLS • YOUR CHOICE" data-es="TUS ESCUELAS • TU ELECCIÓN">
-          YOUR SCHOOLS • YOUR CHOICE
+        <div class="hidden sm:block">
+          <div class="text-lg font-bold text-gray-900 uppercase tracking-wide" style="font-family: 'Arial Black', sans-serif;">
+            Orange United
+          </div>
+          <div class="text-xs text-orange-600 font-semibold tracking-wide">
+            YOUR SCHOOLS • YOUR CHOICE
+          </div>
         </div>
       </a>
 
-      <!-- Right side actions -->
-      <div class="flex items-center gap-3 z-10">
-        <div class="hidden sm:flex items-center gap-3">
-          <LanguageToggle />
-          <a href="#newsletter" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50" data-en="Subscribe" data-es="Suscribirse">
-            Subscribe
-          </a>
-        </div>
-        
-        <!-- Mobile menu button -->
-        <button
-          id="mobile-menu-button"
-          class="lg:hidden p-2 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-colors"
-          aria-label="Toggle menu"
-        >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Desktop Navigation -->
-    <nav class="hidden lg:block border-t border-gray-100">
-      <div class="flex items-center justify-center gap-2 py-3">
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-1">
         {navItems.map((item) => {
           const active = isActive(item.href, currentPath);
           return (
             <a
               href={item.href}
-              class={`px-5 py-2.5 rounded-lg text-base font-bold uppercase tracking-wide transition-all ${
+              class={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide transition-all ${
                 active
-                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                  ? 'bg-orange-500 text-white shadow-md'
                   : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
               }`}
               style="font-family: 'Arial Black', sans-serif;"
-              data-en={item.label}
-              data-es={item.labelEs}
             >
               {item.label}
             </a>
           );
         })}
-      </div>
-    </nav>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-button"
+        class="lg:hidden p-2 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
 
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 py-4">
-      <div class="flex flex-col gap-2">
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 py-3">
+      <div class="flex flex-col gap-1">
         {navItems.map((item) => {
           const active = isActive(item.href, currentPath);
           return (
             <a
               href={item.href}
-              class={`px-4 py-3 rounded-lg text-base font-bold uppercase tracking-wide transition-all ${
+              class={`px-4 py-3 rounded-lg text-sm font-bold uppercase tracking-wide transition-all ${
                 active
                   ? 'bg-orange-500 text-white'
                   : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
               }`}
               style="font-family: 'Arial Black', sans-serif;"
-              data-en={item.label}
-              data-es={item.labelEs}
             >
               {item.label}
             </a>
           );
         })}
-        <div class="flex sm:hidden items-center justify-between pt-4 border-t border-gray-200 mt-2">
-          <LanguageToggle />
-          <a href="#newsletter" class="btn btn-primary" data-en="Subscribe" data-es="Suscribirse">
-            Subscribe
-          </a>
-        </div>
       </div>
     </div>
   </div>
@@ -133,4 +102,3 @@ const navItems = [
     });
   });
 </script>
-
