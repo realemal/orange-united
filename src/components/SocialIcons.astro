@@ -1,4 +1,15 @@
 ---
+export interface Props {
+  /** Use "light" on dark backgrounds (e.g. footer) for better contrast */
+  variant?: 'default' | 'light';
+}
+
+const { variant = 'default' } = Astro.props;
+
+const iconClass = variant === 'light'
+  ? 'text-white/90 hover:text-orange-400 transition-colors'
+  : 'text-gray-600 hover:text-orange-500 transition-colors';
+
 const socials = [
   {
     name: 'X (Twitter)',
@@ -24,7 +35,7 @@ const socials = [
       href={social.url}
       target="_blank"
       rel="noopener noreferrer"
-      class="text-gray-600 hover:text-orange-500 transition-colors"
+      class={iconClass}
       aria-label={social.name}
     >
       <svg

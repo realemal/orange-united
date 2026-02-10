@@ -8,48 +8,48 @@ const footerLinks = [
 ---
 
 <footer class="bg-gradient-to-b from-blue-dark-500 to-blue-dark-700 text-white">
-  <div class="container-custom py-8">
+  <div class="container-custom py-8 md:py-10">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-      <!-- About -->
+      <!-- About: clearer hierarchy for name, tagline, contact -->
       <div>
-        <div class="flex items-center gap-3 mb-3">
+        <div class="flex items-center gap-3 mb-4">
           <img 
             src="/logo.png?v=2" 
             alt="Orange United Logo" 
             class="w-12 h-12 object-contain"
           />
           <div>
-            <div class="text-white font-bold uppercase tracking-wide text-sm" style="font-family: 'Arial Black', sans-serif;">
+            <h2 class="text-white font-black uppercase tracking-wide text-base" style="font-family: 'Arial Black', sans-serif;">
               Orange United
-            </div>
-            <div class="text-orange-400 font-semibold text-xs tracking-wider">
-              YOUR SCHOOLS • YOUR CHOICE
-            </div>
+            </h2>
+            <p class="text-orange-400 font-bold text-xs tracking-widest mt-0.5">
+              YOUR SCHOOLS · YOUR CHOICE
+            </p>
           </div>
         </div>
-        <p class="text-blue-100 text-sm mb-3">
+        <p class="text-blue-100 text-sm mb-4 leading-relaxed">
           Community-led. Local. Focused on students.
         </p>
-        <a href="mailto:ethan@orangeunited.org" class="text-blue-100 hover:text-orange-400 text-sm flex items-center gap-2 mb-3 transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="mailto:ethan@orangeunited.org" class="text-white/95 hover:text-orange-400 text-sm font-medium flex items-center gap-2 mb-4 transition-colors">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
           ethan@orangeunited.org
         </a>
-        <SocialIcons />
+        <SocialIcons variant="light" />
       </div>
 
       <!-- Links & RSVP -->
       <div class="flex flex-col sm:flex-row gap-6">
         <!-- Quick Links -->
         <div>
-          <h3 class="text-sm font-bold mb-2 text-white">Quick Links</h3>
-          <ul class="space-y-1">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-white/90 mb-3">Quick Links</h3>
+          <ul class="space-y-2">
             {footerLinks.map((link) => (
               <li>
                 <a
                   href={link.href}
-                  class="text-blue-100 hover:text-orange-400 transition-colors text-sm"
+                  class="text-white/95 hover:text-orange-400 transition-colors text-sm font-medium"
                 >
                   {link.label}
                 </a>
@@ -60,12 +60,12 @@ const footerLinks = [
 
         <!-- Substack -->
         <div class="sm:ml-auto">
-          <h3 class="text-sm font-bold mb-2 text-white">Newsletter</h3>
+          <h3 class="text-xs font-bold uppercase tracking-widest text-white/90 mb-3">Newsletter</h3>
           <a 
             href={SUBSTACK_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-blue-100 hover:text-orange-400 text-sm flex items-center gap-2 transition-colors"
+            class="text-white/95 hover:text-orange-400 text-sm font-medium flex items-center gap-2 transition-colors"
           >
             @orangeunited on Substack
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,8 +77,8 @@ const footerLinks = [
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-white/10 pt-4 text-center">
-      <p class="text-blue-200 text-xs">
+    <div class="border-t border-white/10 pt-5 text-center">
+      <p class="text-white/80 text-xs font-medium">
         Paid for by the Community Action Network
       </p>
     </div>

@@ -7,46 +7,67 @@ import NewsletterForm from '../components/NewsletterForm.astro';
   title="Orange United"
   description="Orange United - Civic engagement and transparency."
 >
-  <!-- Landing Page -->
-  <section class="min-h-screen flex items-center justify-center bg-blue-dark-600 py-12 md:py-16">
+  <!-- Landing Page: section rhythm with intentional spacing and subtle dividers -->
+  <section class="min-h-screen flex items-center justify-center bg-blue-dark-600 py-10 sm:py-14 md:py-16">
     <div class="container-custom">
-      <div class="max-w-lg mx-auto space-y-6">
-        <!-- Header -->
-        <div class="border-b-4 border-orange-500 pb-6">
-          <div class="flex items-center gap-4 mb-4">
-            <img src="/logo.png" alt="Orange United" class="w-16 h-16 object-contain" />
+      <div class="max-w-lg mx-auto space-y-8 md:space-y-10">
+        <!-- Hero: stronger hierarchy, tagline with · separator, mission statement -->
+        <div class="border-b-4 border-orange-500 pb-8">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="/logo.png" alt="Orange United" class="w-16 h-16 sm:w-[4.5rem] sm:h-[4.5rem] object-contain" />
             <div>
-              <h1 class="text-3xl md:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+              <h1 class="text-3xl sm:text-4xl md:text-[2.5rem] font-black text-white uppercase tracking-tight leading-tight">
                 Orange United
               </h1>
-              <div class="h-1 w-16 bg-orange-500 mt-1"></div>
+              <div class="h-1 w-20 bg-orange-500 mt-2" aria-hidden="true"></div>
             </div>
           </div>
-          <p class="text-blue-200 text-sm uppercase tracking-wider font-semibold leading-relaxed">
-            Civic Engagement<br />
-            Transparency<br />
-            Accountability
+          <p class="text-blue-100 text-sm uppercase tracking-wider font-bold text-white/95 mb-3">
+            Civic Engagement · Transparency · Accountability
+          </p>
+          <p class="text-blue-200/90 text-sm leading-relaxed max-w-md">
+            Empowering parents and the community to protect and improve our local schools.
           </p>
         </div>
 
-        <!-- First canvas -->
-        <div class="bg-white border-2 border-gray-900 p-6 md:p-8">
-          <h2 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-2">
-            First canvas
-          </h2>
-          <div class="h-0.5 w-12 bg-orange-500 mb-4"></div>
-          <p class="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight leading-tight">
-            Monday, February 16th<br />
-            <span class="text-xl md:text-2xl">10 am</span>
-          </p>
-          <p class="text-gray-600 text-sm font-medium mt-4 leading-relaxed">
-            Join us to connect with the community<br />
-            and make a difference.
-          </p>
+        <!-- Social proof: light credibility line between hero and event -->
+        <p class="text-center text-blue-100/90 text-sm font-medium tracking-wide">
+          Community-led. Parent-powered. Focused on students.
+        </p>
+
+        <!-- Event section: "Get Involved Locally" + event highlight card -->
+        <div>
+          <p class="text-orange-400 text-xs font-bold uppercase tracking-widest mb-3">Get Involved Locally</p>
+          <div class="bg-white border-2 border-gray-900 border-l-4 border-l-orange-500 p-5 sm:p-6 md:p-8">
+            <div class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center" aria-hidden="true">
+                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </span>
+              <div>
+                <h2 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-2">
+                  First canvas
+                </h2>
+                <div class="h-0.5 w-12 bg-orange-500 mb-4"></div>
+                <p class="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight leading-tight">
+                  Monday, February 16th<br />
+                  <span class="text-xl md:text-2xl">10 am</span>
+                </p>
+                <p class="text-gray-600 text-sm font-medium mt-4 leading-relaxed">
+                  Join us to connect with the community<br />
+                  and make a difference.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- RSVP -->
-        <div class="bg-white border-2 border-gray-900 p-6 md:p-8">
+        <!-- Subtle section divider (breathable spacing handled by space-y above) -->
+        <div class="border-t border-white/10 pt-2" aria-hidden="true"></div>
+
+        <!-- RSVP card: clearer CTA, mobile-friendly padding and tappable area -->
+        <div class="bg-white border-2 border-gray-900 p-5 sm:p-6 md:p-8">
           <h2 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-2">
             RSVP to get involved
           </h2>
@@ -64,17 +85,19 @@ import NewsletterForm from '../components/NewsletterForm.astro';
           />
         </div>
 
-        <!-- Links -->
-        <div class="grid grid-cols-1 gap-3">
+        <!-- Links section: distinct block with spacing -->
+        <div class="pt-2 border-t border-white/10">
+          <p class="text-blue-100/80 text-xs font-semibold uppercase tracking-widest mb-4">Connect</p>
+          <div class="grid grid-cols-1 gap-3">
           <!-- Substack Link -->
           <a
             href="https://substack.com/@orangeunited"
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex items-center justify-between bg-white border-2 border-gray-900 px-6 py-4 hover:bg-orange-500 hover:border-orange-500 transition-all"
+            class="group flex items-center justify-between bg-white border-2 border-gray-900 px-5 py-4 sm:px-6 min-h-[48px] sm:min-h-0 hover:bg-orange-500 hover:border-orange-500 transition-all"
           >
             <div class="flex items-center gap-4">
-              <div class="w-10 h-10 border-2 border-gray-900 flex items-center justify-center group-hover:border-white transition-colors">
+              <div class="w-10 h-10 border-2 border-gray-900 flex items-center justify-center group-hover:border-white transition-colors flex-shrink-0">
                 <svg class="w-5 h-5 text-gray-900 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
                 </svg>
@@ -93,10 +116,10 @@ import NewsletterForm from '../components/NewsletterForm.astro';
             href="https://instagram.com/orangeunited.oc"
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex items-center justify-between bg-white border-2 border-gray-900 px-6 py-4 hover:bg-orange-500 hover:border-orange-500 transition-all"
+            class="group flex items-center justify-between bg-white border-2 border-gray-900 px-5 py-4 sm:px-6 min-h-[48px] sm:min-h-0 hover:bg-orange-500 hover:border-orange-500 transition-all"
           >
             <div class="flex items-center gap-4">
-              <div class="w-10 h-10 border-2 border-gray-900 flex items-center justify-center group-hover:border-white transition-colors">
+              <div class="w-10 h-10 border-2 border-gray-900 flex items-center justify-center group-hover:border-white transition-colors flex-shrink-0">
                 <svg class="w-5 h-5 text-gray-900 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.5 2h9a5.5 5.5 0 015.5 5.5v9a5.5 5.5 0 01-5.5 5.5h-9A5.5 5.5 0 012 16.5v-9A5.5 5.5 0 017.5 2z" />
                 </svg>
@@ -113,10 +136,10 @@ import NewsletterForm from '../components/NewsletterForm.astro';
           <!-- Email Link -->
           <a
             href="mailto:ethan@orangeunited.org"
-            class="group flex items-center justify-between bg-white border-2 border-gray-900 px-6 py-4 hover:bg-orange-500 hover:border-orange-500 transition-all"
+            class="group flex items-center justify-between bg-white border-2 border-gray-900 px-5 py-4 sm:px-6 min-h-[48px] sm:min-h-0 hover:bg-orange-500 hover:border-orange-500 transition-all"
           >
             <div class="flex items-center gap-4">
-              <div class="w-10 h-10 border-2 border-gray-900 flex items-center justify-center group-hover:border-white transition-colors">
+              <div class="w-10 h-10 border-2 border-gray-900 flex items-center justify-center group-hover:border-white transition-colors flex-shrink-0">
                 <svg class="w-5 h-5 text-gray-900 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
@@ -134,6 +157,7 @@ import NewsletterForm from '../components/NewsletterForm.astro';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </a>
+        </div>
         </div>
       </div>
     </div>
