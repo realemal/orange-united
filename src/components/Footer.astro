@@ -1,13 +1,10 @@
 ---
 import SocialIcons from './SocialIcons.astro';
 
-const RSVP_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeoUyvLPYixA-7IgVr3OwKNwDXIi8MjIe_57O9-mRaMhgDsYw/viewform?usp=dialog';
-
+const SUBSTACK_URL = 'https://substack.com/@orangeunited';
 const footerLinks = [
   { href: '/', label: 'Home' },
   { href: '/get-involved', label: 'Get Involved' },
-  { href: '/events', label: 'Events' },
-  { href: '/contact', label: 'Contact' },
 ];
 ---
 
@@ -62,21 +59,18 @@ const footerLinks = [
           </ul>
         </div>
 
-        <!-- RSVP CTA -->
+        <!-- Substack -->
         <div class="sm:ml-auto">
-          <h3 class="text-sm font-bold mb-2 text-white">Join Us</h3>
-          <p class="text-blue-100 text-sm mb-3">
-            January 28 Kickoff Event
-          </p>
+          <h3 class="text-sm font-bold mb-2 text-white">Newsletter</h3>
           <a 
-            href={RSVP_URL}
+            href={SUBSTACK_URL}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-lg font-bold text-sm uppercase tracking-wide hover:from-orange-600 hover:to-orange-700 transition-all"
+            class="text-blue-100 hover:text-orange-400 text-sm flex items-center gap-2 transition-colors"
           >
-            RSVP Now
+            @orangeunited on Substack
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
         </div>

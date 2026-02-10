@@ -1,7 +1,1 @@
-{
-  "mainNav": [
-    { "label": "Home", "url": "/", "order": 1 },
-    { "label": "Get Involved", "url": "/get-involved", "order": 2 },
-    { "label": "Events", "url": "/events", "order": 3 }
-  ]
-}
+{"mainNav":[{"label":"Home","url":"/","order":1},{"label":"Get Involved","url":"/get-involved","order":2}]}
