@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const issues = [
+  {
+    title: 'Declining enrollment & school mergers',
+    body: [
+      'OUSD has seen a roughly 15% drop in student enrollment over the past decade.',
+      'To combat shrinking attendance and avoid combination classrooms, district officials are exploring the consolidation of several campuses.',
+      'Potential mergers include Imperial and Crescent Elementary schools, and Fletcher Academy and Taft Elementary.',
+    ],
+  },
+  {
+    title: 'Financial strain',
+    body: [
+      'The enrollment drop has severely reduced state funding.',
+      'Rising employee healthcare costs and budget deficits are adding pressure.',
+      'The district is closely evaluating operational budgets and long-term sustainability.',
+    ],
+  },
+  {
+    title: 'Board turnover & recall elections',
+    body: [
+      'The district underwent major political shifts following the abrupt firing of former Superintendent Gunn Marie Hansen in 2023.',
+      'A successful recall election in 2024 removed two conservative school board trustees.',
+    ],
+  },
+  {
+    title: 'Parental notification policies',
+    body: [
+      'The board previously passed a controversial policy requiring school officials to notify parents if a child identifies as transgender.',
+      'The decision sparked protests, drew legal threats from the California Attorney General, and divided the community.',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Issues | Orange United"
+  description="Key challenges facing Orange Unified School District."
+>
+  <section class="min-h-screen bg-blue-dark-600 py-10 sm:py-14 md:py-16">
+    <div class="container-custom">
+      <div class="max-w-6xl mx-auto space-y-8 md:space-y-10">
+        <!-- Page header -->
+        <div class="max-w-lg">
+          <h1 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+            Issues
+          </h1>
+          <div class="h-1 w-20 bg-orange-500 mt-3" aria-hidden="true"></div>
+          <p class="text-blue-100 text-sm uppercase tracking-wider font-bold text-white/95 mt-4">
+            Orange Unified School District
+          </p>
+          <div class="h-1 bg-orange-500 mt-3" aria-hidden="true"></div>
+        </div>
+
+        <!-- Overview -->
+        <div class="max-w-lg bg-white border-2 border-gray-900 p-5 sm:p-6 md:p-8">
+          <h2 class="text-lg font-black text-gray-900 uppercase tracking-tight mb-2">
+            Overview
+          </h2>
+          <div class="h-0.5 w-12 bg-orange-500 mb-4"></div>
+          <p class="text-gray-700 text-sm leading-relaxed mb-3">
+            The Orange Unified School District (OUSD) is navigating major challenges around declining enrollment, severe financial deficits, and potential school consolidations.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            These factors, along with past political shifts regarding parental rights policies, define the primary issues facing our local school system.
+          </p>
+        </div>
+
+        <!-- Key issues -->
+        <div class="max-w-lg">
+          <p class="text-blue-100/80 text-xs font-semibold uppercase tracking-widest mb-4">
+            Key issues & challenges
+          </p>
+          <div class="space-y-4">
+            {issues.map((issue) => (
+              <article class="bg-white border-2 border-gray-900 p-5 sm:p-6">
+                <h3 class="text-base font-black text-gray-900 uppercase tracking-tight mb-2">
+                  {issue.title}
+                </h3>
+                <div class="h-0.5 w-10 bg-orange-500 mb-3"></div>
+                <div class="space-y-2">
+                  {issue.body.map((paragraph) => (
+                    <p class="text-gray-600 text-sm leading-relaxed">{paragraph}</p>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <!-- CTA back to home -->
+        <div class="max-w-lg pt-2 border-t border-white/10">
+          <a
+            href="/"
+            class="flex items-center justify-center gap-2 bg-white border-2 border-gray-900 px-5 py-4 min-h-[48px] font-black text-gray-900 uppercase text-sm tracking-wide hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all"
+          >
+            RSVP on the home page
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

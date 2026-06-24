@@ -4,14 +4,16 @@ import SocialIcons from './SocialIcons.astro';
 const SUBSTACK_URL = 'https://substack.com/@orangeunited';
 const footerLinks = [
   { href: '/', label: 'Home' },
+  { href: '/issues', label: 'Issues' },
+  { href: '/candidates', label: 'Candidates' },
 ];
 ---
 
 <footer class="bg-gradient-to-b from-blue-dark-500 to-blue-dark-700 text-white">
   <div class="container-custom py-8 md:py-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 mb-6">
       <!-- About: clearer hierarchy for name, tagline, contact -->
-      <div>
+      <div class="md:pr-4 lg:pr-8">
         <div class="flex items-center gap-3 mb-4">
           <img 
             src="/logo.png?v=2" 
@@ -30,17 +32,16 @@ const footerLinks = [
         <p class="text-blue-100 text-sm mb-4 leading-relaxed">
           Community-led. Local. Focused on students.
         </p>
-        <a href="mailto:ethan@orangeunited.org" class="text-white/95 hover:text-orange-400 text-sm font-medium flex items-center gap-2 mb-4 transition-colors">
+        <a href="mailto:ethan@orangeunited.org" class="text-white/95 hover:text-orange-400 text-sm font-medium flex items-center gap-2 transition-colors">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
           ethan@orangeunited.org
         </a>
-        <SocialIcons variant="light" />
       </div>
 
-      <!-- Links & RSVP -->
-      <div class="flex flex-col sm:flex-row gap-6">
+      <!-- Links, Newsletter & Social -->
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-x-8 md:gap-x-10 lg:gap-x-12 sm:items-start">
         <!-- Quick Links -->
         <div>
           <h3 class="text-xs font-bold uppercase tracking-widest text-white/90 mb-3">Quick Links</h3>
@@ -59,7 +60,7 @@ const footerLinks = [
         </div>
 
         <!-- Substack -->
-        <div class="sm:ml-auto">
+        <div>
           <h3 class="text-xs font-bold uppercase tracking-widest text-white/90 mb-3">Newsletter</h3>
           <a 
             href={SUBSTACK_URL}
@@ -72,6 +73,12 @@ const footerLinks = [
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
+        </div>
+
+        <!-- Social -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-widest text-white/90 mb-3">Follow us</h3>
+          <SocialIcons variant="light" />
         </div>
       </div>
     </div>

@@ -1,0 +1,534 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+type CellTone = 'severe' | 'caution' | 'muted';
+
+type CandidateTone = 'strong' | 'committed' | 'info';
+
+interface MatrixCell {
+  label: string;
+  tone: CellTone;
+  detail: string;
+  source: string;
+}
+
+interface CandidateCell {
+  label: string;
+  tone: CandidateTone;
+  detail: string;
+}
+
+const toneClasses: Record<CellTone, string> = {
+  severe: 'bg-red-100 border-red-400 text-red-950',
+  caution: 'bg-orange-100 border-orange-400 text-orange-950',
+  muted: 'bg-stone-200 border-stone-400 text-stone-800',
+};
+
+const toneLabelClasses: Record<CellTone, string> = {
+  severe: 'text-red-800',
+  caution: 'text-orange-900',
+  muted: 'text-stone-700',
+};
+
+const candidateToneClasses: Record<CandidateTone, string> = {
+  strong: 'bg-green-100 border-green-500 text-green-950',
+  committed: 'bg-blue-100 border-blue-500 text-blue-950',
+  info: 'bg-emerald-50 border-emerald-400 text-emerald-950',
+};
+
+const candidateToneLabelClasses: Record<CandidateTone, string> = {
+  strong: 'text-green-800',
+  committed: 'text-blue-800',
+  info: 'text-emerald-800',
+};
+
+const incumbents = [
+  { name: 'Andrea Yamasaki', meta: 'Area 1 · since 2016' },
+  { name: 'Kris Erickson', meta: 'Area 5 · since 2019' },
+  { name: 'Stephen Glass', meta: 'Area 7 · since 2024' },
+  { name: 'Sara Pelly', meta: 'Area 4 · since 2024' },
+];
+
+const incumbentMatrix: { issue: string; cells: MatrixCell[] }[] = [
+  {
+    issue: 'Transgender parental notification policy (Sept. 2023)',
+    cells: [
+      {
+        label: 'Walked out',
+        tone: 'severe',
+        detail: 'Left the dais during the vote alongside Erickson. Issued a joint statement calling the policy a "culture war" and expressing concern for LGBTQ youth.',
+        source: 'Voice of OC, KCRW, Sept. 2023',
+      },
+      {
+        label: 'Walked out',
+        tone: 'severe',
+        detail: 'Left with Yamasaki before the 4-0 vote. Co-signed joint statement. Also separately accused of leaking closed-session information to the OC Register during the same period (OC DA investigation).',
+        source: 'Voice of OC, OC Independent, 2023, 2024',
+      },
+      {
+        label: 'Not on board',
+        tone: 'muted',
+        detail: 'Not seated until May 2024, after the parental notification vote. No record on this issue.',
+        source: '',
+      },
+      {
+        label: 'Not on board',
+        tone: 'muted',
+        detail: 'Not seated until May 2024. No record on this issue.',
+        source: '',
+      },
+    ],
+  },
+  {
+    issue: 'Board pay raise (400%)',
+    cells: [
+      {
+        label: 'Voted yes',
+        tone: 'severe',
+        detail: 'Unanimously voted to raise monthly board pay from $400 to $2,000, a 400% increase, buried in a consent agenda item with no public discussion, during a period of district fiscal difficulty.',
+        source: 'OC Independent, Jan. 2026',
+      },
+      {
+        label: 'Voted yes',
+        tone: 'severe',
+        detail: 'Same unanimous vote. No trustee requested public discussion before approving the raise.',
+        source: 'OC Independent, Jan. 2026',
+      },
+      {
+        label: 'Voted yes',
+        tone: 'severe',
+        detail: 'Same unanimous vote.',
+        source: 'OC Independent, Jan. 2026',
+      },
+      {
+        label: 'Voted yes',
+        tone: 'severe',
+        detail: 'Same unanimous vote.',
+        source: 'OC Independent, Jan. 2026',
+      },
+    ],
+  },
+  {
+    issue: 'How they got their seat',
+    cells: [
+      {
+        label: 'Directly elected',
+        tone: 'muted',
+        detail: 'Won special election in 2016; re-elected in 2018 and 2022.',
+        source: 'Ballotpedia',
+      },
+      {
+        label: 'Directly elected',
+        tone: 'muted',
+        detail: 'Won in 2018, re-elected 2022.',
+        source: 'Ballotpedia',
+      },
+      {
+        label: 'Appointed, then elected',
+        tone: 'caution',
+        detail: 'Appointed by the board majority in May 2024 to fill a recall vacancy. Then won the November 2024 special election against token opposition.',
+        source: 'OC Independent, EdSource, 2024',
+      },
+      {
+        label: 'Appointed, then elected',
+        tone: 'caution',
+        detail: 'Appointed by the board majority in May 2024 to fill the other recall vacancy. Won November 2024 special election against token opposition.',
+        source: 'OC Independent, EdSource, 2024',
+      },
+    ],
+  },
+  {
+    issue: 'District test scores (2025 CAASPP)',
+    cells: [
+      {
+        label: 'Below expectations',
+        tone: 'severe',
+        detail: 'Under the current board\'s tenure: 59% of OUSD students met ELA standards; ~46% met math standards in 2025. District outperforms state average but trails OC county averages.',
+        source: 'EdSource CAASPP data, Oct. 2025',
+      },
+      {
+        label: 'Below expectations',
+        tone: 'severe',
+        detail: 'Same district-wide figures. Erickson has served since 2019 with no publicly identified curriculum accountability initiative.',
+        source: 'EdSource CAASPP data, Oct. 2025',
+      },
+      {
+        label: 'Limited record',
+        tone: 'caution',
+        detail: 'Only seated since 2024. Insufficient time to assess individual impact on academic outcomes.',
+        source: '',
+      },
+      {
+        label: 'Limited record',
+        tone: 'caution',
+        detail: 'Only seated since 2024. Insufficient time to assess individual impact on academic outcomes.',
+        source: '',
+      },
+    ],
+  },
+  {
+    issue: 'Enrollment decline & fiscal pressure',
+    cells: [
+      {
+        label: 'On watch during decline',
+        tone: 'severe',
+        detail: 'OUSD enrollment has declined ~15% over the past decade. Board approved a teacher contract that, combined with enrollment loss, created ongoing fiscal strain.',
+        source: 'California Courier, Jan. 2026; OUSD website',
+      },
+      {
+        label: 'On watch during decline',
+        tone: 'severe',
+        detail: 'Same board, same contract, same enrollment decline.',
+        source: 'California Courier, Jan. 2026',
+      },
+      {
+        label: 'Limited record',
+        tone: 'caution',
+        detail: 'Seated after the teacher contract was approved. Voted on subsequent budget decisions but no specific contrarian positions documented.',
+        source: '',
+      },
+      {
+        label: 'Limited record',
+        tone: 'caution',
+        detail: 'Same as Glass. Arrived after the contract. No documented fiscal reform positions.',
+        source: '',
+      },
+    ],
+  },
+];
+
+const candidates = [
+  { name: 'Ivan Kokos', meta: 'Challenger · Area 1 · vs. Yamasaki' },
+  { name: 'Crystal Miles', meta: 'Challenger · Area 4 · vs. Pelly' },
+  { name: 'Chip Ahlswede', meta: 'Challenger · Area 5 · vs. Erickson' },
+  { name: 'Jack Chang', meta: 'Challenger · Area 7 · vs. Glass' },
+];
+
+const candidateMatrix: { issue: string; cells: CandidateCell[] }[] = [
+  {
+    issue: 'Parental notification',
+    cells: [
+      {
+        label: 'Supports',
+        tone: 'strong',
+        detail: 'Believes parents have a right to be informed about their child\'s well-being at school. Opposes board members abandoning their posts rather than casting a vote on record.',
+      },
+      {
+        label: 'Supports',
+        tone: 'strong',
+        detail: 'Same position. Parents should not be kept in the dark about significant issues affecting their children on campus.',
+      },
+      {
+        label: 'Supports',
+        tone: 'strong',
+        detail: 'Same position. Transparency in public institutions, including toward parents, is a core value.',
+      },
+      {
+        label: 'Supports',
+        tone: 'strong',
+        detail: 'Same position. Would have voted on record rather than walking out.',
+      },
+    ],
+  },
+  {
+    issue: 'Board pay raise',
+    cells: [
+      {
+        label: 'Opposed',
+        tone: 'committed',
+        detail: 'Would not have voted to 5x board pay without a public hearing, especially during a period of declining enrollment and fiscal stress for the district.',
+      },
+      {
+        label: 'Opposed',
+        tone: 'committed',
+        detail: 'Same position. A raise of this magnitude, buried in a consent agenda with no discussion, is exactly the kind of insider move that erodes public trust.',
+      },
+      {
+        label: 'Opposed',
+        tone: 'committed',
+        detail: 'Publicly criticized the raise by name, calling it disrespectful to the public\'s right to weigh in. Already on record opposing this vote before filing as a candidate.',
+      },
+      {
+        label: 'Opposed',
+        tone: 'committed',
+        detail: 'Same position. Board members should not be voting themselves raises without community input, period.',
+      },
+    ],
+  },
+  {
+    issue: 'Path to the board',
+    cells: [
+      {
+        label: 'Running to earn it',
+        tone: 'info',
+        detail: 'Not appointed by a political ally bloc. Running in a contested election and asking voters directly for the seat.',
+      },
+      {
+        label: 'Running to earn it',
+        tone: 'info',
+        detail: 'Same. No backroom appointment, no token opposition. Running a real campaign.',
+      },
+      {
+        label: 'Running to earn it',
+        tone: 'info',
+        detail: 'Same. Believes board seats should be earned through voters, not handed down by sitting trustees protecting their majority.',
+      },
+      {
+        label: 'Running to earn it',
+        tone: 'info',
+        detail: 'Same. No incumbent advantage, no appointment. A clean race.',
+      },
+    ],
+  },
+  {
+    issue: 'Test scores & academic accountability',
+    cells: [
+      {
+        label: 'Priority',
+        tone: 'committed',
+        detail: 'With only 59% of students meeting ELA standards and ~46% in math, the status quo is not good enough. Supports clear curriculum accountability and measurable improvement targets.',
+      },
+      {
+        label: 'Priority',
+        tone: 'committed',
+        detail: 'Same. Students in Orange and Villa Park deserve better academic outcomes than the current board has produced.',
+      },
+      {
+        label: 'Priority',
+        tone: 'committed',
+        detail: 'Same. Academic performance, not political posturing, should be the board\'s primary focus.',
+      },
+      {
+        label: 'Priority',
+        tone: 'committed',
+        detail: 'Same. Committed to holding the district accountable for measurable gains, not just incremental year-over-year noise.',
+      },
+    ],
+  },
+  {
+    issue: 'Enrollment decline & fiscal health',
+    cells: [
+      {
+        label: 'Reform-minded',
+        tone: 'strong',
+        detail: 'A 15% enrollment drop over a decade means less funding and fewer resources for students. Supports honest budget discipline and transparency about district finances.',
+      },
+      {
+        label: 'Reform-minded',
+        tone: 'strong',
+        detail: 'Same. Fiscal decisions should prioritize classrooms and students, not administrative bloat or political paybacks.',
+      },
+      {
+        label: 'Reform-minded',
+        tone: 'strong',
+        detail: 'Same. Has publicly flagged the district\'s financial trajectory as unsustainable and called for greater accountability in how money is spent.',
+      },
+      {
+        label: 'Reform-minded',
+        tone: 'strong',
+        detail: 'Same. Reversing enrollment decline requires giving families a reason to choose OUSD, which starts with academic excellence and fiscal credibility.',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Candidates | Orange United"
+  description="Orange United challenger positions and OUSD incumbent record for November 2026."
+>
+  <section class="min-h-screen bg-blue-dark-600 py-10 sm:py-14 md:py-16">
+    <div class="container-custom">
+      <div class="max-w-6xl mx-auto space-y-8 md:space-y-10">
+        <!-- Page header -->
+        <div class="max-w-lg">
+          <h1 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+            Candidates
+          </h1>
+          <div class="h-1 w-20 bg-orange-500 mt-3" aria-hidden="true"></div>
+          <p class="text-blue-100 text-sm uppercase tracking-wider font-bold text-white/95 mt-4">
+            November 2026 · Orange Unified School District
+          </p>
+          <div class="h-1 bg-orange-500 mt-3" aria-hidden="true"></div>
+        </div>
+
+        <!-- Candidates matrix -->
+        <div>
+          <div class="mb-4">
+            <p class="text-blue-100/80 text-xs font-semibold uppercase tracking-widest mb-2">
+              November 2026 · Orange United slate
+            </p>
+            <h2 class="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-tight">
+              Our candidates, November 2026
+            </h2>
+            <p class="text-blue-200/90 text-sm mt-2">
+              Ivan Kokos · Crystal Miles · Chip Ahlswede · Jack Chang
+            </p>
+            <div class="h-1 bg-orange-500 mt-4 max-w-xs" aria-hidden="true"></div>
+          </div>
+
+          <!-- Desktop table -->
+          <div class="hidden md:block overflow-x-auto border-2 border-gray-900 bg-white">
+            <table class="w-full min-w-[900px] border-collapse text-left text-sm">
+              <thead>
+                <tr class="bg-blue-dark-700 text-white">
+                  <th class="p-3 font-black uppercase tracking-tight text-xs border-b border-blue-600 w-[11rem] align-bottom">
+                    Issue
+                  </th>
+                  {candidates.map((candidate) => (
+                    <th class="p-3 font-bold border-b border-l border-blue-600 align-bottom min-w-[10rem]">
+                      <span class="block font-black text-sm">{candidate.name}</span>
+                      <span class="block text-blue-200/90 text-xs font-medium mt-1 normal-case">{candidate.meta}</span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {candidateMatrix.map((row, rowIndex) => (
+                  <tr class={rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                    <th class="p-3 font-bold text-gray-900 text-xs uppercase tracking-tight align-top border-b border-gray-200">
+                      {row.issue}
+                    </th>
+                    {row.cells.map((cell) => (
+                      <td class={`p-3 align-top border-b border-l border-gray-200 border-l-2 ${candidateToneClasses[cell.tone]}`}>
+                        <p class={`font-black uppercase text-xs tracking-wide mb-2 ${candidateToneLabelClasses[cell.tone]}`}>
+                          {cell.label}
+                        </p>
+                        <p class="text-xs leading-relaxed">{cell.detail}</p>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Mobile: stacked by issue -->
+          <div class="md:hidden space-y-4">
+            {candidateMatrix.map((row) => (
+              <article class="bg-white border-2 border-gray-900 overflow-hidden">
+                <h3 class="bg-blue-dark-700 text-white text-xs font-black uppercase tracking-tight p-3">
+                  {row.issue}
+                </h3>
+                <div class="divide-y divide-gray-200">
+                  {row.cells.map((cell, i) => (
+                    <div class={`p-4 border-l-4 ${candidateToneClasses[cell.tone]}`}>
+                      <p class="text-xs font-bold text-gray-500 uppercase mb-1">{candidates[i].name}</p>
+                      <p class="text-[10px] text-gray-500 mb-2">{candidates[i].meta}</p>
+                      <p class={`font-black uppercase text-xs tracking-wide mb-2 ${candidateToneLabelClasses[cell.tone]}`}>
+                        {cell.label}
+                      </p>
+                      <p class="text-xs leading-relaxed">{cell.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p class="text-blue-200/80 text-xs mt-4 leading-relaxed">
+            Orange United challenger positions for November 2026.
+          </p>
+        </div>
+
+        <!-- Incumbents matrix -->
+        <div>
+          <div class="mb-4">
+            <p class="text-blue-100/80 text-xs font-semibold uppercase tracking-widest mb-2">
+              November 2026 · verified record only
+            </p>
+            <h2 class="text-xl sm:text-2xl font-black text-white uppercase tracking-tight leading-tight">
+              OUSD incumbent record matrix
+            </h2>
+            <p class="text-blue-200/90 text-sm mt-2">
+              Andrea Yamasaki · Kris Erickson · Stephen Glass · Sara Pelly
+            </p>
+            <div class="h-1 bg-orange-500 mt-4 max-w-xs" aria-hidden="true"></div>
+          </div>
+
+          <!-- Desktop table -->
+          <div class="hidden md:block overflow-x-auto border-2 border-gray-900 bg-white">
+            <table class="w-full min-w-[900px] border-collapse text-left text-sm">
+              <thead>
+                <tr class="bg-red-950 text-white">
+                  <th class="p-3 font-black uppercase tracking-tight text-xs border-b border-red-800 w-[11rem] align-bottom">
+                    Issue
+                  </th>
+                  {incumbents.map((incumbent) => (
+                    <th class="p-3 font-bold border-b border-l border-red-800 align-bottom min-w-[10rem]">
+                      <span class="block font-black text-sm">{incumbent.name}</span>
+                      <span class="block text-red-200/90 text-xs font-medium mt-1 normal-case">{incumbent.meta}</span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {incumbentMatrix.map((row, rowIndex) => (
+                  <tr class={rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                    <th class="p-3 font-bold text-gray-900 text-xs uppercase tracking-tight align-top border-b border-gray-200">
+                      {row.issue}
+                    </th>
+                    {row.cells.map((cell) => (
+                      <td class={`p-3 align-top border-b border-l border-gray-200 border-l-2 ${toneClasses[cell.tone]}`}>
+                        <p class={`font-black uppercase text-xs tracking-wide mb-2 ${toneLabelClasses[cell.tone]}`}>
+                          {cell.label}
+                        </p>
+                        <p class="text-xs leading-relaxed mb-2">{cell.detail}</p>
+                        {cell.source && (
+                          <p class="text-[10px] opacity-75 italic">Source: {cell.source}</p>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Mobile: stacked by issue -->
+          <div class="md:hidden space-y-4">
+            {incumbentMatrix.map((row) => (
+              <article class="bg-white border-2 border-gray-900 overflow-hidden">
+                <h3 class="bg-red-950 text-white text-xs font-black uppercase tracking-tight p-3">
+                  {row.issue}
+                </h3>
+                <div class="divide-y divide-gray-200">
+                  {row.cells.map((cell, i) => (
+                    <div class={`p-4 border-l-4 ${toneClasses[cell.tone]}`}>
+                      <p class="text-xs font-bold text-gray-500 uppercase mb-1">{incumbents[i].name}</p>
+                      <p class="text-[10px] text-gray-500 mb-2">{incumbents[i].meta}</p>
+                      <p class={`font-black uppercase text-xs tracking-wide mb-2 ${toneLabelClasses[cell.tone]}`}>
+                        {cell.label}
+                      </p>
+                      <p class="text-xs leading-relaxed mb-2">{cell.detail}</p>
+                      {cell.source && (
+                        <p class="text-[10px] opacity-75 italic">Source: {cell.source}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p class="text-blue-200/80 text-xs mt-4 leading-relaxed">
+            OUSD incumbent record matrix. Verified facts only. Sources cited per cell. Compare with our candidates above.
+          </p>
+        </div>
+
+        <!-- CTA back to home -->
+        <div class="max-w-lg pt-2 border-t border-white/10">
+          <a
+            href="/"
+            class="flex items-center justify-center gap-2 bg-white border-2 border-gray-900 px-5 py-4 min-h-[48px] font-black text-gray-900 uppercase text-sm tracking-wide hover:bg-orange-500 hover:border-orange-500 hover:text-white transition-all"
+          >
+            RSVP on the home page
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

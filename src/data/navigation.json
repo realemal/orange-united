@@ -1,1 +1,7 @@
-{"mainNav":[{"label":"Home","url":"/","order":1}]}
+{
+  "mainNav": [
+    { "label": "Home", "url": "/", "order": 1 },
+    { "label": "Issues", "url": "/issues", "order": 2 },
+    { "label": "Candidates", "url": "/candidates", "order": 3 }
+  ]
+}
