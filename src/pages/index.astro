@@ -1,11 +1,36 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
+import { areas, SOURCES } from '../data/election-2026';
+
+const record = [
+  {
+    stat: '$400 → $2,000',
+    text: 'In January 2026 the board raised the maximum trustee stipend to $2,000 a month. It passed unanimously on the consent calendar, with no discussion.',
+    source: SOURCES.ocIndependentPay,
+  },
+  {
+    stat: '2 of 4',
+    text: 'Two of the four incumbents on the ballot, Stephen Glass and Sara Pelly, were appointed by the board in May 2024. Neither has yet been elected to the seat.',
+    source: SOURCES.appointments,
+  },
+  {
+    stat: 'Brown Act',
+    text: 'The Orange County District Attorney’s office found that trustee Kris Erickson violated California’s open-meeting law by disclosing closed-session information to the press.',
+    source: SOURCES.brownAct,
+  },
+  {
+    stat: '46%',
+    text: 'Share of OUSD students who met state math standards in 2025. About 59% met English standards.',
+    source: SOURCES.caaspp,
+  },
+];
 ---
 
+
 <BaseLayout
-  title="Orange United"
-  description="Orange United. Civic engagement and transparency."
+  title="Orange United | OUSD School Board Election 2026"
+  description="Orange Unified School Board election, November 3, 2026: candidates in Trustee Areas 1, 4, 5 and 7 and the board’s documented record."
 >
   <!-- Landing Page: section rhythm with intentional spacing and subtle dividers -->
   <section class="min-h-screen flex items-center justify-center bg-blue-dark-600 py-10 sm:py-14 md:py-16">
@@ -28,46 +53,57 @@ import NewsletterForm from '../components/NewsletterForm.astro';
           <div class="h-1 bg-orange-500 mt-3" aria-hidden="true"></div>
         </div>
 
-        <!-- First canvas + RSVP in one block -->
+        <!-- Election -->
         <div class="bg-white border-2 border-gray-900 p-5 sm:p-6 md:p-8">
-          <div class="flex items-start gap-3 mb-6">
-            <span class="flex-shrink-0 w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center" aria-hidden="true">
-              <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </span>
-            <div>
-              <h2 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-2">
-                Upcoming canvas
-              </h2>
-              <div class="h-0.5 w-12 bg-orange-500 mb-3"></div>
-              <p class="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight leading-tight">
-                Saturday, July 11th<br />
-                <span class="text-xl md:text-2xl">10 am</span>
-              </p>
-              <p class="text-gray-600 text-sm font-medium mt-3 leading-relaxed">
-                Join us to connect with the community<br />
-                and make a difference.
-              </p>
-            </div>
+          <p class="text-xs font-bold uppercase tracking-widest text-gray-600 mb-2">Election day</p>
+          <h2 class="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight leading-tight">
+            Tuesday, November 3
+          </h2>
+          <div class="h-0.5 w-12 bg-orange-500 my-3"></div>
+          <p class="text-gray-700 text-sm leading-relaxed mb-5">
+            Four of seven seats on the Orange Unified School Board are on the ballot.
+          </p>
+          <ul class="divide-y divide-gray-200 border-y border-gray-200 mb-5">
+            {areas.map(({ area, candidates }) => (
+              <li class="py-3">
+                <a href={`/candidates#area-${area}`} class="group block">
+                  <span class="text-xs font-black uppercase tracking-wider text-gray-900 group-hover:text-orange-600">Trustee Area {area}</span>
+                  <span class="block text-sm text-gray-700 mt-0.5">
+                    {candidates.map((c) => c.name + (c.incumbent ? ' (incumbent)' : '')).join(' · ')}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href="/candidates" class="flex items-center justify-center gap-2 bg-gray-900 text-white px-5 py-3 min-h-[48px] font-black uppercase text-sm tracking-wide hover:bg-orange-500 transition-colors">
+            Compare the candidates and records
+          </a>
+        </div>
+
+        <!-- The record -->
+        <div>
+          <p class="text-blue-100/80 text-xs font-semibold uppercase tracking-widest mb-4">The board's record</p>
+          <div class="space-y-3">
+            {record.map((item) => (
+              <div class="bg-white border-2 border-gray-900 p-5">
+                <p class="text-3xl font-black text-gray-900 tracking-tight leading-none">{item.stat}</p>
+                <p class="text-sm text-gray-800 leading-relaxed mt-2">{item.text}</p>
+                <a href={item.source.url} target="_blank" rel="noopener" class="text-xs text-gray-500 underline hover:text-orange-600 mt-2 inline-block">
+                  Source: {item.source.label}
+                </a>
+              </div>
+            ))}
           </div>
-          <div class="border-t border-gray-200 pt-6">
-            <h2 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-2">
-              RSVP to get involved
-            </h2>
-            <div class="h-0.5 w-12 bg-orange-500 mb-4"></div>
-            <p class="text-gray-600 text-sm font-medium mb-1 leading-relaxed">
-              Sign up with your name and email.
-            </p>
-            <p class="text-gray-500 text-xs leading-relaxed mb-5">
-              The address will be included once you respond.
-            </p>
-            <NewsletterForm 
-              title=""
-              description=""
-              compact={false}
-            />
-          </div>
+        </div>
+
+        <!-- Stay informed -->
+        <div class="bg-white border-2 border-gray-900 p-5 sm:p-6 md:p-8">
+          <h2 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-2">Stay informed</h2>
+          <div class="h-0.5 w-12 bg-orange-500 mb-4"></div>
+          <p class="text-gray-600 text-sm font-medium mb-5 leading-relaxed">
+            Get updates on OUSD board decisions and ways to get involved.
+          </p>
+          <NewsletterForm title="" description="" compact={false} />
         </div>
 
         <!-- Links section: distinct block with spacing -->
