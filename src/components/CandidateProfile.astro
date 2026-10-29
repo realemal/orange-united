@@ -1,0 +1,87 @@
+---
+import type { Candidate } from '../data/election-2026';
+
+export interface Props {
+  candidate: Candidate;
+  /** Link the name to the candidate's own page. */
+  linkName?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { candidate, linkName = true, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<article
+  class="bg-white border-2 border-gray-900 flex flex-col"
+  id={candidate.slug}
+  itemscope
+  itemtype="https://schema.org/Person"
+>
+  <header class="p-4 sm:p-5 border-b-2 border-gray-900">
+    <div class="flex flex-wrap items-center gap-2 mb-2">
+      <span class="text-[11px] font-bold uppercase tracking-widest text-gray-600">
+        Trustee Area {candidate.area}
+      </span>
+      {candidate.incumbent && (
+        <span class="text-[11px] font-bold uppercase tracking-widest text-gray-900 border border-gray-900 px-1.5 py-px">
+          Incumbent
+        </span>
+      )}
+    </div>
+    <Heading class="text-xl font-black text-gray-900 tracking-tight leading-tight" itemprop="name">
+      {linkName ? (
+        <a href={`/candidates/${candidate.slug}`} class="hover:text-orange-600 underline-offset-4 hover:underline">
+          {candidate.name}
+        </a>
+      ) : (
+        candidate.name
+      )}
+    </Heading>
+    <p class="text-sm text-gray-600 mt-1">
+      Ballot designation: <span itemprop="jobTitle">{candidate.ballotDesignation}</span>
+    </p>
+  </header>
+
+  <section class="p-4 sm:p-5 border-b border-gray-200">
+    <h4 class="text-xs font-black uppercase tracking-wider text-gray-900 mb-2">
+      Ballot statement, summarized
+    </h4>
+    {candidate.statement.length > 0 ? (
+      <ul class="space-y-1.5 text-sm text-gray-800 leading-relaxed list-disc pl-4 marker:text-orange-500">
+        {candidate.statement.map((line) => <li>{line}</li>)}
+      </ul>
+    ) : (
+      <p class="text-sm text-gray-600">No candidate statement was filed.</p>
+    )}
+  </section>
+
+  <section class="p-4 sm:p-5 flex-1">
+    <h4 class="text-xs font-black uppercase tracking-wider text-gray-900 mb-2">
+      {candidate.incumbent ? 'Record on the board' : 'Public record'}
+    </h4>
+    {candidate.record.length > 0 ? (
+      <dl class="space-y-4">
+        {candidate.record.map((item) => (
+          <div>
+            <dt class="text-sm font-bold text-gray-900">{item.topic}</dt>
+            <dd class="text-sm text-gray-800 leading-relaxed mt-0.5">{item.text}</dd>
+            <dd class="text-xs text-gray-500 mt-1">
+              Source:{' '}
+              {item.sources.map((s, i) => (
+                <>
+                  {i > 0 && '; '}
+                  <a href={s.url} class="underline hover:text-orange-600" rel="noopener" target="_blank">{s.label}</a>
+                </>
+              ))}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    ) : (
+      <p class="text-sm text-gray-600">
+        {candidate.incumbent ? 'No votes documented here yet.' : 'Has not held a seat on the OUSD board.'}
+      </p>
+    )}
+  </section>
+</article>

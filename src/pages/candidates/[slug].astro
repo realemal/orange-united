@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CandidateProfile from '../../components/CandidateProfile.astro';
+import { candidates, LAST_UPDATED, ELECTION_DATE, type Candidate } from '../../data/election-2026';
+
+export function getStaticPaths() {
+  return candidates.map((candidate) => ({ params: { slug: candidate.slug }, props: { candidate } }));
+}
+
+interface Props {
+  candidate: Candidate;
+}
+
+const { candidate } = Astro.props;
+const opponents = candidates.filter((c) => c.area === candidate.area && c.slug !== candidate.slug);
+const role = candidate.incumbent ? 'incumbent trustee' : 'candidate';
+const title = `${candidate.name}: OUSD Trustee Area ${candidate.area} ${candidate.incumbent ? 'Incumbent' : 'Candidate'}, 2026`;
+const description = `${candidate.name} is the ${role} for Orange Unified School District Board of Education, Trustee Area ${candidate.area}, on the November 3, 2026 ballot. Ballot statement summary${candidate.incumbent ? ' and sourced voting record' : ''}.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: new URL(`/candidates/${candidate.slug}`, Astro.site).toString(),
+  dateModified: LAST_UPDATED,
+  publisher: { '@type': 'Organization', name: 'Orange United', url: Astro.site?.toString() },
+  mainEntity: {
+    '@type': 'Person',
+    name: candidate.name,
+    jobTitle: candidate.ballotDesignation,
+    description,
+  },
+  about: {
+    '@type': 'Event',
+    name: `Orange Unified School District Board of Education, Trustee Area ${candidate.area}`,
+    startDate: ELECTION_DATE,
+  },
+  citation: [...new Set(candidate.record.flatMap((r) => r.sources.map((s) => s.url)))],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <section class="min-h-screen bg-blue-dark-600 py-10 sm:py-14 md:py-16">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto space-y-8">
+        <a href={`/candidates#area-${candidate.area}`} class="text-blue-100 text-sm underline hover:text-white">
+          ← All 2026 OUSD candidates
+        </a>
+
+        <header>
+          <p class="text-white/80 text-xs font-bold uppercase tracking-widest mb-3">
+            OUSD Board of Education · November 3, 2026
+          </p>
+          <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+            {candidate.name}
+          </h1>
+          <div class="h-1 w-20 bg-orange-500 mt-4" aria-hidden="true"></div>
+          <p class="text-blue-100 text-base leading-relaxed mt-5">{description}</p>
+        </header>
+
+        <CandidateProfile candidate={candidate} linkName={false} headingLevel="h2" />
+
+        {opponents.length > 0 && (
+          <section>
+            <h2 class="text-white font-black text-lg mb-3">Also on the ballot in Trustee Area {candidate.area}</h2>
+            <ul class="space-y-2">
+              {opponents.map((o) => (
+                <li>
+                  <a
+                    href={`/candidates/${o.slug}`}
+                    class="block bg-white border-2 border-gray-900 px-4 py-3 font-bold text-gray-900 hover:border-orange-500"
+                  >
+                    {o.name}
+                    <span class="font-normal text-gray-600 text-sm">
+                      {' '}· {o.incumbent ? 'Incumbent' : o.ballotDesignation}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <p class="text-blue-200/80 text-xs leading-relaxed border-t border-white/15 pt-5">
+          Ballot statement summary paraphrased from the statement filed with the Orange County Registrar of Voters.
+          Corrections: <a class="underline" href="mailto:info@orangeunited.org">info@orangeunited.org</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

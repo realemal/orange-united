@@ -41,7 +41,8 @@ const ogImage = image || '/logo.png?v=2';
       image={ogImage}
       article={article}
     />
-    
+    <slot name="head" />
+
     <!-- Open Graph -->
     <meta property="og:site_name" content="Orange United" />
     <meta property="og:type" content={article ? 'article' : 'website'} />
